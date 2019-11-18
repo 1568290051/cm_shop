@@ -4,7 +4,7 @@ const express = require('express')
 const config = require('./config')
 // 创建框架对象
 const app = express()
-// 引入 body-parser port请求
+// 引入 body-parser post请求
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended: false}))
 // 解决port请求的数据显示问题
@@ -14,7 +14,7 @@ const cors = require('cors')
 app.use(cors())
 
 // 配置路由
-// app.use('/api/v1', require('./router/index'))
+app.use('/api/v1', require('./router/index'))
 app.use('/api/v1', require('./router/login&register'))
 // 挂载分类路由
 app.use('/api/v1',require('./router/categories'))

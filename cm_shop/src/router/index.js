@@ -4,38 +4,37 @@ import Index from '../views/Index.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/', // 首页
-    component: Index
+const routes = [{
+  path: '/', // 首页
+  component: Index
+},
+{
+  path: '/me', // 我的
+  meta: {
+    mustLogin: true
   },
-  {
-    path: '/me', // 我的
-    meta: {
-      mustLogin: true
-    },
-    component: () => import('../views/Me.vue')
-  },
-  {
-    path: '/login', // 登录
-    component: () => import('../views/Login.vue')
-  },
-  {
-    path: '/register', // 注册
-    component: () => import('../views/Register.vue')
-  },
-  {
-    path: '/categories', // 分类
-    component: () => import('../views/Categories.vue')
-  },
-  {
-    path: '/cart', // 购物车
-    component: () => import('../views/Cart.vue')
-  },
-  {
-    path: '/channel', // 必抢清单
-    component: () => import('../views/Channel.vue')
-  }
+  component: () => import('../views/Me.vue')
+},
+{
+  path: '/login', // 登录
+  component: () => import('../components/Login.vue')
+},
+{
+  path: '/register', // 注册
+  component: () => import('../components/Register.vue')
+},
+{
+  path: '/categories', // 分类
+  component: () => import('../views/Categories.vue')
+},
+{
+  path: '/cart', // 购物车
+  component: () => import('../views/Cart.vue')
+},
+{
+  path: '/channel', // 必抢清单
+  component: () => import('../views/Channel.vue')
+}
 ]
 
 const router = new VueRouter({

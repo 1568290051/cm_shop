@@ -16,7 +16,8 @@ app.use(cors())
 // 配置路由
 // app.use('/api/v1', require('./router/index'))
 app.use('/api/v1', require('./router/login&register'))
-
+// 挂载分类路由
+app.use('/api/v1',require('./router/categories'))
 // 设置连接端口
 app.listen(
   config.server.port,

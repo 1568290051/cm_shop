@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width:100%;height:100%">
     <router-view />
     <van-tabbar route>
       <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>

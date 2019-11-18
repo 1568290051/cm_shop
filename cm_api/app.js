@@ -4,7 +4,7 @@ const express = require('express')
 const config = require('./config')
 // 创建框架对象
 const app = express()
-// 引入 body-parser port请求
+// 引入 body-parser post请求
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended: false}))
 // 解决port请求的数据显示问题

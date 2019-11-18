@@ -1,6 +1,6 @@
 <template>
   <div class="regsister register">
-    <van-nav-bar right-text="联系客服  " @click-right="onService" />
+    <van-nav-bar right-text="联系客服" @click-right="onService" />
     <div class="reg">
       <h2>欢迎注册创美商城</h2>
       <van-cell-group>

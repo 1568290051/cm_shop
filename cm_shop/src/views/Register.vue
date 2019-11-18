@@ -22,21 +22,20 @@
         <van-field
           v-model="phone"
           clearable
-          type="password"
-          placeholder="请输入手机号"
+          type="number"
+          placeholder="请输入您的手机号"
           right-icon="phone-o"
         />
         <van-field v-model="sms" center clearable placeholder="请输入短信验证码">
-          <van-button class="yanz" slot="button" size="small" type="primary">获取验证码</van-button>
+          <van-button class="yanz" slot="button" color="#7232dd" size="small" plain type="primary">获取验证码</van-button>
         </van-field>
       </van-cell-group>
       <van-row>
-        <van-col offset="10" span="12" style="margin-top: 15px">
-          <van-button color="#ffcc00" replace @click="register">注册</van-button>
+        <van-col span="24" style="margin-top: 15px">
+          <van-button class="reg_btn" color="#ffcc00" size="large" replace @click="register">注册</van-button>
         </van-col>
-
-        <van-col offset="8" span="12" style="margin-top: 15px">
-          <van-button color="#ee0a24" size="small" replace @click="toLogin">已有账号？点击登录</van-button>
+        <van-col offset="7" span="12" style="margin-top: 15px">
+          <a class="log_btn" href="javascript:;" @click="toLogin">已有账号？点击登录</a>
         </van-col>
       </van-row>
     </div>
@@ -55,7 +54,31 @@ export default {
     }
   },
   created () {},
-  methods: {}
+  methods: {
+    toLogin () {
+      this.$router.push('/login')
+    },
+    register () {
+      if (this.username === '' || this.password === '' || this.email === '' || this.phone === '' || this.sms === '') {
+        return this.$toast.fail('输入框内不能为空')
+      } else {
+        this.$http.post('/cm_register', {
+          username: this.username,
+          password: this.password,
+          email: this.email,
+          phone: this.phone
+        }).then((res) => {
+          // console.log(res)
+          if (res.data.status === 200) {
+            this.$toast.success(res.data.msg)
+            this.$router.push('/login')
+          } else {
+            this.$toast.fail(res.data.err)
+          }
+        })
+      }
+    }
+  }
 }
 </script>
 
@@ -76,11 +99,19 @@ export default {
   .yanz {
     width: 100px;
     height: 40px;
-    color: #ccc;
     font-size: 15px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #fff;
   }
+  .van-row {
+    .reg_btn {
+      color: #333;
+      border-radius: 12px;
+    }
+    .log_btn {
+      color: #000;
+      font-size: 14px;
+    }
+  }
+
 }
 </style>

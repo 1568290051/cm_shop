@@ -44,4 +44,18 @@ const router = new VueRouter({
   routes
 })
 
+// 路由导航守卫
+router.beforeEach((to, from, next) => {
+  if (to.meta !== undefined && to.meta.mustLogin !== undefined) {
+    let token = sessionStorage.getItem('token')
+    if (!token) {
+      next('/login')
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
 export default router

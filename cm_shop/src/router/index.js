@@ -6,26 +6,34 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/', // 首页
     component: Index
   },
   {
-    path: '/me',
+    path: '/me', // 我的
     meta: {
       mustLogin: true
     },
     component: () => import('../views/Me.vue')
   },
   {
-    path: '/categories',
+    path: '/login', // 登录
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/register', // 注册
+    component: () => import('../views/Register.vue')
+  },
+  {
+    path: '/categories', // 分类
     component: () => import('../views/Categories.vue')
   },
   {
-    path: '/cart',
+    path: '/cart', // 购物车
     component: () => import('../views/Cart.vue')
   },
   {
-    path: '/channel',
+    path: '/channel', // 必抢清单
     component: () => import('../views/Channel.vue')
   }
 ]

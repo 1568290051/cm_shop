@@ -6,10 +6,11 @@
       <van-button size="mini">去登录</van-button>
     </div>
     <div class="content">
-      <img src="" alt="">
-      <p></p>
+      <img width="87" height="87" src="../assets/image/sn-cart-empty.png" alt="">
+      <p>购物车还是空的，快来挑选好货吧</p>
       <van-button size="mini">去逛逛</van-button>
     </div>
+    <div class="bottom"><img src="../assets/image/reach-bottom.png" alt=""></div>
   </div>
 </template>
 
@@ -28,8 +29,9 @@
   }
 
   .login {
-    width: 300px;
-    margin: 25px auto;
+    width: 330px;
+    margin: 10px auto;
+    margin-bottom: 80px;
     height: 30px;
     line-height: 30px;
     border-radius: 3px;
@@ -47,6 +49,25 @@
       border: none;
       // background-color: #000;
       color: #fff;
+    }
+  }
+
+  .content {
+    text-align: center;
+
+    p {
+      font-size: 12px;
+      color: #666;
+    }
+  }
+
+  .bottom {
+    text-align: center;
+    margin-top: 30px;
+
+    img {
+      width: 210px;
+      height: 12px;
     }
   }
 }

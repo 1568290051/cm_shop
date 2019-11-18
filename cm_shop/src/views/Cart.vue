@@ -5,6 +5,11 @@
       <span>登陆后同步电脑与手机购物车的商品</span>
       <van-button size="mini">去登录</van-button>
     </div>
+    <div class="content">
+      <img src="" alt="">
+      <p></p>
+      <van-button size="mini">去逛逛</van-button>
+    </div>
   </div>
 </template>
 
@@ -16,6 +21,7 @@
   .top {
     height: 44px;
     line-height: 44px;
+    font-size: 17px;
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: #fff;
@@ -23,7 +29,7 @@
 
   .login {
     width: 300px;
-    margin: 30px auto;
+    margin: 25px auto;
     height: 30px;
     line-height: 30px;
     border-radius: 3px;

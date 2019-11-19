@@ -47,10 +47,7 @@ router.get('/index_cate', (req, res) => {
 
 // 获得首页商品列表
 router.get('/index_goods', (req, res) => {
-  let pagenum = req.query.pagenum || 1
-  let pagesize = req.query.pagesize || 10
-  let total = (pagenum - 1) * pagesize
-  let sql = `select * from 表名 limit ${total}, ${pagesize}`
+  let sql = `select * from cm_index_goods`
   db.query(sql, (err, result) => {
     if (err) {
       console.log(err)

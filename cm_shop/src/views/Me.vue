@@ -96,7 +96,45 @@
         </van-grid-item>
       </van-grid>
     </div>
-    <!-- 好货推荐 -->
+    <!-- 猜你喜欢 -->
+    <van-row style="margin-top: 20px">
+      <van-col>
+        <van-image
+          width="351"
+          height="30"
+          src="https://image1.suning.cn/uimg/cms/img/154518371251022769.png?format=_is_1242w_100h.webp"
+        />
+      </van-col>
+    </van-row>
+    <!-- 商品列表 -->
+    <div class="goods_list">
+      <ul class="left" key="1">
+        <li v-for="(item) in leftGoods" :key="item.id">
+          <img :src="item.img" alt />
+          <p class="goods_title van-multi-ellipsis--l2">{{item.title}}</p>
+          <div class="footer">
+            <span class="flag">￥</span>
+            <span class="goods_price">{{item.price}}</span>
+            <span
+              class="goods_comments"
+            >{{item.estim > 100 ? item.estim + '+' : item.estim + '条'}}评价</span>
+          </div>
+        </li>
+      </ul>
+      <ul class="right" key="2">
+        <li v-for="(item) in rightGoods" :key="item.id">
+          <img :src="item.img" alt />
+          <p class="goods_title van-multi-ellipsis--l2">{{item.title}}</p>
+          <div class="footer">
+            <span class="flag">￥</span>
+            <span class="goods_price">{{item.price}}</span>
+            <span
+              class="goods_comments"
+            >{{item.estim > 100 ? item.estim + '+' : item.estim + '条'}}评价</span>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -104,6 +142,8 @@
 export default {
   data () {
     return {
+      leftGoods: [],
+      rightGoods: [],
       username: '',
       int: '233',
       serve: [
@@ -192,6 +232,13 @@ export default {
   },
   created () {
     this.username = sessionStorage.getItem('username')
+    // 推荐商品
+    this.$http.get('/index_goods').then(res => {
+      res.data.data.forEach((obj, i) => {
+        if (i % 2 === 0) this.leftGoods.push(obj)
+        else this.rightGoods.push(obj)
+      })
+    })
   },
   methods: {
     // 设置
@@ -277,6 +324,69 @@ export default {
       font-size: 11px;
       color: #666;
     }
+  }
+  // 商品列表
+  .goods_list {
+    width: 100%;
+    ul,
+    li {
+      padding: 0;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul {
+      width: 170px;
+      margin-left: 10px;
+      float: left;
+    }
+
+    .right {
+      margin-left: 15px;
+    }
+
+    li {
+      padding: 10px;
+      border-radius: 3px;
+      margin-bottom: 7px;
+      background-color: #fff;
+
+      img {
+        width: 100%;
+      }
+
+      .goods_title {
+        font-size: 13px;
+        color: #333;
+        margin-top: 4px;
+        margin-bottom: 12px;
+      }
+
+      .flag {
+        color: #f42;
+        font-size: 12px;
+      }
+
+      .goods_price {
+        color: #f42;
+        font-size: 18px;
+      }
+      .goods_comments {
+        font-size: 10px;
+        color: #999;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .goods_list::after {
+    content: "";
+    display: block;
+    clear: both;
   }
 }
 </style>

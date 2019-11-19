@@ -190,7 +190,7 @@ export default {
       search: '', // 搜索
       slideList: [], // 轮播图
       cateList: [], // 分类频道
-      time: 8 * 60 * 60 * 1000, // 单位毫秒
+      time: 5 * 60 * 60 * 1000, // 单位毫秒
       timeData: {
         // 倒计时
         hours: 0,
@@ -231,7 +231,7 @@ export default {
     onLogin () {
       this.$router.push('/login')
     },
-    onSearch () { }
+    onSearch () {}
   }
 }
 </script>

@@ -122,7 +122,7 @@ router.post('/cm_login', (req, res) => {
         let token = jwt.sign({
           id: result[0].id
         }, md5_key, {expiresIn: 60 * 60 *24}) // 令牌一天过期
-
+        // console.log(token)
         res.json({
           status: 200,
           token: token,

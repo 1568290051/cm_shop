@@ -121,7 +121,7 @@
     <!-- 头条 -->
     <van-grid class="tt">
       <van-grid-item class="tz-c">
-        <div slot="default">
+        <div slot="default" style="width: 340px; overflow: hidden;">
           <van-row>
             <van-col>
               <van-image width="56" height="15" src="https://image3.suning.cn/uimg/cms/img/157164888626937126.png" />

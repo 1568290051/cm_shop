@@ -1,5 +1,6 @@
 <template>
   <div class="me">
+    <!-- 我的页面顶部 -->
     <div class="top">
       <!-- 标题导航 -->
       <van-nav-bar :border="false" right-text="按钮" @click-right="onSetting">
@@ -135,6 +136,12 @@
         </li>
       </ul>
     </div>
+    <!-- 底部图片 -->
+    <div class="index-bottom">
+      <img src="../assets/image/snlogo.png" />
+      <br />
+      <img src="../assets/image/app-down.webp" />
+    </div>
   </div>
 </template>
 
@@ -241,7 +248,7 @@ export default {
     })
   },
   methods: {
-    // 设置
+    // 用户设置页面跳转
     onSetting () {}
   }
 }
@@ -250,6 +257,7 @@ export default {
 <style lang="less">
 .me {
   background: #f2f2f2;
+  margin-bottom: 60px;
   .top {
     background: #ffdb47;
   }
@@ -382,11 +390,17 @@ export default {
       }
     }
   }
-
   .goods_list::after {
     content: "";
     display: block;
     clear: both;
+  }
+  .index-bottom {
+    width: 100%;
+
+    img {
+      width: 100%;
+    }
   }
 }
 </style>

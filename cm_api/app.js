@@ -6,7 +6,9 @@ const config = require('./config')
 const app = express()
 // 引入 body-parser post请求
 const bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
 // 解决port请求的数据显示问题
 app.use(bodyParser.json())
 // 解决跨域问题
@@ -16,6 +18,7 @@ app.use(cors())
 // 配置路由
 app.use('/api/v1', require('./router/index'))
 app.use('/api/v1', require('./router/login&register'))
+app.use('/api/v1', require('./router/cart.js'))
 // 挂载分类路由
 // app.use('/api/v1',require('./router/categories'))
 // 设置连接端口

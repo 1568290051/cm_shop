@@ -29,7 +29,17 @@ const routes = [{
 },
 {
   path: '/cart', // 购物车
-  component: () => import('../views/Cart.vue')
+  component: () => import('../views/Cart.vue'),
+  redirect: '/carte',
+  children: [{ // 未登录
+    path: '/ncarte',
+    component: () => import('../components/Carte_noLogin.vue')
+  },
+  {
+    path: '/carte',
+    component: () => import('../components/Carte.vue')
+  }
+  ]
 },
 {
   path: '/channel', // 必抢清单

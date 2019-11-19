@@ -86,7 +86,6 @@ export default {
           // console.log(res)
           if (res.data.status === 200) {
             this.$toast.success(res.data.msg)
-            sessionStorage.setItem('username', this.username)
             this.$router.push('/login')
           } else {
             this.$toast.fail(res.data.err)

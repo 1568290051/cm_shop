@@ -20,7 +20,7 @@ app.use('/api/v1', require('./router/index'))
 app.use('/api/v1', require('./router/login&register'))
 app.use('/api/v1', require('./router/cart.js'))
 // 挂载分类路由
-// app.use('/api/v1',require('./router/categories'))
+app.use('/api/v1',require('./router/categories'))
 // 设置连接端口
 app.listen(
   config.server.port,

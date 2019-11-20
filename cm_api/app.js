@@ -18,9 +18,12 @@ app.use(cors())
 // 配置路由
 app.use('/api/v1', require('./router/index'))
 app.use('/api/v1', require('./router/login&register'))
-app.use('/api/v1', require('./router/cart.js'))
+// 清单路由
+app.use('/api/v1', require('./router/list'))
+// 购物车路由
+app.use('/api/v1', require('./router/cart'))
 // 挂载分类路由
-app.use('/api/v1',require('./router/categories'))
+app.use('/api/v1', require('./router/categories'))
 // 设置连接端口
 app.listen(
   config.server.port,

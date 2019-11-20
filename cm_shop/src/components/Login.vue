@@ -52,7 +52,7 @@ export default {
           phone: this.phone,
           password: this.password
         }).then((res) => {
-          console.log(res)
+          // console.log(res)
           if (res.data.status === 200) {
             // 保存令牌进sessionStorage里面
             sessionStorage.setItem('token', res.data.token)

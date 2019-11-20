@@ -19,35 +19,34 @@
     <template v-else>
       <van-checkbox-group v-model="selectGoodsId" checked-color='#ffcc00'>
         <van-grid :column-num="1">
-          <van-grid-item v-for="value in 6" :key="value">
+          <van-grid-item v-for="(item, index) in carteGoods" :key="item.id">
             <template slot="default">
               <!-- 所属店铺 -->
               <van-row class="list-top">
                 <van-col span="2"></van-col>
                 <van-col span="18">
                   <img src="../assets/image/cshop.png">
-                  <span>苏宁易购</span>
+                  <span>{{item.store}}</span>
                 </van-col>
               </van-row>
               <!-- 商品信息 -->
               <van-row class="list-bottom">
                 <van-col span="2">
-                  <van-checkbox :name="value"></van-checkbox>
+                  <van-checkbox :name="item.id"></van-checkbox>
                 </van-col>
                 <van-col span="18">
                   <div class="goods-left">
-                    <img src="https://imgservice.suning.cn/uimg1/b2c/image/xos0MDfHbrtTSPQka58x8A.jpg_200w_200h_4e">
+                    <img :src="item.img">
                   </div>
                   <div class="goods-right">
                     <!-- 商品名 -->
-                    <p class="van-multi-ellipsis--l2">联想ThinkPad X1 Carbon 2019（20CD）第八代英特尔®酷睿™i5 14英寸轻薄笔记本电脑i5-8265U 8G
-                      512GSSD FHD</p>
+                    <p class="van-multi-ellipsis--l2">{{item.title}}</p>
                     <div class="goods-other"></div>
                     <!-- 价格 -->
                     <div class="goods-right-bottom">
-                      <span class="flag">¥</span> <span class="price">12313</span>
+                      <span class="flag">¥</span> <span class="price">{{item.price}}</span>
                       <div class="num">
-                        <van-stepper v-model="arr[value]" input-width="42px" button-size="21px" />
+                        <van-stepper v-model="carteCli[index].num" input-width="42px" button-size="21px" />
                       </div>
                     </div>
                   </div>
@@ -60,15 +59,15 @@
 
       <!-- 结算 -->
       <div class="settlement">
-        <van-checkbox v-model="checked" checked-color='#ffcc00'>全选</van-checkbox>
+        <van-checkbox v-model="isQx" checked-color='#ffcc00'>全选</van-checkbox>
         <!-- 合计 -->
         <template v-if="!isEdit">
-          <button>结算(5)</button>
-          <p>合计: <span class="flag">¥</span> <span class="price">12313</span></p>
+          <button>结算({{totalNum}})</button>
+          <p>合计: <span class="flag">¥</span> <span class="price">{{totalMoney}}</span></p>
         </template>
         <!-- 删除 -->
         <template v-else>
-          <button>删除</button>
+          <button @click="delCartGood">删除</button>
         </template>
       </div>
     </template>
@@ -84,7 +83,8 @@
             <div class="price">
               <span class="flag">￥</span> {{item.sales}}
               <span class="sales"><i>{{item.estim}}</i>人已购买</span>
-              <img style='width:18px;height:18px;float:right;margin-top:-25px;' src="../assets/image/cart-icon.png">
+              <img @click="addShopCart(item.id)" style='width:18px;height:18px;float:right;margin-top:-25px;'
+                src="../assets/image/cart-icon.png">
             </div>
           </div>
         </van-grid-item>
@@ -116,22 +116,105 @@
 export default {
   data () {
     return {
-      isBuy: true,
       guessList: [], // 猜你喜欢
       usualList: [], // 必备清单,
-      selectGoodsId: [], // 用户所选
-      carteCli: JSON.parse(sessionStorage.getItem('carte')) || [{ id: 1 }, { id: 3 }],
-      carteGoods: [], // 购物车中商品
-      arr: [],
-      checked: false,
+      selectGoodsId: JSON.parse(sessionStorage.getItem('sIds')) || [], // 用户所选
+      carteCli: JSON.parse(sessionStorage.getItem('carte')) || [{ id: 1 }, { id: 3 }], // 历史购买
+      carteGoods: [], // 购物车商品
       isEdit: false
     }
   },
-  methods: {
-    onSubmit () { },
-    addShopCart () {
-
+  computed: {
+    isBuy () {
+      return this.carteGoods.length !== 0
+    },
+    // 全选状态
+    isQx: {
+      get: function () {
+        return this.selectGoodsId.length === this.carteGoods.length
+      },
+      set: function () {
+        if (this.selectGoodsId.length < this.carteGoods.length) {
+          let ids = []
+          this.carteCli.forEach((item) => {
+            ids.push(item.id)
+          })
+          this.selectGoodsId = ids
+        } else {
+          this.selectGoodsId = []
+        }
+      }
+    },
+    // 合计
+    totalMoney () {
+      let money = 0
+      this.selectGoodsId.forEach(id => {
+        let i = this.carteGoods.findIndex(item => item.id === id)
+        money += parseFloat(this.carteGoods[i].price * this.carteCli[i].num)
+      })
+      return money
+    },
+    totalNum () {
+      let num = 0
+      this.selectGoodsId.forEach(id => {
+        let i = this.carteGoods.findIndex(item => item.id === id)
+        num += parseFloat(this.carteCli[i].num)
+      })
+      return num
     }
+  },
+  watch: {
+    carteCli: {
+      handler: function () {
+        sessionStorage.setItem('carte', JSON.stringify(this.carteCli))
+      },
+      deep: true
+    },
+    selectGoodsId: {
+      handler: function () {
+        sessionStorage.setItem('sIds', JSON.stringify(this.selectGoodsId))
+      }
+    }
+  },
+  methods: {
+    // 添加到购物车
+    async addShopCart (id) {
+      let cz = this.carteCli.filter(item => item.id === id)
+      if (cz.length !== 0) {
+        cz[0].num++ // 添加同一商品 数量加1
+      } else {
+        this.carteCli.push({
+          id: id,
+          num: 1
+        })
+
+        const { data: res } = await this.$http.get('/carte_list', {
+          params: {
+            ids: id
+          }
+        })
+        this.carteGoods.push(res.data[0])
+        this.selectGoodsId.push(res.data[0].id)
+      }
+
+      this.$toast.success('添加购物车成功！')
+    },
+    // 移除商品
+    delCartGood (id) {
+      this.$dialog.confirm({
+        title: '提示',
+        message: '是否确认删除？'
+      }).then(() => {
+        // 删除选中商品
+        this.selectGoodsId.forEach(id => {
+          let i = this.carteCli.findIndex(item => item.id === id)
+          this.carteCli.splice(i, 1)
+          this.carteGoods.splice(i, 1)
+        })
+        this.selectGoodsId = []
+      })
+    },
+    onSubmit () { }
   },
   async created () {
     let ids = []
@@ -145,7 +228,6 @@ export default {
       }
     })
     this.carteGoods = res1.data
-    console.log(this.carteGoods)
 
     // 获取推荐内容
     const { data: res2 } = await this.$http.get('/index_goods_estim')
@@ -157,7 +239,7 @@ export default {
 
 <style lang="less">
 .carte {
-  padding-bottom: 17px;
+  padding-bottom: 37px;
   background-color: #f5f5f9;
 
   .top {

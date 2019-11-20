@@ -243,9 +243,9 @@ export default {
     // 第一次获取清单内容
     this.$http.get('/list_content', { params: { id: 1 } }).then(res => {
       this.channeList = res.data.data
-      console.log(this.channeList)
+      // console.log(this.channeList)
     })
-    // this.getChannel()
+    this.getChannel()
   },
   methods: {
     toBack () {
@@ -257,7 +257,6 @@ export default {
         params: { id: id + 1 }
       })
       this.channeList = res.data
-      console.log(this.channeList)
     }
   }
 }

@@ -6,8 +6,7 @@ const db = require('../mysql/db')
 // 根据id获取商品
 router.get('/carte_list', (req, res) => {
   let ids = req.query.ids
-  console.log(ids);
-  db.query('select id,img,title,price,store from cm_pc_goods where id in (?)', ids, (error, results) => {
+  db.query(`select id,img,title,price,store from cm_pc_goods where id in (${ids})`, (error, results) => {
     console.log(results);
     res.json({
       status: 200,
@@ -18,7 +17,7 @@ router.get('/carte_list', (req, res) => {
 
 // 获取推荐商品
 router.get('/index_goods_estim', (req, res) => {
-  db.query('select * from cm_pc_goods limit 10;select * from cm_index_goods where estim = 0;', (error, results) => {
+  db.query('select * from cm_pc_goods group by store limit 10;select * from cm_index_goods where estim = 0;', (error, results) => {
     res.json({
       status: 200,
       data: {

@@ -137,11 +137,7 @@
       </ul>
     </div>
     <!-- 底部图片 -->
-    <div class="index-bottom">
-      <img src="../assets/image/snlogo.png" />
-      <br />
-      <img src="../assets/image/app-down.webp" />
-    </div>
+    <div class="bottom"><img src="../assets/image/reach-bottom.png" alt=""></div>
   </div>
 </template>
 
@@ -395,11 +391,12 @@ export default {
     display: block;
     clear: both;
   }
-  .index-bottom {
-    width: 100%;
-
+  .bottom {
+    text-align: center;
+    margin-top: 30px;
     img {
-      width: 100%;
+      width: 210px;
+      height: 12px;
     }
   }
 }

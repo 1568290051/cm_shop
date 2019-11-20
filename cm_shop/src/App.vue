@@ -10,6 +10,7 @@
       <van-tabbar-item replace to="/me" icon="user-o">我</van-tabbar-item>
     </van-tabbar>
   </div>
+  </div>
 </template>
 
 <script>

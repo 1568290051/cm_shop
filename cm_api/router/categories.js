@@ -37,6 +37,26 @@ router.get(`/categoriesdetails`, (req, res) => {
         })
     })
 })
+router.get('/search',(req,res)=>{
+    console.log(req.query.sign)
+    if(req.query.signs ==='0'){
+        db.query('select * from cm_pc_goods',(error,results)=>{
+            if(error)console.log(error)
+            res.json({
+                'ok':1,
+                data:results
+            })
+        })
+    }else if(req.query.signs === '1'){
+        db.query('select * from cm_pc_goods order by sales',(error,results)=>{
+            if(error)console.log(error)
+            res.json({
+                'ok':1,
+                data:results
+            })
+        })
+    }
+})
 // 暴露
 module.exports = router
 

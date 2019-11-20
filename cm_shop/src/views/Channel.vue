@@ -270,6 +270,9 @@ export default {
   // 滑动分类
   #chan-slide {
     .van-tabs__wrap {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
       height: 57px;
     }
     .van-tabs__nav--card {

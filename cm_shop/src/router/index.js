@@ -63,6 +63,17 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
+    // 根据token切换购物车
+    if (to.path === '/carte') {
+      let token = sessionStorage.getItem('token')
+      if (!token) {
+        next('/ncarte')
+      } else {
+        next()
+      }
+      return
+    }
+
     next()
   }
 })

@@ -17,7 +17,7 @@
     </template>
     <!-- 购买商品后 -->
     <template v-else>
-      <van-checkbox-group v-model="selectGoods" checked-color='#ffcc00'>
+      <van-checkbox-group v-model="selectGoodsId" checked-color='#ffcc00'>
         <van-grid :column-num="1">
           <van-grid-item v-for="value in 6" :key="value">
             <template slot="default">
@@ -119,19 +119,38 @@ export default {
       isBuy: true,
       guessList: [], // 猜你喜欢
       usualList: [], // 必备清单,
-      selectGoods: [], // 用户所选
+      selectGoodsId: [], // 用户所选
+      carteCli: JSON.parse(sessionStorage.getItem('carte')) || [{ id: 1 }, { id: 3 }],
+      carteGoods: [], // 购物车中商品
       arr: [],
       checked: false,
       isEdit: false
     }
   },
   methods: {
-    onSubmit () { }
+    onSubmit () { },
+    addShopCart () {
+
+    }
   },
   async created () {
-    const { data: res } = await this.$http.get('/index_goods_estim')
-    this.guessList = res.data.guessList
-    this.usualList = res.data.usualList
+    let ids = []
+    this.carteCli.forEach((item) => {
+      ids.push(item.id)
+    })
+    // 获取购物车中商品
+    const { data: res1 } = await this.$http.get('/carte_list', {
+      params: {
+        ids: ids.join(',')
+      }
+    })
+    this.carteGoods = res1.data
+    console.log(this.carteGoods)
+
+    // 获取推荐内容
+    const { data: res2 } = await this.$http.get('/index_goods_estim')
+    this.guessList = res2.data.guessList
+    this.usualList = res2.data.usualList
   }
 }
 </script>

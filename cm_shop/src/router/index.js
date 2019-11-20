@@ -66,7 +66,8 @@ router.beforeEach((to, from, next) => {
     // 根据token切换购物车
     if (to.path === '/carte') {
       let token = sessionStorage.getItem('token')
-      if (!token) {
+      let carte = sessionStorage.getItem('carte')
+      if (!token && !carte) {
         next('/ncarte')
       } else {
         next()

@@ -5,7 +5,7 @@
     <div class="title" @click="$router.push('/address')">
       <img src="../assets/image/address.png">
       <div class="title-right">
-        <h1><span class="name">dany</span><span class="phone">15127096255</span></h1>
+        <h1><span class="name">{{user.username}}</span><span class="phone">{{user.phone}}</span></h1>
         <p>
           <span class="address">江苏省宿迁市沭阳县</span>
           <van-icon name="arrow" style="float:right" />
@@ -15,9 +15,11 @@
 
     <!-- 订单详情 -->
     <div class="content">
-      <van-cell is-link value="共11件" value-class="right-title">
-        <template slot="title">
-          <van-image></van-image>
+      <van-cell is-link value-class="right-title">
+        <template slot="default">
+          <van-image v-for="value in imgLL" :key="value" width="50px" height="50px" :src="goodsList[value-1].img">
+          </van-image>
+          <span style="float:right;margin-right:5px">{{'共'+totalNum+'件'}}</span>
         </template>
       </van-cell>
       <p>支付成功后将尽快为您发货！！</p>
@@ -31,12 +33,28 @@
       </van-cell>
     </div>
 
-    <van-button type="default" style="background-color:#ff6600">在线支付</van-button>
-    <van-button type="default" style="background-color:#05ba04">货到付款</van-button>
+    <van-button type="default" style="background-color:#ff6600" @click="onlineDia  = true">在线支付</van-button>
+    <van-button type="default" style="background-color:#05ba04" @click="offlineDia = true">货到付款</van-button>
 
-    <van-dialog v-model="show" title="标题" show-cancel-button>
-      <img src="https://img.yzcdn.cn/vant/apple-3.jpg">
+    <!-- 在线支付 -->
+    <van-dialog v-model="onlineDia" title="请输入支付密码" show-cancel-button>
+      <div class="pay-password" slot="default">
+        <van-password-input :value="payVal" info="密码为 6 位数字" :focused="showKeyboard" @focus="showKeyboard = true" />
+        <van-number-keyboard :show="true" close-button-text=" 完成" @blur="onlineDia = false" @input="onInput"
+          @delete="onDelete" />
+      </div>
     </van-dialog>
+    <!-- 货到付款 -->
+    <van-dialog v-model="offlineDia" show-cancel-button>
+      <div class="offline-box" slot="default">
+        <img src="../assets/image/offline.png">
+        <h3>是否确认使用货到付款提交订单?</h3>
+        <p>货到付款订单总价：￥65</p>
+        <p>含货到付款运费：￥6</p>
+      </div>
+    </van-dialog>
+
+    <h1>{{totalMoney}}</h1>
 
   </div>
 </template>
@@ -45,11 +63,66 @@
 export default {
   data () {
     return {
-      currentContact: {
-        name: 'dany',
-        tel: '15127096255'
+      user: {
+        username: 'dany',
+        phone: '15127096255'
       },
-      goodsList: []
+      carte: JSON.parse(sessionStorage.getItem('carte')) || [],
+      goodsList: [],
+      onlineDia: false, // 在线支付框
+      payVal: '',
+      showKeyboard: true,
+      offlineDia: false // 货到付款
+    }
+  },
+  computed: {
+    imgLL () { // 商品图片数量
+      let ll = this.goodsList.length > 4 ? 4 : this.goodsList.length
+      return ll
+    },
+    totalMoney () { // 合计金钱
+      let money = 0
+      this.goodsList.forEach((item, i) => {
+        money += item.price * this.carte[i].num
+      })
+      return money
+    },
+    totalNum () { // 合计数量
+      let num = 0
+      this.carte.forEach(item => {
+        num += item.num
+      })
+      return num
+    }
+
+  },
+  methods: {
+    onInput (key) {
+      this.payVal = (this.payVal + key).slice(0, 6)
+    },
+    onDelete () {
+      this.payVal = this.payVal.slice(0, this.payVal.length - 1)
+    }
+  },
+  async created () {
+    // 获取用户信息
+    const { data: res } = await this.$http.get('/set_user')
+    res.phone = res.phone.substring(0, 3) + '****' + res.phone.substring(8, 11)
+    this.user = res
+
+    if (this.carte.length !== 0) {
+      let ids = []
+      this.carte.forEach((item) => {
+        ids.push(item.id)
+      })
+      // 获取购物车中商品
+      const { data: res1 } = await this.$http.get('/carte_list', {
+        params: {
+          ids: ids.join(',')
+        }
+      })
+      this.goodsList = res1.data
+      console.log(res1.data)
     }
   }
 }
@@ -101,6 +174,23 @@ export default {
       color: #323233;
       padding-left: 16px;
     }
+
+    .van-image {
+      margin-right: 4px;
+    }
+
+    .van-image::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: #000;
+      z-index: 99;
+      opacity: 0.06;
+      border-radius: 5px;
+    }
   }
 
   & > .van-button {
@@ -112,6 +202,41 @@ export default {
     box-sizing: border-box;
     color: #fff;
     font-size: 14px;
+  }
+
+  .pay-password {
+    height: 300px;
+    padding-top: 7px;
+    ul {
+      border: 1px solid #ebedf0;
+    }
+
+    li {
+      border: 1px solid #ebedf0;
+    }
+  }
+
+  .offline-box {
+    text-indent: 20px;
+
+    img {
+      width: 50px;
+      height: 50px;
+      display: block;
+      margin: 20px auto;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 16px;
+      color: #333;
+    }
+
+    p {
+      font-size: 15px;
+      margin: 1px;
+      color: #999;
+    }
   }
 }
 </style>

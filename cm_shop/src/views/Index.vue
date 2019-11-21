@@ -10,7 +10,7 @@
       @click-right="onLogin"
     >
       <van-icon name="https://image3.suning.cn/uimg/cms/img/157199320847433454.png" slot="left" />
-      <van-icon name="https://image3.suning.cn/uimg/cms/img/157199321817918653.png" slot="right" />
+      <van-icon :name="true ? 'https://image3.suning.cn/uimg/cms/img/157199321817918653.png' : 'https://image3.suning.cn/uimg/cms/img/157199322108277118.png'" slot="right" />
       <van-icon
         class="nav-title"
         name="https://image2.suning.cn/uimg/cms/img/157380172947421125.gif"

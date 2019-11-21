@@ -174,7 +174,7 @@
     <!-- 头条 -->
     <van-grid class="tt">
       <van-grid-item class="tz-c" style="flex-basis: unset; overflow: hidden;">
-        <div slot="default" style="width: 100%; overflow: hidden;">
+        <div slot="default" style=" overflow: hidden;">
           <van-row>
             <van-col span="6">
               <van-image

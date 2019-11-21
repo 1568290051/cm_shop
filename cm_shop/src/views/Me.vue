@@ -245,7 +245,9 @@ export default {
   },
   methods: {
     // 用户设置页面跳转
-    onSetting () {}
+    onSetting () {
+      this.$router.push('/setting')
+    }
   }
 }
 </script>

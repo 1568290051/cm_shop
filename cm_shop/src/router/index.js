@@ -16,6 +16,10 @@ const routes = [{
   component: () => import('../views/Me.vue')
 },
 {
+  path: '/setting', // 用户设置
+  component: () => import('../components/Setting.vue')
+},
+{
   path: '/login', // 登录
   component: () => import('../components/Login.vue')
 },

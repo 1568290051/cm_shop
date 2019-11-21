@@ -67,11 +67,11 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
-    // 根据token切换购物车
+    // 根据token和是否购买商品切换购物车
     if (to.path === '/carte') {
       let token = sessionStorage.getItem('token')
       let carte = sessionStorage.getItem('carte')
-      if (!token && !carte) {
+      if (token == null && carte == null) {
         next('/ncarte')
       } else {
         next()

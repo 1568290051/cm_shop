@@ -3,8 +3,8 @@
     <div class="top">
       <span class="top-title">购物车</span>
       <div class="cz">
-        <span v-if="isEdit" @click="isEdit= false">编辑</span>
-        <span v-else-if="!isEdit" @click="isEdit = true">完成</span>
+        <span v-if="isEdit" @click="isEdit= false">完成</span>
+        <span v-else-if="!isEdit" @click="isEdit = true">编辑</span>
       </div>
     </div>
     <!-- 购物车为空 -->
@@ -113,6 +113,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -160,6 +161,7 @@ export default {
         let i = this.carteGoods.findIndex(item => item.id === id)
         num += parseFloat(this.carteCli[i].num)
       })
+      this.setCarteL(num)
       return num
     }
   },
@@ -177,6 +179,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setCarteL']),
     // 添加到购物车
     async addShopCart (id) {
       let cz = this.carteCli.filter(item => item.id === id)
@@ -217,17 +220,19 @@ export default {
     onSubmit () { }
   },
   async created () {
-    let ids = []
-    this.carteCli.forEach((item) => {
-      ids.push(item.id)
-    })
-    // 获取购物车中商品
-    const { data: res1 } = await this.$http.get('/carte_list', {
-      params: {
-        ids: ids.join(',')
-      }
-    })
-    this.carteGoods = res1.data
+    if (this.carteCli.length !== 0) {
+      let ids = []
+      this.carteCli.forEach((item) => {
+        ids.push(item.id)
+      })
+      // 获取购物车中商品
+      const { data: res1 } = await this.$http.get('/carte_list', {
+        params: {
+          ids: ids.join(',')
+        }
+      })
+      this.carteGoods = res1.data
+    }
 
     // 获取推荐内容
     const { data: res2 } = await this.$http.get('/index_goods_estim')

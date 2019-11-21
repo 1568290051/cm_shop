@@ -61,7 +61,7 @@ router.get('/search', (req, res) => {
         }
     }
     let screens = req.query.screenList.split(',')
-    console.log(screens)
+    // console.log(screens)
     for (let index = 0; index < screens.length; index++) {
         if(screens[index] === '12英寸以下'){
             screens[index] = 'scrSize < 12'
@@ -104,7 +104,7 @@ router.get('/search', (req, res) => {
         }
     }
     if(screenss.length >1){
-        console.log(screens)
+        // console.log(screens)
         for (let index = 0; index < screens.length; index++) {
             if (index >= 1) {
                 queryThree = queryThree + ` or ${screens[index]}`
@@ -114,7 +114,7 @@ router.get('/search', (req, res) => {
         } 
     }
     let addQuery = `(select * from cm_pc_goods  ${queryOne})a inner join (select * from cm_pc_goods  ${queryTwo})b on a.id = b.id inner join (select * from cm_pc_goods ${queryThree})c on a.id = c.id`
-    console.log(addQuery)
+    // console.log(addQuery)
     if (req.query.priceSign === '2') {
         if (req.query.signs === '0') {
             db.query('select * from' + addQuery, (error, results) => {

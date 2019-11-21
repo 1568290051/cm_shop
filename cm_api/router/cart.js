@@ -7,7 +7,7 @@ const db = require('../mysql/db')
 router.get('/carte_list', (req, res) => {
   let ids = req.query.ids
   db.query(`select id,img,title,price,store from cm_pc_goods where id in (${ids})`, (error, results) => {
-    console.log(results);
+    // console.log(results);
     res.json({
       status: 200,
       data: results

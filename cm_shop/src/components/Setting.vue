@@ -171,14 +171,14 @@ export default {
       this.address = ''
     },
     // 确认
-    uptUsername (id) {
+    uptUsername () {
       if (this.username === '') {
         this.$toast.fail('输入框内不能为空')
         // eslint-disable-next-line no-unused-expressions
         this.showUser === true
         return console.log(this.showUser)
       } else {
-        this.$http.put(`/set_username/${id}`, this.username).then(res => {
+        this.$http.put(`/set_username/${this.id}`, this.username).then(res => {
           if (res.data.status === 200) {
             this.$toast.success(res.data.msg)
             this.username = this.username

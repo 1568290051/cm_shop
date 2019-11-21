@@ -16,14 +16,14 @@
         >{{item}}</li>
       </ul>
       <div class="choicButtonLeft" @click="again()">重选</div>
-      <div class="choicButtonRight" @click="confirm()">确认</div>
+      <div class="choicButtonRight" @click="confirm();getSearchList()">确认</div>
     </div>
     <div style="hieght:8.1rem">
       <img src="../assets/image/157414410768575783.png" style="width:100%" />
     </div>
     <ul class="search-ul">
       <li class="search-li" @click="getGoods($event,1);getSearchList(0)" style="color:#ff9e55">综合</li>
-      <li class="search-li" @click="getGoods($event,2);getSearchList(1)" >销量</li>
+      <li class="search-li" @click="getGoods($event,2);getSearchList(1)">销量</li>
       <li class="search-li" @click="getGoods($event,3);getSearchList(2)">
         价格
         <i class="search-price"></i>
@@ -45,16 +45,18 @@
       </li>
     </ul>
     <div style="margin-top:1rem ;padding-bottom:4rem;">
-      <van-card v-for="(item,index) in searchList" :key="index"
+      <van-card
+        v-for="(item,index) in searchList"
+        :key="index"
         :price="item.price"
         :title="item.title"
         :thumb="item.img"
       >
-      <div slot="bottom" style="margin-top:0.5rem">
-        {{item.estim}}条评价 好评率{{item.fdback}}
-        <br/>
-        {{item.store}}
-      </div>
+        <div slot="bottom" style="margin-top:0.5rem">
+          {{item.estim}}条评价 好评率{{item.fdback}}
+          <br />
+          {{item.store}}
+        </div>
       </van-card>
     </div>
   </div>
@@ -83,7 +85,9 @@ export default {
       isShow: false,
       isShowIcon: true,
       // 搜索页面数据列表
-      searchList: []
+      searchList: [],
+      signs: 0,
+      priceSign: 2
     }
   },
   methods: {
@@ -98,14 +102,17 @@ export default {
         // console.log(i[0].className === 'search-price')
         if (i[0].className === 'search-price') {
           i[0].classList.add('search-price-up')
-          console.log(i[0].className)
+          this.priceSign = 0
+          // console.log(this.priceSign)
         } else if (i[0].className === 'search-price search-price-up') {
           i[0].classList.add('search-price-lower')
-          console.log(i[0].className)
+          this.priceSign = '1'
+          // console.log(this.priceSign)
         } else {
           i[0].classList.remove('search-price-lower')
           i[0].classList.add('search-price-up')
-          console.log(i[0].className)
+          this.priceSign = 0
+          // console.log(this.priceSign)
         }
       } else {
         let li = document.getElementsByClassName('search-li')
@@ -116,6 +123,7 @@ export default {
         let i = document.getElementsByClassName('search-price')
         i[0].classList.remove('search-price-lower')
         i[0].classList.remove('search-price-up')
+        this.priceSign = 2
       }
 
       // console.log(e.target.innerText)
@@ -148,7 +156,7 @@ export default {
         this.brand = this.brandArray
         let li = document.getElementsByClassName('choicTag')
         let data = []
-        console.log(li)
+        // console.log(li)
         for (let index = 0; index < this.brandArray.length; index++) {
           for (let i = 0; i < this.arrayData.length; i++) {
             if (this.brandArray[index] === this.arrayData[i]) {
@@ -177,10 +185,10 @@ export default {
       this.sign = 1
       if (this.cupArray.length > 0) {
         this.cpuList = this.cupArray
-        console.log(this.cpuList)
+        // console.log(this.cpuList)
         let li = document.getElementsByClassName('choicTag')
         let data = []
-        console.log(li)
+        // console.log(li)
         for (let index = 0; index < this.cupArray.length; index++) {
           for (let i = 0; i < this.arrayData.length; i++) {
             if (this.cupArray[index] === this.arrayData[i]) {
@@ -188,7 +196,7 @@ export default {
             }
           }
         }
-        console.log(data)
+        // console.log(data)
         for (let index = 0; index < data.length; index++) {
           li[data[index]].classList.add('selection')
         }
@@ -212,7 +220,7 @@ export default {
         this.screenList = this.screenArray
         let li = document.getElementsByClassName('choicTag')
         let data = []
-        console.log(li)
+        // console.log(li)
         for (let index = 0; index < this.screenArray.length; index++) {
           for (let i = 0; i < this.arrayData.length; i++) {
             if (this.screenArray[index] === this.arrayData[i]) {
@@ -228,7 +236,7 @@ export default {
       }
     },
     addSort (data, e) {
-      console.log(data, e.target.className)
+      // console.log(data, e.target.className)
       e.target.classList.add('selection')
       if (this.sign === 0) {
         this.brand.push(e.target.innerText)
@@ -241,10 +249,13 @@ export default {
     again () {
       if (this.sign === 0) {
         this.brand = []
+        this.brandArray = []
       } else if (this.sign === 1) {
         this.cpuList = []
+        this.cupArray = []
       } else {
         this.screenList = []
+        this.screenArray = []
       }
       let li = document.getElementsByClassName('choicTag')
       // console.log(li)
@@ -253,7 +264,7 @@ export default {
       }
     },
     confirm () {
-      console.log(this.sign)
+      // console.log(this.sign)
       if (this.sign === 0) {
         if (this.brand.length === 0) {
           this.brand = '品牌'
@@ -263,12 +274,12 @@ export default {
           this.brand = this.brand.join(',')
         }
       } else if (this.sign === 1) {
-        console.log(this.cpuList)
+        // console.log(this.cpuList)
         if (this.cpuList.length === 0) {
           this.cpuList = 'cpu类型'
           this.isShowIcon = true
         } else {
-          console.log('执行')
+          // console.log('执行')
           this.cupArray = this.cpuList
           this.cpuList = this.cpuList.join(',')
         }
@@ -283,20 +294,48 @@ export default {
       }
       this.isShow = false
       let li = document.getElementsByClassName('choicTag')
-      console.log(li)
+      // console.log(li)
       for (let index = 0; index < li.length; index++) {
         li[index].classList.remove('selection')
       }
     },
     // 综合分类查询
-    getSearchList (sign) {
-      if (!sign) {
-        sign = 0
+    async getSearchList (sign) {
+      if (sign) {
+        this.signs = sign
+      } else {
+        this.signs = 0
       }
-      this.$http.get('/search?signs=' + sign).then(res => {
-        console.log(res)
-        this.searchList = res.data.data
-      })
+      // console.log(this.signs)
+      let cpus = this.cpuList
+      for (let index = 0; index < cpus.length; index++) {
+        if (cpus[index] === 'intel i9') {
+          cpus[index] = 0
+        } else if (cpus[index] === 'intel i7') {
+          cpus[index] = 1
+        } else if (cpus[index] === 'intel i5') {
+          cpus[index] = 2
+        } else if (cpus[index] === 'intel i3') {
+          cpus[index] = 3
+        } else if (cpus[index] === '锐龙7') {
+          cpus[index] = 4
+        } else if (cpus[index] === '锐龙5') {
+          cpus[index] = 5
+        } else if (cpus[index] === '高通骁龙') {
+          cpus[index] = 6
+        } else if (cpus[index] === 'cpu类型') {
+          cpus[index] = ''
+        }
+      }
+      console.log(cpus)
+      await this.$http
+        .get(
+          `/search?signs=${this.signs}&priceSign=${this.priceSign}&brand=${this.brandArray}&cpuList=${cpus}&screenList=${this.screenArray}`
+        )
+        .then(res => {
+          // console.log(res)
+          this.searchList = res.data.data
+        })
     }
   },
   created () {
@@ -479,8 +518,8 @@ export default {
   color: #ff6600;
 }
 /* 价格 */
-.van-card__price{
-  margin-top:0.5rem;
+.van-card__price {
+  margin-top: 0.5rem;
   font-size: 17px;
 }
 </style>

@@ -111,7 +111,7 @@ router.post('/cm_login', (req, res) => {
       return
     }
   }
-  let sql = 'select id,password from cm_users where phone=?'
+  let sql = 'select id,password,username from cm_users where phone=?'
   db.query(sql, phone, (err, result) => {
     if (err) console.log(err)
     // console.log(result)
@@ -122,10 +122,12 @@ router.post('/cm_login', (req, res) => {
         let token = jwt.sign({
           id: result[0].id
         }, md5_key, {expiresIn: 60 * 60 *24}) // 令牌一天过期
-
+        // console.log(token)
+        // db.query('select ')
         res.json({
           status: 200,
           token: token,
+          username: result[0].username,
           msg: '恭喜您登录成功'
         })
       } else {

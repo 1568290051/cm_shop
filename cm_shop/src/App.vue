@@ -1,5 +1,4 @@
 <template>
-  <div style="width:100%;height:100%">
   <div class="app">
     <router-view />
     <van-tabbar route>
@@ -9,7 +8,6 @@
       <van-tabbar-item replace to="/cart" icon="shopping-cart-o" info="1">购物车</van-tabbar-item>
       <van-tabbar-item replace to="/me" icon="user-o">我</van-tabbar-item>
     </van-tabbar>
-  </div>
   </div>
 </template>
 

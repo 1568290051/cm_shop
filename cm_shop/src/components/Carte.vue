@@ -17,7 +17,7 @@
     </template>
     <!-- 购买商品后 -->
     <template v-else>
-      <van-checkbox-group v-model="selectGoodsId" checked-color='#ffcc00'>
+      <van-checkbox-group v-model="selectGoodsId" checked-color='#ffcc00' :max="200">
         <van-grid :column-num="1">
           <van-grid-item v-for="(item, index) in carteGoods" :key="item.id">
             <template slot="default">
@@ -221,8 +221,14 @@ export default {
     },
     // 结算商品
     onSubmit () {
+      sessionStorage.setItem('toBuy', 'ok')
       if (!this.isLogin) {
-        alert('请先登录!')
+        this.$toast.fail('请先登录！')
+        setTimeout(() => {
+          this.$router.push('/login')
+        }, 500)
+      } else {
+        this.$router.push('/order')
       }
     }
   },

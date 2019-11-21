@@ -2,32 +2,19 @@
   <div class="index">
     <!-- 导航栏 -->
     <!-- <van-sticky> -->
-    <van-nav-bar
-      class="nav"
-      left-text="返回"
-      :border="false"
-      @click-left="onCate"
-      @click-right="onLogin"
-    >
+    <van-nav-bar class="nav" left-text="返回" :border="false" @click-left="onCate" @click-right="onLogin">
       <van-icon name="https://image3.suning.cn/uimg/cms/img/157199320847433454.png" slot="left" />
-      <van-icon :name="true ? 'https://image3.suning.cn/uimg/cms/img/157199321817918653.png' : 'https://image3.suning.cn/uimg/cms/img/157199322108277118.png'" slot="right" />
       <van-icon
-        class="nav-title"
-        name="https://image2.suning.cn/uimg/cms/img/157380172947421125.gif"
-        slot="title"
-      />
+        :name="!isLogin ? 'https://image3.suning.cn/uimg/cms/img/157199321817918653.png' : 'https://image3.suning.cn/uimg/cms/img/157199322108277118.png'"
+        slot="right" />
+      <van-icon class="nav-title" name="https://image2.suning.cn/uimg/cms/img/157380172947421125.gif" slot="title" />
     </van-nav-bar>
     <!-- </van-sticky> -->
     <!-- 搜索框 -->
     <van-sticky>
       <form action="/" class="search">
-        <van-search
-          class="search-btn"
-          v-model="search"
-          background="transparent"
-          placeholder="Hi,这里有你想要的"
-          @search="onSearch"
-        />
+        <van-search class="search-btn" v-model="search" background="transparent" placeholder="Hi,这里有你想要的"
+          @search="onSearch" />
       </form>
     </van-sticky>
     <!-- 轮播图 -->
@@ -45,42 +32,22 @@
     <!-- 广告优惠 -->
     <van-row>
       <van-col>
-        <van-image
-          width="187"
-          height="105"
-          src="https://image2.suning.cn/uimg/cms/img/157405818239262513.gif"
-        />
+        <van-image width="187" height="105" src="https://image2.suning.cn/uimg/cms/img/157405818239262513.gif" />
       </van-col>
       <van-col>
-        <van-image
-          width="187"
-          height="105"
-          src="https://image1.suning.cn/uimg/cms/img/157405820585726171.gif"
-        />
+        <van-image width="187" height="105" src="https://image1.suning.cn/uimg/cms/img/157405820585726171.gif" />
       </van-col>
     </van-row>
     <!-- 广告2 -->
     <van-row>
       <van-col>
-        <van-image
-          width="186"
-          height="117"
-          src="https://image3.suning.cn/uimg/cms/img/157330223943814123.png"
-        />
+        <van-image width="186" height="117" src="https://image3.suning.cn/uimg/cms/img/157330223943814123.png" />
       </van-col>
       <van-col>
-        <van-image
-          width="93"
-          height="117"
-          src="https://image1.suning.cn/uimg/cms/img/157330224785306243.gif"
-        />
+        <van-image width="93" height="117" src="https://image1.suning.cn/uimg/cms/img/157330224785306243.gif" />
       </van-col>
       <van-col>
-        <van-image
-          width="93"
-          height="117"
-          src="https://image1.suning.cn/uimg/cms/img/157330227372982455.gif"
-        />
+        <van-image width="93" height="117" src="https://image1.suning.cn/uimg/cms/img/157330227372982455.gif" />
       </van-col>
     </van-row>
     <!-- 消息通知 -->
@@ -106,12 +73,8 @@
           </van-row>
           <van-grid :column-num="2" class="tz-show" :border="false">
             <van-grid-item>
-              <van-image
-                slot="icon"
-                width="60"
-                height="60"
-                src="http://image3.suning.cn/uimg/nmps/MBLSPZT/10038302411317352204picH_1_370x370.jpg"
-              ></van-image>
+              <van-image slot="icon" width="60" height="60"
+                src="http://image3.suning.cn/uimg/nmps/MBLSPZT/10038302411317352204picH_1_370x370.jpg"></van-image>
               <p slot="text">
                 <span>￥</span>
                 <span>6</span>
@@ -119,12 +82,8 @@
               </p>
             </van-grid-item>
             <van-grid-item>
-              <van-image
-                slot="icon"
-                width="60"
-                height="60"
-                src="http://image1.suning.cn/uimg/nmps/MBLSPZT/10038302411003657529picH_1_370x370.jpg"
-              ></van-image>
+              <van-image slot="icon" width="60" height="60"
+                src="http://image1.suning.cn/uimg/nmps/MBLSPZT/10038302411003657529picH_1_370x370.jpg"></van-image>
               <p slot="text">
                 <span>￥</span>
                 <span>6</span>
@@ -146,23 +105,17 @@
           </van-row>
           <van-grid :column-num="2" class="tz-show" :border="false">
             <van-grid-item>
-              <van-image
-                slot="icon"
-                width="60"
-                height="60"
-                src="https://image1.suning.cn/uimg/cms/img/157339041898118122.jpg?format=_is_200w_200h.webp"
-              ></van-image>
+              <van-image slot="icon" width="60" height="60"
+                src="https://image1.suning.cn/uimg/cms/img/157339041898118122.jpg?format=_is_200w_200h.webp">
+              </van-image>
               <p slot="text">
                 <span class="tz-name">清风</span>
               </p>
             </van-grid-item>
             <van-grid-item>
-              <van-image
-                slot="icon"
-                width="60"
-                height="60"
-                src="https://image2.suning.cn/uimg/cms/img/157339041429191121.jpg?format=_is_200w_200h.webp"
-              ></van-image>
+              <van-image slot="icon" width="60" height="60"
+                src="https://image2.suning.cn/uimg/cms/img/157339041429191121.jpg?format=_is_200w_200h.webp">
+              </van-image>
               <p slot="text">
                 <span class="tz-name">小米</span>
               </p>
@@ -177,21 +130,12 @@
         <div slot="default" style=" overflow: hidden;">
           <van-row>
             <van-col span="6">
-              <van-image
-                width="56"
-                height="15"
-                src="https://image3.suning.cn/uimg/cms/img/157164888626937126.png"
-              />
+              <van-image width="56" height="15" src="https://image3.suning.cn/uimg/cms/img/157164888626937126.png" />
               <van-icon color="#ff6f00" name="volume-o" style="margin-left: 5px" />
             </van-col>
             <van-col span="18" class="notice">
               <!-- 消息轮播 -->
-              <van-swipe
-                style="height: 33px; padding-left: 5px;"
-                :show-indicators="false"
-                vertical
-                :autoplay="3000"
-              >
+              <van-swipe style="height: 33px; padding-left: 5px;" :show-indicators="false" vertical :autoplay="3000">
                 <van-swipe-item class="van-ellipsis">家居装修有什么你一定不可忽略的小细节呢？</van-swipe-item>
                 <van-swipe-item class="van-ellipsis">葡萄酒该如何搭配美食？快来看看吧！</van-swipe-item>
                 <van-swipe-item class="van-ellipsis">简单容易的技巧，教你辨别真假葡萄酒</van-swipe-item>
@@ -207,11 +151,8 @@
     <!-- 猜你喜欢 -->
     <van-row style="margin-top: 20px">
       <van-col>
-        <van-image
-          width="351"
-          height="30"
-          src="https://image1.suning.cn/uimg/cms/img/154518371251022769.png?format=_is_1242w_100h.webp"
-        />
+        <van-image width="351" height="30"
+          src="https://image1.suning.cn/uimg/cms/img/154518371251022769.png?format=_is_1242w_100h.webp" />
       </van-col>
     </van-row>
     <!-- 商品列表 -->
@@ -223,9 +164,7 @@
           <div class="footer">
             <span class="flag">￥</span>
             <span class="goods_price">{{item.price}}</span>
-            <span
-              class="goods_comments"
-            >{{item.estim > 100 ? item.estim + '+' : item.estim + '条'}}评价</span>
+            <span class="goods_comments">{{item.estim > 100 ? item.estim + '+' : item.estim + '条'}}评价</span>
           </div>
         </li>
       </ul>
@@ -236,9 +175,7 @@
           <div class="footer">
             <span class="flag">￥</span>
             <span class="goods_price">{{item.price}}</span>
-            <span
-              class="goods_comments"
-            >{{item.estim > 100 ? item.estim + '+' : item.estim + '条'}}评价</span>
+            <span class="goods_comments">{{item.estim > 100 ? item.estim + '+' : item.estim + '条'}}评价</span>
           </div>
         </li>
       </ul>
@@ -255,6 +192,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -272,6 +210,9 @@ export default {
       leftGoods: [],
       rightGoods: []
     }
+  },
+  computed: {
+    ...mapState(['isLogin'])
   },
   created () {
     // 轮播图
@@ -302,7 +243,7 @@ export default {
     onLogin () {
       this.$router.push('/login')
     },
-    onSearch () {}
+    onSearch () { }
   }
 }
 </script>

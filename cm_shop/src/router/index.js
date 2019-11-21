@@ -44,6 +44,10 @@ const routes = [{
 {
   path: '/channel', // 必抢清单
   component: () => import('../views/Channel.vue')
+},
+{
+  path: '/search/', // 搜索
+  component: () => import('../views/Search.vue')
 }
 ]
 

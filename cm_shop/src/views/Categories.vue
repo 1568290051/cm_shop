@@ -7,11 +7,19 @@
     <!-- 分类 -->
     <van-tree-select :items="items" :main-active-index.sync="id" style="height:100%" :click-nav="getDetails()">
       <template slot="content" style="paddingt-top:2rem">
-        <div v-for="(item,index) in data" :key="index">
+        <div v-for="(item,index) in data" :key="index" style="padding-top:0.5rem">
           <span style="color:#ff6600;font-size:14px">{{item.cate_name}}</span>
+          <p
+            style="display:inline-block ; border-top:1px solid #f2f2f2; width: 11rem;margin-bottom: 0.3rem;"
+          ></p>
           <van-grid :border="false" :column-num="3">
-            <van-grid-item v-for="(item1,index1) in item.children" :key="index1">
-              <van-image :src="item1.img_src" />
+            <van-grid-item
+              v-for="(item1,index1) in item.children"
+              :key="index1"
+              @click="search(item1.cate_name)"
+            >
+              <van-image style="width:4rem;height:3.3rem" :src="item1.img_src" />
+              <span class="text">{{item1.cate_name}}</span>
             </van-grid-item>
           </van-grid>
         </div>
@@ -39,6 +47,10 @@ export default {
           })
         }
       })
+    },
+    // 跳转到搜索页面
+    search (name) {
+      this.$router.push({ path: '/search', query: { name: name } })
     },
     async getDetails () {
       // console.log(1)
@@ -85,5 +97,17 @@ export default {
 /* 二级分类 */
 .van-tree-select__content {
   padding-top: 2rem;
+}
+.text {
+  font-size: 11px;
+  color: #7f667f;
+  padding-top: 1rem;
+  overflow: hidden;
+  white-space: nowrap; /*强制span不换行*/
+  display: inline-block; /*将span当做块级元素对待*/
+  width: 4rem; /*限制宽度*/
+  overflow: hidden; /*超出宽度部分隐藏*/
+  text-overflow: ellipsis; /*超出部分以点号代替*/
+  text-align: center;
 }
 </style>

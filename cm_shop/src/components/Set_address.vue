@@ -49,38 +49,34 @@ export default {
   data () {
     return {
       showAdrs: false,
-      chosenAddressId: '1',
-      adrList: [
-        {
-          id: '1',
-          name: '张三',
-          tel: '13000000000',
-          address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
-        },
-        {
-          id: '2',
-          name: '李四',
-          tel: '1310000000',
-          address: '浙江省杭州市拱墅区莫干山路 50 号'
-        },
-        {
-          id: '3',
-          name: '王五',
-          tel: '1320000000',
-          address: '浙江省杭州市滨江区江南大道 15 号'
-        }
-      ],
+      chosenAddressId: 1,
+      adrList: [], // 接收的地址
       searchResult: [], // 详细地址搜索结果
       areaList: area
     }
   },
-  created () {},
+  created () {
+    this.$http.get('/set_getaddress').then((res) => {
+      // console.log(res.data.data)
+      res.data.data.forEach((val, i, arr) => {
+        // console.log(arr[i])
+        let obj = {}
+        obj = {
+          id: i,
+          name: arr[i].name,
+          tel: arr[i].phone,
+          address: arr[i].province + arr[i].city + arr[i].area
+        }
+        this.adrList.push(obj)
+      })
+      console.log(this.adrList)
+    })
+  },
   methods: {
-    // onAdd () {
-    //   this.$toast('新增地址')
-    // },
+    // 根据id修改用户地址
     onEdit (item, index) {
       this.$toast('编辑地址:' + index)
+      this.showAdrs = !this.showAdrs
     },
     // 点击保存按钮时触发
     onSave () {

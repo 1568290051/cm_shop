@@ -48,7 +48,7 @@
         disabled
         type="password"
         input-align="right"
-        placeholder="修改密码/修改手机"
+        placeholder="修改密码"
         right-icon="arrow"
         @click="showPass = !showPass"
       />
@@ -83,7 +83,7 @@
       @confirm="uptUsername"
     >
       用户名:
-      <van-field v-model="username" clearable placeholder="请设置您的昵称" right-icon="contact" />
+      <van-field v-model="username" clearable placeholder="请设置您的昵称(2~8位)" right-icon="contact" />
     </van-dialog>
     <!-- 修改性别 -->
     <van-popup v-model="showSex" position="bottom">
@@ -93,7 +93,7 @@
         show-toolbar
         :columns="columns"
         @cancel="showSex = false"
-        @confirm="onSexfirm"
+        @confirm="uptSex"
       />
     </van-popup>
     <!-- 修改密码 -->
@@ -105,22 +105,25 @@
       cancelButtonText="取消"
       title="密码"
       show-cancel-button
+      @cancel="ccUserpass"
+      @confirm="uptUserpass"
     >
       密码:
       <van-field
         v-model="password"
         clearable
         type="password"
-        placeholder="请设置您的密码"
+        placeholder="请设置您的密码(6~18位)"
         right-icon="closed-eye"
-      />手机号:
+      />
+      <!-- 手机号:
       <van-field
         v-model="phone"
         clearable
         type="number"
         placeholder="请输入您的手机号"
         right-icon="phone-o"
-      />
+      /> -->
     </van-dialog>
   </div>
 </template>
@@ -129,11 +132,10 @@
 export default {
   data () {
     return {
-      id: 0,
       ponImg: '',
       username: '',
       sex: '',
-      columns: ['男', '女'],
+      columns: ['女', '男'],
       password: '',
       phone: '',
       address: '',
@@ -143,13 +145,16 @@ export default {
     }
   },
   created () {
-    // 用户昵称
-    this.username = sessionStorage.getItem('username')
     // 用户的数据
     this.$http.get('/set_user').then(res => {
       console.log(res)
+      this.username = res.data.username
+      if (res.data.sex === 0) {
+        this.sex = '女'
+      } else {
+        this.sex = '男'
+      }
     })
-    // 用户id
   },
   methods: {
     // 退出登录
@@ -159,7 +164,6 @@ export default {
     },
     // 取消
     ccUsername () {
-      // Dialog.resetDefaultOptions()
       this.username = sessionStorage.getItem('username')
     },
     ccUsersex () {},
@@ -167,28 +171,53 @@ export default {
       this.password = ''
       this.phone = ''
     },
-    ccUseradrs () {
-      this.address = ''
-    },
-    // 确认
+    // 确认 用户名
     uptUsername () {
       if (this.username === '') {
+        this.showUser = true
         this.$toast.fail('输入框内不能为空')
-        // eslint-disable-next-line no-unused-expressions
-        this.showUser === true
         return console.log(this.showUser)
       } else {
-        this.$http.put(`/set_username/${this.id}`, this.username).then(res => {
+        this.$http.put('/set_username', { username: this.username }).then(res => {
+          // console.log(res)
           if (res.data.status === 200) {
             this.$toast.success(res.data.msg)
             this.username = this.username
+            sessionStorage.setItem('username', this.username)
+          } else {
+            this.$toast.fail(res.data.err)
+            this.username = sessionStorage.getItem('username')
           }
         })
       }
-    },
-    onSexfirm (value) {
-      this.sex = value
-      this.showSex = false
+    }, // 性别
+    uptSex (value, i) {
+      // console.log(value, i)
+      this.$http.put('/set_sex', { sex: i }).then((res) => {
+        if (res.data.status === 200) {
+          this.$toast.success(res.data.msg)
+          this.sex = value
+          this.showSex = false
+        }
+      })
+    }, // 密码手机号
+    uptUserpass () {
+      if (this.password === '') {
+        this.showPass = true
+        this.$toast.fail('输入框内不能为空')
+        // return
+      } else {
+        this.$http.put('/set_password', { password: this.password }).then(res => {
+          // console.log(res)
+          if (res.data.status === 200) {
+            this.$toast.success(res.data.msg)
+            this.password = ''
+          } else {
+            this.$toast.fail(res.data.err)
+            this.password = ''
+          }
+        })
+      }
     }
   }
 }

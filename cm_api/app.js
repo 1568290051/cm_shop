@@ -24,6 +24,8 @@ app.use('/api/v1', require('./router/login&register'))
 app.use('/api/v1', require('./router/list'))
 // 购物车
 app.use('/api/v1', require('./router/cart'))
+// 订单页
+app.use('/api/v1', require('./router/orders'))
 // 挂载分类
 app.use('/api/v1', require('./router/categories'))
 // 用户设置

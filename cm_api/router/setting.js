@@ -7,7 +7,7 @@ const md5 = require('md5')
 const {
   md5_key
 } = require('../config')
-console.log(md5_key);
+// console.log(md5_key);
 // 设置令牌
 const jwt = require('jsonwebtoken')
 
@@ -25,7 +25,7 @@ router.get('/set_user', (req, res) => {
     let sql = 'select * from cm_users where id=?'
     db.query(sql, id, (err, result) => {
       if (err) console.log(err)
-      console.log(result);
+      // console.log(result);
       res.json(result)
     })
   } catch (err) {}

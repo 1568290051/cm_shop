@@ -50,6 +50,10 @@ const routes = [{
   ]
 },
 {
+  path: '/order', // 订单
+  component: () => import('../components/Order.vue')
+},
+{
   path: '/channel', // 必抢清单
   component: () => import('../views/Channel.vue')
 },

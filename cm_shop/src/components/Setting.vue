@@ -61,7 +61,7 @@
         input-align="right"
         placeholder="新增/修改地址"
         right-icon="arrow"
-        @click="showAdrs = !showAdrs"
+        @click="$router.push('/address')"
       />
     </van-cell-group>
     <!-- 退出登录 -->
@@ -86,20 +86,16 @@
       <van-field v-model="username" clearable placeholder="请设置您的昵称" right-icon="contact" />
     </van-dialog>
     <!-- 修改性别 -->
-    <van-dialog
-      class="dialog"
-      v-model="showSex"
-      width="350"
-      confirmButtonText="确认"
-      cancelButtonText="取消"
-      title="性别"
-      show-cancel-button
-      @cancel="ccUsersex"
-      @confirm="uptUsersex"
-    >
-      性别:
-      <van-field v-model="sex" clearable placeholder="请选择您的性别" right-icon="contact" />
-    </van-dialog>
+    <van-popup v-model="showSex" position="bottom">
+      <van-picker
+        title="性别"
+        item-height="30"
+        show-toolbar
+        :columns="columns"
+        @cancel="showSex = false"
+        @confirm="onSexfirm"
+      />
+    </van-popup>
     <!-- 修改密码 -->
     <van-dialog
       class="dialog passDia"
@@ -111,21 +107,20 @@
       show-cancel-button
     >
       密码:
-      <van-field v-model="password" clearable type="password" placeholder="请设置您的密码" right-icon="closed-eye" />
-      手机号:
-      <van-field v-model="phone" clearable type="number" placeholder="请输入您的手机号" right-icon="phone-o" />
-    </van-dialog>
-    <!-- 修改地址 -->
-    <van-dialog
-      class="dialog"
-      v-model="showAdrs"
-      width="350"
-      confirmButtonText="确认"
-      cancelButtonText="取消"
-      title="地址"
-      show-cancel-button
-    >
-      地址:
+      <van-field
+        v-model="password"
+        clearable
+        type="password"
+        placeholder="请设置您的密码"
+        right-icon="closed-eye"
+      />手机号:
+      <van-field
+        v-model="phone"
+        clearable
+        type="number"
+        placeholder="请输入您的手机号"
+        right-icon="phone-o"
+      />
     </van-dialog>
   </div>
 </template>
@@ -138,20 +133,20 @@ export default {
       ponImg: '',
       username: '',
       sex: '',
+      columns: ['男', '女'],
       password: '',
       phone: '',
       address: '',
       showUser: false,
       showSex: false,
-      showPass: false,
-      showAdrs: false
+      showPass: false
     }
   },
   created () {
     // 用户昵称
     this.username = sessionStorage.getItem('username')
     // 用户的数据
-    this.$http.get('/set_user').then((res) => {
+    this.$http.get('/set_user').then(res => {
       console.log(res)
     })
     // 用户id
@@ -183,7 +178,7 @@ export default {
         this.showUser === true
         return console.log(this.showUser)
       } else {
-        this.$http.put(`/set_username/${id}`, this.username).then((res) => {
+        this.$http.put(`/set_username/${id}`, this.username).then(res => {
           if (res.data.status === 200) {
             this.$toast.success(res.data.msg)
             this.username = this.username
@@ -191,7 +186,10 @@ export default {
         })
       }
     },
-    uptUsersex () {}
+    onSexfirm (value) {
+      this.sex = value
+      this.showSex = false
+    }
   }
 }
 </script>

@@ -19,11 +19,11 @@ router.get('/set_user', (req, res) => {
     let decode = jwt.verify(token, md5_key)
     console.log(decode)
     let sql = 'select * from users where id=?'
-    let id = req.query.id
-    db.query(sql, id, (err, result) => {
-      if (err) console.log(err)
-       res.json(result)
-    })
+    // let id = req.query.id
+    // db.query(sql, id, (err, result) => {
+    //   if (err) console.log(err)
+    //    res.json(result)
+    // })
   } catch(err) {
     // console.log(err)
   }

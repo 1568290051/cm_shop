@@ -20,6 +20,10 @@ const routes = [{
   component: () => import('../components/Setting.vue')
 },
 {
+  path: '/address', // 设置地址
+  component: () => import('../components/Set_address.vue')
+},
+{
   path: '/login', // 登录
   component: () => import('../components/Login.vue')
 },

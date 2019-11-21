@@ -7,7 +7,7 @@ const db = require('../mysql/db')
 
 // 获得首页的轮播图
 router.get('/index_slide', (req, res) => {
-  let sql = 'select * from cm_index_slide'
+  let sql = 'select * from cm_index_slide where link is null'
   db.query(sql, (err, result) => {
     if (err) {
       console.log(err)

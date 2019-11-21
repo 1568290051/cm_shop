@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -126,6 +126,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['isLogin']),
     isBuy () {
       return this.carteGoods.length !== 0
     },

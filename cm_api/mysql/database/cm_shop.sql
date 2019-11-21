@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : dany
+ Source Server         : localstudy
  Source Server Type    : MySQL
  Source Server Version : 50725
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50725
  File Encoding         : 65001
 
- Date: 21/11/2019 19:06:17
+ Date: 22/11/2019 02:47:19
 */
 
 SET NAMES utf8mb4;
@@ -22,22 +22,26 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `cm_address`;
 CREATE TABLE `cm_address`  (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收获人姓名',
-  `phone` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收货人联系方式',
+  `tel` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收货人联系方式',
   `province` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '省',
   `city` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '市',
-  `zipcode` int(6) NULL DEFAULT 0 COMMENT '邮政编码',
-  `detail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '详细地址',
-  `area` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '区',
-  `status` tinyint(2) NOT NULL COMMENT '是否为默认 0-默认，1-不为默认',
+  `county` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '区',
+  `addressDetail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '详细地址',
+  `areaCode` int(6) NOT NULL COMMENT '地区编码',
+  `postalCode` int(6) NULL DEFAULT 0 COMMENT '邮政编码',
+  `isDefault` tinyint(2) NOT NULL COMMENT '是否为默认 0-默认，1-不为默认',
   `user_id` int(11) NOT NULL COMMENT '收货人id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
-INSERT INTO `cm_address`(`id`, `name`, `phone`, `province`, `city`, `zipcode`, `detail`, `area`, `status`, `user_id`) VALUES (1, '渡百年', '13000000000', '浙江省', '杭州市', 226000, '文三路 138 号东方通信大厦 7 楼 501 室', '西湖区', 1, 3);
-INSERT INTO `cm_address`(`id`, `name`, `phone`, `province`, `city`, `zipcode`, `detail`, `area`, `status`, `user_id`) VALUES (2, '阿松大', '13100000000', '浙江省', '杭州市', 210000, '莫干山路 50 号', '拱墅区', 1, 3);
-INSERT INTO `cm_address`(`id`, `name`, `phone`, `province`, `city`, `zipcode`, `detail`, `area`, `status`, `user_id`) VALUES (3, '万事达', '13200000000', '浙江省', '杭州市', 220000, '江南大道 15 号', '滨江区', 1, 3);
+-- ----------------------------
+-- Records of cm_address
+-- ----------------------------
+INSERT INTO `cm_address` VALUES (1, '渡百年', '13000000000', '浙江省', '杭州市', '西湖区', '文三路 138 号东方通信大厦 7 楼 501 室', 330106, 226000, 1, 3);
+INSERT INTO `cm_address` VALUES (2, '阿松大', '13100000000', '浙江省', '杭州市', '拱墅区', '莫干山路 50 号', 330105, 210000, 1, 3);
+INSERT INTO `cm_address` VALUES (3, '万事达', '13200000000', '浙江省', '杭州市', '滨江区', '江南大道 15 号', 330108, 220000, 1, 3);
 
 -- ----------------------------
 -- Table structure for cm_index_goods
@@ -3408,11 +3412,12 @@ CREATE TABLE `cm_users`  (
   `img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT 'http://image.suning.cn/uimg/cmf/cust_headpic/0000000000_01_240x240.jpg' COMMENT '用户头像',
   `sex` tinyint(3) NULL DEFAULT NULL COMMENT '性别 0-女,1-男',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cm_users
 -- ----------------------------
 INSERT INTO `cm_users` VALUES (2, '15127096254', 'dany', '137@qq.com', 'a31cc2c415271b0c7cb905ce441ce97e', 'http://image.suning.cn/uimg/cmf/cust_headpic/0000000000_01_240x240.jpg', NULL);
+INSERT INTO `cm_users` VALUES (3, '13344445555', '测试6号', '123@123.cn', '4db49f3b981b0f16e087cd314be9b68a', 'http://image.suning.cn/uimg/cmf/cust_headpic/0000000000_01_240x240.jpg', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

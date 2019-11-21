@@ -14,11 +14,32 @@
     <van-address-list
       v-model="chosenAddressId"
       :list="adrList"
-      @add="showAdrs = !showAdrs"
+      @add="showAdd = !showAdd"
       @edit="onEdit"
     />
+    <!-- 添加地址 -->
+    <van-dialog
+      :closeOnClickOverlay="true"
+      class="dialog"
+      v-model="showAdd"
+      width="350"
+      confirmButtonText="确认"
+      cancelButtonText="取消"
+      title="收货地址管理"
+      :showConfirmButton="false"
+    >
+      <van-address-edit
+        :area-list="areaList"
+        show-postal
+        show-set-default
+        show-search-result
+        :area-columns-placeholder="['请选择', '请选择', '请选择']"
+        @save="onSave"
+      />
+    </van-dialog>
     <!-- 修改地址 -->
     <van-dialog
+      :closeOnClickOverlay="true"
       class="dialog"
       v-model="showAdrs"
       width="350"
@@ -29,14 +50,16 @@
     >
       <van-address-edit
         :area-list="areaList"
+        :address-info="addressInfo"
         show-postal
         show-delete
         show-set-default
         show-search-result
         :search-result="searchResult"
         :area-columns-placeholder="['请选择', '请选择', '请选择']"
-        @save="onSave"
+        @save="onUpt"
         @delete="onDelete"
+        @change-area="onChangeArea"
         @change-detail="onChangeDetail"
       />
     </van-dialog>
@@ -48,44 +71,117 @@ import area from '../assets/js/Area.json'
 export default {
   data () {
     return {
-      showAdrs: false,
+      // 收货人信息初始值
+      addressInfo: {},
+      addressForm: {
+        id: 0, // 每条地址的唯一标识
+        name: '', // 收货人姓名
+        tel: '', // 收货人手机号
+        province: '', // 省份
+        city: '', // 城市
+        county: '', // 区县
+        addressDetail: '', // 详细地址
+        areaCode: '', // 地区编码，通过省市区选择获取（必填）
+        postalCode: '', // 邮政编码
+        isDefault: false // 是否为默认地址
+      },
+      searchResult: [
+        // {
+        //   name: '河北省',
+        //   address: '详细地址'
+        // }
+      ], // 详细地址搜索结果 省市区
+      showAdrs: false, // 修改、删除地址表单
+      showAdd: false, // 添加地址表单
       chosenAddressId: 1,
       adrList: [], // 接收的地址
-      searchResult: [], // 详细地址搜索结果
-      areaList: area
+      areaList: area, // 省市区选择
+      addressId: 0 // 当前选择的地址id
     }
   },
   created () {
-    this.$http.get('/set_getaddress').then((res) => {
-      // console.log(res.data.data)
-      res.data.data.forEach((val, i, arr) => {
+    this.getAddress()
+  },
+  methods: {
+    // 展示所有地址
+    async getAddress () {
+      const { data: res } = await this.$http.get('/set_getaddress')
+      res.data.forEach((val, i, arr) => {
         // console.log(arr[i])
         let obj = {}
         obj = {
           id: i,
           name: arr[i].name,
-          tel: arr[i].phone,
-          address: arr[i].province + arr[i].city + arr[i].area
+          tel: arr[i].tel,
+          address: arr[i].province + arr[i].city + arr[i].county
         }
+        // 数组去重
+        // this.adrList = new Set(this.adrList.push(obj))
         this.adrList.push(obj)
       })
-      console.log(this.adrList)
-    })
-  },
-  methods: {
-    // 根据id修改用户地址
-    onEdit (item, index) {
-      this.$toast('编辑地址:' + index)
-      this.showAdrs = !this.showAdrs
     },
-    // 点击保存按钮时触发
-    onSave () {
-      this.$toast('save')
+    // 添加地址
+    onSave (content) {
+      console.log(content)
+      this.$http.post('/set_address_add', content).then(res => {
+        console.log(res)
+        if (res.data.data.status === 200) {
+          this.$toast.success(res.data.data.msg)
+          this.showAdd = false
+          // 清空表单
+          content = {}
+          this.getAddress()
+        } else {
+          this.$toast('傻逼吧')
+          this.showAdd = false
+        }
+      })
+      // console.log(this.addressInfo)
+    },
+    // 根据id获得用户地址
+    onEdit (item, index) {
+      // 修改、删除地址需要用到的当前地址id
+      this.addressId = index + 1
+      this.$http.get('/set_getaddress/' + this.addressId).then(res => {
+        console.log(res.data)
+        this.addressInfo = { ...res.data }
+        console.log(this.addressInfo)
+      })
+      this.showAdrs = !this.showAdrs
+      this.$toast('编辑地址:' + index)
+    },
+    // 修改地址
+    onUpt (content) {
+      this.$http.put('/set_address_upt', content).then(res => {
+        // console.log(res)
+        if (res.data.status === 200) {
+          this.$toast.success(res.data.msg)
+          this.showAdrs = false
+          // 清空表单
+          content = {}
+          this.getAddress()
+        } else {
+          this.$toast(res.data.err)
+          this.showAdrs = false
+        }
+      })
     },
     // 确认删除地址时触发
-    onDelete () {
-      this.$toast('delete')
-      this.showAdrs = false
+    onDelete (content) {
+      // this.addressId
+      this.$http.delete('/set_address_del/' + this.addressId).then(res => {
+        console.log(res)
+        if (res.data.status === 200) {
+          this.$toast.success(res.data.msg)
+          this.showAdrs = false
+        } else {
+          this.$toast.fail(res.data.err)
+        }
+      })
+    },
+    // 修改地区时触发
+    onChangeArea (values) {
+      // console.log(values)
     },
     // 修改详细地址时触发
     onChangeDetail () {}
@@ -104,7 +200,7 @@ export default {
       margin-bottom: 20px;
     }
     .van-address-edit__buttons {
-      padding: 32px 16px 10px
+      padding: 32px 16px 10px;
     }
   }
 }

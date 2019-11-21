@@ -178,20 +178,112 @@ router.get('/set_getaddress', (req, res) => {
     }
   })
 })
-
-// 修改地址
-router.put('/set_address', (req, res) => {
+// 添加地址
+router.post('/set_address_add', (req, res) => {
+  if (req.body.isDefault === false) {
+    req.body.isDefault = 1
+  } else {
+    req.body.isDefault = 0
+  }
   let {
     name,
-    phone,
+    tel,
     province,
     city,
-    area,
-    zipcode,
-    detail
+    county,
+    addressDetail,
+    areaCode,
+    postalCode
   } = req.body
-  let sql = 'update cm_users set name=?,phone=?,province=?,city=?,area=?,zipcode=?,detail=? where id=?'
-  // let sql = 'update cm_users set ? where id=?'
+  // console.log(req.body)
+  // for (let key in req.body) {
+  //   if (key == 'country') {
+  //     delete req.body[key]
+  //   }
+  // }
+  delete req.body.country
+  console.log(req.body)
+  let token = req.headers.authorization
+  try {
+    takeId(token)
+    req.body.user_id = id
+    console.log(req.body)
+    let sql = 'insert into cm_address set ?'
+    db.query(sql, req.body, (err, result) => {
+      if (err) return console.log(err)
+      console.log(result)
+      res.json({
+        status: 200,
+        msg: '添加地址成功'
+      })
+    })
+  } catch (err) {
+    console.log(err)
+    res.json({
+      status: 400,
+      err: '添加失败'
+    })
+  }
+})
+
+// 根据地址id显示当前数据
+router.get('/set_getaddress/:id', (req, res) => {
+  let id = req.params.id
+  // console.log(id)
+  let sql = 'select * from cm_address where id=?'
+  db.query(sql, id,(err, result) => {
+    if (err) return console.log(err)
+    // console.log(result)
+    res.json(result[0])
+  })
+})
+
+// 修改地址
+router.put('/set_address_upt', (req, res) => {
+  let {
+    name,
+    tel,
+    province,
+    city,
+    county,
+    addressDetail,
+    areaCode,
+    postalCode
+  } = req.body
+  // let sql = 'update cm_address set name=?,phone=?,province=?,city=?,area=?,zipcode=?,detail=? where id=?'
+  let sql = 'update cm_address set ? where id=?'
+  db.query(sql, req.body, (err, result) => {
+    if (err) {
+      console.log(err)
+      return res.json({
+        status: 400,
+        err: '修改失败'
+      })
+    }
+    res.json({
+      status: 200,
+      msg: '修改成功'
+    })
+  })
+})
+
+// 删除地址
+router.delete('/set_address_del/:id', (req, res) => {
+  let id = req.params.id
+  let sql = 'delete from cm_address where id=?'
+  db.query(sql, id, (err, result) => {
+    if (err) {
+      console.log(err)
+      return res.json({
+        status: 400,
+        err: '删除失败'
+      })
+    }
+    res.json({
+      status: 200,
+      msg: '删除成功'
+    })
+  })
 })
 
 

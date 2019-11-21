@@ -114,7 +114,7 @@ router.post('/cm_login', (req, res) => {
   let sql = 'select id,password,username from cm_users where phone=?'
   db.query(sql, phone, (err, result) => {
     if (err) console.log(err)
-    // console.log(result)
+    console.log(result)
     // 判断有无该用户
     if (result[0]) {
       if (result[0].password == md5(password + md5_key)) {

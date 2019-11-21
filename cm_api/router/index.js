@@ -3,7 +3,13 @@ const router = require('express').Router()
 // 连接数据库
 const db = require('../mysql/db')
 
-// 首页搜索
+// 首页商品搜索
+router.get('/search_goods', (req, res) => {
+  db.query('select * from 商品表 where goods_name(字段名) like "%' + req.query.keyword +'%"', (err, result) => {
+    if (err) console.log.log(err)
+    res.json(result)
+  })
+})
 
 // 获得首页的轮播图
 router.get('/index_slide', (req, res) => {

@@ -16,14 +16,19 @@ const cors = require('cors')
 app.use(cors())
 
 // 配置路由
+// 首页
 app.use('/api/v1', require('./router/index'))
+// 登录注册
 app.use('/api/v1', require('./router/login&register'))
-// 清单路由
+// 必抢清单
 app.use('/api/v1', require('./router/list'))
-// 购物车路由
+// 购物车
 app.use('/api/v1', require('./router/cart'))
-// 挂载分类路由
+// 挂载分类
 app.use('/api/v1', require('./router/categories'))
+// 用户设置
+app.use('/api/v1', require('./router/setting'))
+
 // 设置连接端口
 app.listen(
   config.server.port,

@@ -35,6 +35,10 @@ CREATE TABLE `cm_address`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
+INSERT INTO `cm_address`(`id`, `name`, `phone`, `province`, `city`, `zipcode`, `detail`, `area`, `status`, `user_id`) VALUES (1, '渡百年', '13000000000', '浙江省', '杭州市', 226000, '文三路 138 号东方通信大厦 7 楼 501 室', '西湖区', 1, 3);
+INSERT INTO `cm_address`(`id`, `name`, `phone`, `province`, `city`, `zipcode`, `detail`, `area`, `status`, `user_id`) VALUES (2, '阿松大', '13100000000', '浙江省', '杭州市', 210000, '莫干山路 50 号', '拱墅区', 1, 3);
+INSERT INTO `cm_address`(`id`, `name`, `phone`, `province`, `city`, `zipcode`, `detail`, `area`, `status`, `user_id`) VALUES (3, '万事达', '13200000000', '浙江省', '杭州市', 220000, '江南大道 15 号', '滨江区', 1, 3);
+
 -- ----------------------------
 -- Table structure for cm_index_goods
 -- ----------------------------

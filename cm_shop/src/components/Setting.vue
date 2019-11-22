@@ -5,10 +5,7 @@
       <van-icon name="arrow-left" size="25" color="#000" slot="left" />
       <van-icon
         name="data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAYUExURUxpcTQ8RDQ8RDQ8RDQ8RDQ8RDQ8RDQ8RAEPSCIAAAAHdFJOUwD2cEy/EYW+tvqEAAAAb0lEQVRIDe2ROw7AMAhDwy/c/8ZVOgCVKuhayUyRsSF5WQsFAiAAAl8JiBKpPN29tv2uXTO9Jk5sxuRlz6Cp85nPrrlm0MjteM0pI4M2tGNO8Q2XiEjxDU+NSPX1QCOyqq//tsy8+bKLEwiAwK8IXL+VA7VJ24A2AAAAAElFTkSuQmCC"
-        color="#000"
-        slot="right"
-        size="25"
-      />
+        color="#000" slot="right" size="25" />
     </van-nav-bar>
     <!-- 用户信息表单 -->
     <van-cell-group>
@@ -22,48 +19,14 @@
           </van-col>
         </van-row>
       </van-field>
-      <van-field
-        label="昵称"
-        v-model="username"
-        clearable
-        disabled
-        placeholder="设置个性昵称"
-        input-align="right"
-        right-icon="arrow"
-        @click="showUser = !showUser"
-      />
-      <van-field
-        label="性别"
-        v-model="sex"
-        clearable
-        disabled
-        placeholder="设置性别"
-        input-align="right"
-        right-icon="arrow"
-        @click="showSex = !showSex"
-      />
-      <van-field
-        label="账户安全"
-        v-model="password"
-        clearable
-        disabled
-        type="password"
-        input-align="right"
-        placeholder="修改密码"
-        right-icon="arrow"
-        @click="showPass = !showPass"
-      />
-      <van-field
-        label="地址管理"
-        v-model="address"
-        clearable
-        disabled
-        type="text"
-        input-align="right"
-        placeholder="新增/修改地址"
-        right-icon="arrow"
-        @click="$router.push('/address')"
-      />
+      <van-field label="昵称" v-model="username" clearable disabled placeholder="设置个性昵称" input-align="right"
+        right-icon="arrow" @click="showUser = !showUser" />
+      <van-field label="性别" v-model="sex" clearable disabled placeholder="设置性别" input-align="right" right-icon="arrow"
+        @click="showSex = !showSex" />
+      <van-field label="账户安全" v-model="password" clearable disabled type="password" input-align="right"
+        placeholder="修改密码" right-icon="arrow" @click="showPass = !showPass" />
+      <van-field label="地址管理" v-model="address" clearable disabled type="text" input-align="right" placeholder="新增/修改地址"
+        right-icon="arrow" @click="$router.push('/address')" />
     </van-cell-group>
     <!-- 退出登录 -->
     <van-row type="flex" justify="center">
@@ -72,51 +35,21 @@
       </van-col>
     </van-row>
     <!-- 修改昵称 -->
-    <van-dialog
-      class="dialog"
-      v-model="showUser"
-      width="350"
-      confirmButtonText="确认"
-      cancelButtonText="取消"
-      title="昵称"
-      show-cancel-button
-      @cancel="ccUsername"
-      @confirm="uptUsername"
-    >
+    <van-dialog class="dialog" v-model="showUser" width="350" confirmButtonText="确认" cancelButtonText="取消" title="昵称"
+      show-cancel-button @cancel="ccUsername" @confirm="uptUsername">
       用户名:
       <van-field v-model="username" clearable placeholder="请设置您的昵称(2~8位)" right-icon="contact" />
     </van-dialog>
     <!-- 修改性别 -->
     <van-popup v-model="showSex" position="bottom">
-      <van-picker
-        title="性别"
-        item-height="30"
-        show-toolbar
-        :columns="columns"
-        @cancel="showSex = false"
-        @confirm="uptSex"
-      />
+      <van-picker title="性别" item-height="30" show-toolbar :columns="columns" @cancel="showSex = false"
+        @confirm="uptSex" />
     </van-popup>
     <!-- 修改密码 -->
-    <van-dialog
-      class="dialog passDia"
-      v-model="showPass"
-      width="350"
-      confirmButtonText="确认"
-      cancelButtonText="取消"
-      title="密码"
-      show-cancel-button
-      @cancel="ccUserpass"
-      @confirm="uptUserpass"
-    >
+    <van-dialog class="dialog passDia" v-model="showPass" width="350" confirmButtonText="确认" cancelButtonText="取消"
+      title="密码" show-cancel-button @cancel="ccUserpass" @confirm="uptUserpass">
       密码:
-      <van-field
-        v-model="password"
-        clearable
-        type="password"
-        placeholder="请设置您的密码(6~18位)"
-        right-icon="closed-eye"
-      />
+      <van-field v-model="password" clearable type="password" placeholder="请设置您的密码(6~18位)" right-icon="closed-eye" />
       <!-- 手机号:
       <van-field
         v-model="phone"
@@ -175,9 +108,6 @@ export default {
     },
     // 修改头像/ 图片上传
     afterRead (file) {
-      // let a = document.querySelector('.van-uploader input').files
-      // console.log(a)
-      console.log(file.content)
       let imgdata = new FormData()
       imgdata.append('img', file.content)
       let config = {
@@ -185,9 +115,6 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       }
-      // this.$http.post('/upload', imgdata).then(res => {
-      //   console.log(res)
-      // })
       this.$http.post('/upload', imgdata, config).then(res => {
         console.log(res)
       })
@@ -196,7 +123,7 @@ export default {
     ccUsername () {
       this.username = sessionStorage.getItem('username')
     },
-    ccUsersex () {},
+    ccUsersex () { },
     ccUserpass () {
       this.password = ''
       this.phone = ''

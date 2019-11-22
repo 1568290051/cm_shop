@@ -12,10 +12,9 @@ const jwt = require('jsonwebtoken')
 // 使用fs,path写入图片
 const fs = require('fs')
 const path = require('path')
-// 使用multer解析图片的buffer
 const multer = require('multer')
 // 定义保存图片的地址
-const saveImg = ''
+const saveImg = '../public/images/'
 // 网页访问图片时的地址
 const fileBaseUrl = 'http://127.0.0.1:9999/api/v1'
 
@@ -53,17 +52,20 @@ router.get('/set_user', (req, res) => {
 
 // 修改头像
 router.post('/upload', multer().single('img'), (req, res) => {
-  // console.log(req.file)
-  // console.log(req.body)
-  let imgData = req.body.img
   let token = req.headers.authorization
   try {
-    takeId(token)
-
+    let imgData = req.body.img
     let base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')
     let dataBuffer = new Buffer(base64Data, 'base64')
-    db.query('update cm_users set img = ' + imgData + 'where id =' + id)
-  } catch (err) {}
+    fs.writeFileSync(path.join(__dirname, saveImg + '12.png'), dataBuffer)
+
+    res.json({
+      status: 200,
+      url: ''
+    })
+  } catch (err) {
+    res.json('err')
+  }
 
 })
 

@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -126,7 +126,6 @@ export default {
     }
   },
   computed: {
-    ...mapState(['isLogin']),
     isBuy () {
       return this.carteGoods.length !== 0
     },
@@ -222,7 +221,7 @@ export default {
     // 结算商品
     onSubmit () {
       sessionStorage.setItem('toBuy', 'ok')
-      if (!this.isLogin) {
+      if (!sessionStorage.getItem('token')) {
         this.$toast.fail('请先登录！')
         setTimeout(() => {
           this.$router.push('/login')

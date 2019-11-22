@@ -15,7 +15,8 @@
 
     <!-- 订单详情 -->
     <div class="content">
-      <van-cell is-link value-class="right-title">
+      <!-- 商品图片 -->
+      <van-cell is-link value-class="right-title" @click="$router.push('carte')">
         <template slot="default">
           <van-image v-for="value in imgLL" :key="value" width="50px" height="50px" :src="goodsList[value-1].img">
           </van-image>
@@ -30,6 +31,15 @@
         <template slot="title">
           <span>云钻</span> <img style="width:18px;height:18px;vertical-align:middle;" src="../assets/image/yuns.png">
         </template>
+      </van-cell>
+      <!-- 应付金额 -->
+      <van-cell>
+        <div slot="default" style="padding-right:16px;">
+          <span style="float:right;">
+            <b style="font-weight:700;font-size:16px">应付金额：</b>
+            <strong style="color: #e93b3d;font-weight: 400;">¥{{totalMoney}}</strong>
+          </span>
+        </div>
       </van-cell>
     </div>
 
@@ -49,12 +59,10 @@
       <div class="offline-box" slot="default">
         <img src="../assets/image/offline.png">
         <h3>是否确认使用货到付款提交订单?</h3>
-        <p>货到付款订单总价：￥65</p>
-        <p>含货到付款运费：￥6</p>
+        <p>货到付款订单总价：¥{{totalMoney + 10}}</p>
+        <p>含货到付款运费：¥10</p>
       </div>
     </van-dialog>
-
-    <h1>{{totalMoney}}</h1>
 
   </div>
 </template>

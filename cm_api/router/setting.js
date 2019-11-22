@@ -231,7 +231,7 @@ router.post('/set_address_add', (req, res) => {
     let sql = 'insert into cm_address set ?'
     db.query(sql, req.body, (err, result) => {
       if (err) return console.log(err)
-      console.log(result)
+      // console.log(result)
       res.json({
         status: 200,
         msg: '添加地址成功'

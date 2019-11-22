@@ -209,7 +209,7 @@ export default {
 
   & > .van-button {
     display: block;
-    width: 98%;
+    width: 95%;
     margin: 20px auto;
     border: none;
     border-radius: 3px;

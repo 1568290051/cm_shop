@@ -45,7 +45,7 @@ router.get('/set_user', (req, res) => {
     let sql = 'select * from cm_users where id=?'
     db.query(sql, id, (err, result) => {
       if (err) console.log(err)
-      console.log(result);
+      // console.log(result);
       res.json(result[0])
     })
   } catch (err) {}
@@ -55,12 +55,16 @@ router.get('/set_user', (req, res) => {
 router.post('/upload', multer().single('img'), (req, res) => {
   // console.log(req.file)
   // console.log(req.body)
-  let imgData = req.body
-  console.log(imgData)
-  // 过滤
-  let base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')
-  let dataBuffer = new Buffer(base64Data, 'base64')
-  // fs.writeFile('./public/images/image.png', dataBuffer)
+  let imgData = req.body.img
+  let token = req.headers.authorization
+  try {
+    takeId(token)
+
+    let base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')
+    let dataBuffer = new Buffer(base64Data, 'base64')
+    db.query('update cm_users set img = ' + imgData + 'where id =' + id)
+  } catch (err) {}
+
 })
 
 // 修改用户名
@@ -244,7 +248,7 @@ router.post('/set_address_add', (req, res) => {
   try {
     takeId(token)
     req.body.user_id = id
-    console.log(req.body)
+    // console.log(req.body)
     let sql = 'insert into cm_address set ?'
     db.query(sql, req.body, (err, result) => {
       if (err) return console.log(err)

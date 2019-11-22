@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 顶部导航部分 -->
-    <van-nav-bar left-arrow>
+    <van-nav-bar left-arrow class="nav" >
       <van-search placeholder="请输入搜索关键词" v-model="value" slot="title" />
 
       <img class="nav-right" src="../assets/image/search-icon8.png" slot="right" />
@@ -44,7 +44,7 @@
         <i v-show="isShowIcon" class="choicI"></i>
       </li>
     </ul>
-    <div style="margin-top:1rem ;padding-bottom:4rem;">
+    <div style="margin-top:1rem ;padding-bottom:4rem;" @click="toGoods()">
       <van-card
         v-for="(item,index) in searchList"
         :key="index"
@@ -336,6 +336,9 @@ export default {
           // console.log(res)
           this.searchList = res.data.data
         })
+    },
+    toGoods () {
+      this.$router.push('/goods')
     }
   },
   created () {
@@ -481,7 +484,6 @@ export default {
 .choicLListUl {
   width: 100%;
   height: 1.76rem;
-  padding: 0.32rem 0.2rem;
   background: #fff;
   overflow: hidden;
   border-bottom: 1px solid #f2f2f2;
@@ -521,5 +523,11 @@ export default {
 .van-card__price {
   margin-top: 0.5rem;
   font-size: 17px;
+}
+/* 导航栏 */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 </style>

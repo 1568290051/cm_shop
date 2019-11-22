@@ -48,6 +48,10 @@ const routes = [{
 {
   path: '/search/', // 搜索
   component: () => import('../views/Search.vue')
+},
+{
+  path: '/goods/', // 商品
+  component: () => import('../views/goods.vue')
 }
 ]
 

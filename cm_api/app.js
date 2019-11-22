@@ -20,6 +20,8 @@ app.use('/api/v1', require('./router/index'))
 app.use('/api/v1', require('./router/login&register'))
 // 清单路由
 app.use('/api/v1', require('./router/list'))
+// 商品路由
+app.use('/api/v1', require('./router/goods'))
 // 购物车路由
 app.use('/api/v1', require('./router/cart'))
 // 挂载分类路由

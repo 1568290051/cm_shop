@@ -84,9 +84,9 @@ export default {
     },
     // 添加地址
     onSave (content) {
-      console.log(content)
+      // console.log(content)
       this.$http.post('/set_address_add', content).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.data.status === 200) {
           this.$toast.success(res.data.msg)
           this.showAdd = false
@@ -104,9 +104,9 @@ export default {
     onEdit (item, index) {
       // 修改、删除地址需要用到的当前地址id
       this.addressId = this.adrList[index].id
-      console.log(this.addressId)
+      // console.log(this.addressId)
       this.$http.get('/set_getaddress/' + this.addressId).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         res.data.areaCode += ''
         if (res.data.isDefault === 0) {
           res.data.isDefault = true
@@ -114,7 +114,7 @@ export default {
           res.data.isDefault = false
         }
         this.addressInfo = { ...res.data }
-        console.log(this.addressInfo)
+        // console.log(this.addressInfo)
       })
       this.showAdrs = !this.showAdrs
       this.$toast('编辑地址:' + index)
@@ -139,7 +139,7 @@ export default {
     onDelete (content) {
       // this.addressId
       this.$http.delete('/set_address_del/' + this.addressId).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.data.status === 200) {
           this.$toast.success(res.data.msg)
           this.showAdrs = false

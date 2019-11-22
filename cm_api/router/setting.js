@@ -7,9 +7,17 @@ const md5 = require('md5')
 const {
   md5_key
 } = require('../config')
-// console.log(md5_key);
 // 设置令牌
 const jwt = require('jsonwebtoken')
+// 使用fs,path写入图片
+const fs = require('fs')
+const path = require('path')
+// 使用multer解析图片的buffer
+const multer = require('multer')
+// 定义保存图片的地址
+const saveImg = ''
+// 网页访问图片时的地址
+const fileBaseUrl = 'http://127.0.0.1:9999/api/v1'
 
 // 定义一个拿到用户id的方法
 let takeId = function (token) {
@@ -44,7 +52,22 @@ router.get('/set_user', (req, res) => {
 })
 
 // 修改头像
-
+router.post('/set_upload', (req, res) => {
+  console.log(req.file)
+  let imgData = req.body.imgData
+  // console.log(imgData)
+  // 过滤
+  let base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')
+  let dataBuffer = new Buffer(base64Data, 'base64')
+  fs.writeFile('image.png', dataBuffer)
+})
+// router.post('/set_upload', multer().single('img'), (req, res) => {
+//   console.log(req.file)
+//   // let imgData = req.body.imgData
+//   // console.log(imgData)
+//   // 过滤
+//   // let base64Data = imgData
+// })
 
 // 修改用户名
 router.put('/set_username', (req, res) => {

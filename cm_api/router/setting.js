@@ -33,10 +33,11 @@ router.get('/set_user', (req, res) => {
     // } = decode
     takeId(token)
     // console.log(takeId(token))
+    // let sql = 'select * from cm_users where id=?;select * from cm_address where isDefault = 0'
     let sql = 'select * from cm_users where id=?'
     db.query(sql, id, (err, result) => {
       if (err) console.log(err)
-      // console.log(result);
+      console.log(result);
       res.json(result[0])
     })
   } catch (err) {}
@@ -159,6 +160,15 @@ router.put('/set_password', (req, res) => {
       err: '修改失败'
     })
   }
+})
+
+// 得到订单地址
+router.get('/orders_getaddress', (req, res) => {
+  let sql = 'select * from cm_address where isDefault = 0'
+  db.query(sql, (err, result) => {
+    if (err) return console.log(err)
+    res.json(result[0])
+  })
 })
 
 // 得到地址数据

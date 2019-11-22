@@ -5,9 +5,9 @@
     <div class="title" @click="$router.push('/address')">
       <img src="../assets/image/address.png">
       <div class="title-right">
-        <h1><span class="name">{{user.username}}</span><span class="phone">{{user.phone}}</span></h1>
+        <h1><span class="name">{{user.name}}</span><span class="phone">{{user.tel}}</span></h1>
         <p>
-          <span class="address">江苏省宿迁市沭阳县</span>
+          <span class="address">{{address}}</span>
           <van-icon name="arrow" style="float:right" />
         </p>
       </div>
@@ -72,9 +72,10 @@ export default {
   data () {
     return {
       user: {
-        username: 'dany',
-        phone: '15127096255'
+        name: 'dany',
+        tel: '15127096255'
       },
+      address: '江苏省宿迁市沭阳县', // 用户地址
       carte: JSON.parse(sessionStorage.getItem('carte')) || [],
       goodsList: [],
       onlineDia: false, // 在线支付框
@@ -113,10 +114,15 @@ export default {
     }
   },
   async created () {
-    // 获取用户信息
-    const { data: res } = await this.$http.get('/set_user')
-    res.phone = res.phone.substring(0, 3) + '****' + res.phone.substring(8, 11)
+    // 获取用户收货地址
+    // const { data: res } = await this.$http.get('/set_user')
+    // res.phone = res.phone.substring(0, 3) + '****' + res.phone.substring(8, 11)
+    // this.user = res
+    const { data: res } = await this.$http.get('/orders_getaddress')
+    console.log(res)
+    res.tel = res.tel.substring(0, 3) + '****' + res.tel.substring(8, 11)
     this.user = res
+    this.address = res.province + res.city + res.county + res.addressDetail
 
     if (this.carte.length !== 0) {
       let ids = []

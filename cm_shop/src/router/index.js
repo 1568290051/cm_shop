@@ -17,10 +17,16 @@ const routes = [{
 },
 {
   path: '/setting', // 用户设置
+  meta: {
+    mustLogin: true
+  },
   component: () => import('../components/Setting.vue')
 },
 {
   path: '/address', // 设置地址
+  meta: {
+    mustLogin: true
+  },
   component: () => import('../components/Set_address.vue')
 },
 {
@@ -51,10 +57,16 @@ const routes = [{
 },
 {
   path: '/order', // 下订单
+  meta: {
+    mustLogin: true
+  },
   component: () => import('../components/Order.vue')
 },
 {
   path: '/orders',
+  meta: {
+    mustLogin: true
+  },
   component: () => import('../components/Order_list.vue')
 },
 {

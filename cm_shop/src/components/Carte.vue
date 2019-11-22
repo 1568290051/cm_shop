@@ -120,7 +120,7 @@ export default {
       guessList: [], // 猜你喜欢
       usualList: [], // 必备清单,
       selectGoodsId: JSON.parse(sessionStorage.getItem('sIds')) || [], // 用户所选
-      carteCli: JSON.parse(sessionStorage.getItem('carte')) || [{ id: 1 }, { id: 3 }], // 历史购买
+      carteCli: JSON.parse(sessionStorage.getItem('carte')), // 历史购买
       carteGoods: [], // 购物车商品
       isEdit: false
     }
@@ -220,6 +220,11 @@ export default {
     },
     // 结算商品
     onSubmit () {
+      if (this.totalNum === 0) {
+        this.$toast.fail('请至少选中一件商品!')
+        return
+      }
+
       sessionStorage.setItem('toBuy', 'ok')
       if (!sessionStorage.getItem('token')) {
         this.$toast.fail('请先登录！')

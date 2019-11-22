@@ -54,7 +54,7 @@ router.get('/set_user', (req, res) => {
 router.post('/upload', multer().single('img'), (req, res) => {
   // console.log(req.file)
   let token = req.headers.authorization
-  console.log(req.file);
+  // console.log(req.file);
   try {
     // 方法一
     // let imgData = req.body.img
@@ -268,7 +268,7 @@ router.post('/set_address_add', (req, res) => {
   //   }
   // }
   delete req.body.country
-  console.log(req.body)
+  // console.log(req.body)
   let token = req.headers.authorization
   try {
     takeId(token)

@@ -180,17 +180,17 @@ export default {
       console.log(file.content)
       let imgdata = new FormData()
       imgdata.append('img', file.content)
-      // let config = {
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data'
-      //   }
-      // }
-      this.$http.post('/upload', imgdata).then(res => {
-        console.log(res)
-      })
-      // this.$http.post('/upload', imgdata, config).then(res => {
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      // this.$http.post('/upload', imgdata).then(res => {
       //   console.log(res)
       // })
+      this.$http.post('/upload', imgdata, config).then(res => {
+        console.log(res)
+      })
     },
     // 取消
     ccUsername () {

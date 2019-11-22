@@ -125,8 +125,8 @@ export default {
       console.log(content)
       this.$http.post('/set_address_add', content).then(res => {
         console.log(res)
-        if (res.data.data.status === 200) {
-          this.$toast.success(res.data.data.msg)
+        if (res.data.status === 200) {
+          this.$toast.success(res.data.msg)
           this.showAdd = false
           // 清空表单
           content = {}

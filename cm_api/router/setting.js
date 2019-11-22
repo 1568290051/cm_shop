@@ -53,6 +53,7 @@ router.get('/set_user', (req, res) => {
 // 修改头像
 router.post('/upload', multer().single('img'), (req, res) => {
   let token = req.headers.authorization
+  console.log(req.file);
   try {
     let imgData = req.body.img
     let base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')

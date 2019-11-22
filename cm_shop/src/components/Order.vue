@@ -47,15 +47,15 @@
     <van-button type="default" style="background-color:#05ba04" @click="offlineDia = true">货到付款</van-button>
 
     <!-- 在线支付 -->
-    <van-dialog v-model="onlineDia" title="请输入支付密码" show-cancel-button>
+    <van-dialog v-model="onlineDia" title="请输入支付密码" show-cancel-button @closed="payVal=''">
       <div class="pay-password" slot="default">
         <van-password-input :value="payVal" info="密码为 6 位数字" :focused="showKeyboard" @focus="showKeyboard = true" />
         <van-number-keyboard :show="true" close-button-text=" 完成" @blur="onlineDia = false" @input="onInput"
-          @delete="onDelete" />
+          @delete="onDelete" @close='submitOrsers(1)' />
       </div>
     </van-dialog>
     <!-- 货到付款 -->
-    <van-dialog v-model="offlineDia" show-cancel-button>
+    <van-dialog v-model="offlineDia" show-cancel-button @confirm='submitOrsers(0)'>
       <div class="offline-box" slot="default">
         <img src="../assets/image/offline.png">
         <h3>是否确认使用货到付款提交订单?</h3>
@@ -111,15 +111,32 @@ export default {
     },
     onDelete () {
       this.payVal = this.payVal.slice(0, this.payVal.length - 1)
+    },
+    // 提交订单
+    async submitOrsers (x) {
+      if (x === 1 && this.payVal.length < 6) return
+      let ids = []
+      let totalArr = []
+      this.carte.forEach(item => {
+        ids.push(item.id)
+        totalArr.push(item.num)
+      })
+
+      const { data: res } = await this.$http.post('/orders', {
+        ids: ids.join(','), // 商品id
+        total: totalArr.join(','), // 商品数量
+        a_id: this.user.id, // 收货地址id
+        status: x
+      })
+
+      if (res.status === 200) {
+        this.$router.push('/me')
+      }
     }
   },
   async created () {
     // 获取用户收货地址
-    // const { data: res } = await this.$http.get('/set_user')
-    // res.phone = res.phone.substring(0, 3) + '****' + res.phone.substring(8, 11)
-    // this.user = res
     const { data: res } = await this.$http.get('/orders_getaddress')
-    console.log(res)
     res.tel = res.tel.substring(0, 3) + '****' + res.tel.substring(8, 11)
     this.user = res
     this.address = res.province + res.city + res.county + res.addressDetail

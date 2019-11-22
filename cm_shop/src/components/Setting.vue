@@ -108,8 +108,9 @@ export default {
     },
     // 修改头像/ 图片上传
     afterRead (file) {
+      // console.log(file)
       let imgdata = new FormData()
-      imgdata.append('img', file.content)
+      imgdata.append('img', file.file)
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data'

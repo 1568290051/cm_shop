@@ -178,17 +178,17 @@ export default {
       // let a = document.querySelector('.van-uploader input').files
       // console.log(a)
       console.log(file.content)
-      let formdata = new FormData()
-      formdata.append('img', file.content)
+      let imgdata = new FormData()
+      imgdata.append('img', file.content)
       // let config = {
       //   headers: {
       //     'Content-Type': 'multipart/form-data'
       //   }
       // }
-      this.$http.post('/set_upload', { imgData: file.content }).then(res => {
+      this.$http.post('/upload', imgdata).then(res => {
         console.log(res)
       })
-      // this.$http.post('/set_upload', formdata, config).then(res => {
+      // this.$http.post('/upload', imgdata, config).then(res => {
       //   console.log(res)
       // })
     },

@@ -52,22 +52,24 @@ router.get('/set_user', (req, res) => {
 })
 
 // 修改头像
-router.post('/set_upload', (req, res) => {
-  console.log(req.file)
-  let imgData = req.body.imgData
-  // console.log(imgData)
-  // 过滤
-  let base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')
-  let dataBuffer = new Buffer(base64Data, 'base64')
-  fs.writeFile('image.png', dataBuffer)
-})
-// router.post('/set_upload', multer().single('img'), (req, res) => {
+// router.post('/set_upload', (req, res) => {
 //   console.log(req.file)
+//   console.log(req.body)
 //   // let imgData = req.body.imgData
 //   // console.log(imgData)
 //   // 过滤
-//   // let base64Data = imgData
+//   // let base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')
+//   // let dataBuffer = new Buffer(base64Data, 'base64')
+//   // fs.writeFile('image.png', dataBuffer)
 // })
+router.post('/upload', multer().single('img'), (req, res) => {
+  // console.log(req.file)
+  console.log(req.body)
+  // let imgData = req.body.imgData
+  // console.log(imgData)
+  // 过滤
+  // let base64Data = imgData
+})
 
 // 修改用户名
 router.put('/set_username', (req, res) => {

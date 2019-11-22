@@ -16,7 +16,7 @@ const multer = require('multer')
 // 定义保存图片的地址
 const saveImg = '../public/images/'
 // 网页访问图片时的地址
-const fileBaseUrl = 'http://127.0.0.1:9999/api/v1'
+const fileBaseUrl = 'http://127.0.0.1:9999/api/v1/public/images/'
 
 // 定义一个拿到用户id的方法
 let takeId = function (token) {
@@ -52,22 +52,44 @@ router.get('/set_user', (req, res) => {
 
 // 修改头像
 router.post('/upload', multer().single('img'), (req, res) => {
+  // console.log(req.file)
   let token = req.headers.authorization
   console.log(req.file);
   try {
-    let imgData = req.body.img
-    let base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')
-    let dataBuffer = new Buffer(base64Data, 'base64')
-    fs.writeFileSync(path.join(__dirname, saveImg + '12.png'), dataBuffer)
-
-    res.json({
-      status: 200,
-      url: ''
+    // 方法一
+    // let imgData = req.body.img
+    // let base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')
+    // let dataBuffer = new Buffer(base64Data, 'base64')
+    // fs.writeFileSync(path.join(__dirname, saveImg + '12.png'), dataBuffer)
+    // 方法二
+    let {
+      buffer,
+      originalname
+    } = req.file
+    // 把图片写入public文件里
+    fs.writeFileSync(path.join(__dirname, saveImg + originalname), buffer)
+    // 拿到图片地址
+    // console.log(fileBaseUrl + originalname)
+    let imgUrl = fileBaseUrl + originalname
+    // 把图片地址添加进数据库用户表里
+    takeId(token)
+    // let sql = 'update cm_users set img =? where id=?'
+    // db.query(sql, [imgUrl, id])
+    let sql = `update cm_users set img = '${imgUrl}' where id = ${id}`
+    db.query(sql, (err, result) => {
+      res.json({
+        status: 200,
+        imgUrl: imgUrl
+      })
     })
   } catch (err) {
-    res.json('err')
+    res.json(err)
   }
-
+})
+// 获取图片
+router.get('/public/images/*', (req, res) => {
+  let imgName = req.params[0]
+  res.sendFile(path.join(__dirname, saveImg + imgName))
 })
 
 // 修改用户名

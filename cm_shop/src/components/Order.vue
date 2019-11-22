@@ -98,14 +98,18 @@ export default {
     },
     totalNum () { // 合计数量
       let num = 0
+      let selectIds = JSON.parse(sessionStorage.getItem('sIds'))
       this.carte.forEach(item => {
-        num += item.num
+        if (selectIds.indexOf(item.id) !== -1) {
+          num += item.num
+        }
       })
       return num
     }
 
   },
   methods: {
+    // 支付密码
     onInput (key) {
       this.payVal = (this.payVal + key).slice(0, 6)
     },
@@ -152,7 +156,6 @@ export default {
           ids.push(item.id)
         }
       })
-      console.log(ids)
       // 获取购物车中商品
       const { data: res1 } = await this.$http.get('/carte_list', {
         params: {
@@ -160,7 +163,6 @@ export default {
         }
       })
       this.goodsList = res1.data
-      console.log(res1.data)
     }
   }
 }

@@ -130,7 +130,10 @@ export default {
       })
 
       if (res.status === 200) {
-        this.$router.push('/me')
+        this.$toast.success('订单支付成功！')
+        setTimeout(() => {
+          this.$router.push('/me')
+        }, 1000)
       }
     }
   },
@@ -143,9 +146,13 @@ export default {
 
     if (this.carte.length !== 0) {
       let ids = []
+      let chooseIds = JSON.parse(sessionStorage.getItem('sIds'))
       this.carte.forEach((item) => {
-        ids.push(item.id)
+        if (chooseIds.indexOf(item.id) !== -1) {
+          ids.push(item.id)
+        }
       })
+      console.log(ids)
       // 获取购物车中商品
       const { data: res1 } = await this.$http.get('/carte_list', {
         params: {

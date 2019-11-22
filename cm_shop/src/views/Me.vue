@@ -4,34 +4,21 @@
     <div class="top">
       <!-- 标题导航 -->
       <van-nav-bar :border="false" right-text="按钮" @click-right="onSetting">
-        <van-icon
-          size="21"
-          name="https://res.suning.cn/project/msinode/wap/home/image/setting.png"
-          slot="right"
-        />
+        <van-icon size="21" name="https://res.suning.cn/project/msinode/wap/home/image/setting.png" slot="right" />
         <span slot="title" style="font-weight: bold; font-size: 19px ">我的创美</span>
       </van-nav-bar>
       <!-- 用户 -->
       <van-row class="user">
         <van-col span="4">
           <!-- 头像 -->
-          <van-image
-            round
-            width="60"
-            height="60"
-            :src="userImg"
-          />
+          <van-image round width="60" height="60" :src="userImg" />
         </van-col>
         <van-col class="user-name" span="6" offset="2">
           {{username}}
           <p>淘气值：{{int}}</p>
         </van-col>
         <van-col span="4" offset="7">
-          <van-image
-            width="60"
-            height="60"
-            src="https://res.suning.cn/project/msinode/wap/home/image/qr-icon.png"
-          />
+          <van-image width="60" height="60" src="https://res.suning.cn/project/msinode/wap/home/image/qr-icon.png" />
         </van-col>
       </van-row>
       <!-- 用户服务 -->
@@ -47,11 +34,7 @@
     <!-- 福利优惠 -->
     <van-row class="tic">
       <van-col offset="1" span="4">
-        <van-image
-          width="45"
-          height="30"
-          src="https://oss.suning.com/vss/activity/wximg/my/vip.png"
-        />
+        <van-image width="45" height="30" src="https://oss.suning.com/vss/activity/wximg/my/vip.png" />
       </van-col>
       <van-col class="tic-text" span="10" offset="0">【免费】您可领一张运费券</van-col>
       <van-col class="tic-to" span="5" offset="3">
@@ -67,12 +50,9 @@
       <van-row>
         <van-col class="pub-tit" span="5" offset="1">我的订单</van-col>
         <van-col class="pub-to" span="5" offset="12">
-          <div>
+          <div @click="$router.push('/orders')">
             查看全部
-            <van-icon
-              name="https://res.suning.cn/project/msinode/wap/home/image/next.png"
-              size="13"
-            />
+            <van-icon name="https://res.suning.cn/project/msinode/wap/home/image/next.png" size="13" />
           </div>
         </van-col>
       </van-row>
@@ -101,11 +81,8 @@
     <!-- 猜你喜欢 -->
     <van-row style="margin-top: 20px">
       <van-col>
-        <van-image
-          width="351"
-          height="30"
-          src="https://image1.suning.cn/uimg/cms/img/154518371251022769.png?format=_is_1242w_100h.webp"
-        />
+        <van-image width="351" height="30"
+          src="https://image1.suning.cn/uimg/cms/img/154518371251022769.png?format=_is_1242w_100h.webp" />
       </van-col>
     </van-row>
     <!-- 商品列表 -->
@@ -117,9 +94,7 @@
           <div class="footer">
             <span class="flag">￥</span>
             <span class="goods_price">{{item.price}}</span>
-            <span
-              class="goods_comments"
-            >{{item.estim > 100 ? item.estim + '+' : item.estim + '条'}}评价</span>
+            <span class="goods_comments">{{item.estim > 100 ? item.estim + '+' : item.estim + '条'}}评价</span>
           </div>
         </li>
       </ul>
@@ -130,9 +105,7 @@
           <div class="footer">
             <span class="flag">￥</span>
             <span class="goods_price">{{item.price}}</span>
-            <span
-              class="goods_comments"
-            >{{item.estim > 100 ? item.estim + '+' : item.estim + '条'}}评价</span>
+            <span class="goods_comments">{{item.estim > 100 ? item.estim + '+' : item.estim + '条'}}评价</span>
           </div>
         </li>
       </ul>

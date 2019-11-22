@@ -5,63 +5,22 @@
       <van-icon name="arrow-left" size="25" color="#000" slot="left" />
       <van-icon
         name="data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAYUExURUxpcTQ8RDQ8RDQ8RDQ8RDQ8RDQ8RDQ8RAEPSCIAAAAHdFJOUwD2cEy/EYW+tvqEAAAAb0lEQVRIDe2ROw7AMAhDwy/c/8ZVOgCVKuhayUyRsSF5WQsFAiAAAl8JiBKpPN29tv2uXTO9Jk5sxuRlz6Cp85nPrrlm0MjteM0pI4M2tGNO8Q2XiEjxDU+NSPX1QCOyqq//tsy8+bKLEwiAwK8IXL+VA7VJ24A2AAAAAElFTkSuQmCC"
-        color="#000"
-        slot="right"
-        size="25"
-      />
+        color="#000" slot="right" size="25" />
     </van-nav-bar>
     <!-- 地址列表 -->
-    <van-address-list
-      v-model="chosenAddressId"
-      :list="adrList"
-      @add="showAdd = !showAdd"
-      @edit="onEdit"
-    />
+    <van-address-list v-model="chosenAddressId" :list="adrList" @add="showAdd = !showAdd" @edit="onEdit" />
     <!-- 添加地址 -->
-    <van-dialog
-      :closeOnClickOverlay="true"
-      class="dialog"
-      v-model="showAdd"
-      width="350"
-      confirmButtonText="确认"
-      cancelButtonText="取消"
-      title="收货地址管理"
-      :showConfirmButton="false"
-    >
-      <van-address-edit
-        :area-list="areaList"
-        show-postal
-        show-set-default
-        show-search-result
-        :area-columns-placeholder="['请选择', '请选择', '请选择']"
-        @save="onSave"
-      />
+    <van-dialog :closeOnClickOverlay="true" class="dialog" v-model="showAdd" width="350" confirmButtonText="确认"
+      cancelButtonText="取消" title="收货地址管理" :showConfirmButton="false">
+      <van-address-edit :area-list="areaList" show-postal show-set-default show-search-result
+        :area-columns-placeholder="['请选择', '请选择', '请选择']" @save="onSave" />
     </van-dialog>
     <!-- 修改地址 -->
-    <van-dialog
-      :closeOnClickOverlay="true"
-      class="dialog"
-      v-model="showAdrs"
-      width="350"
-      confirmButtonText="确认"
-      cancelButtonText="取消"
-      title="收货地址管理"
-      :showConfirmButton="false"
-    >
-      <van-address-edit
-        :area-list="areaList"
-        :address-info="addressInfo"
-        show-postal
-        show-delete
-        show-set-default
-        show-search-result
-        :search-result="searchResult"
-        :area-columns-placeholder="['请选择', '请选择', '请选择']"
-        @save="onUpt"
-        @delete="onDelete"
-        @change-area="onChangeArea"
-        @change-detail="onChangeDetail"
-      />
+    <van-dialog :closeOnClickOverlay="true" class="dialog" v-model="showAdrs" width="350" confirmButtonText="确认"
+      cancelButtonText="取消" title="收货地址管理" :showConfirmButton="false">
+      <van-address-edit :area-list="areaList" :address-info="addressInfo" show-postal show-delete show-set-default
+        show-search-result :search-result="searchResult" :area-columns-placeholder="['请选择', '请选择', '请选择']" @save="onUpt"
+        @delete="onDelete" @change-area="onChangeArea" @change-detail="onChangeDetail" />
     </van-dialog>
   </div>
 </template>
@@ -93,7 +52,7 @@ export default {
       ], // 详细地址搜索结果 省市区
       showAdrs: false, // 修改、删除地址表单
       showAdd: false, // 添加地址表单
-      chosenAddressId: 1,
+      chosenAddressId: 1, // 设为默认地址
       adrList: [], // 接收的地址
       areaList: area, // 省市区选择
       addressId: 0 // 当前选择的地址id
@@ -106,19 +65,22 @@ export default {
     // 展示所有地址
     async getAddress () {
       const { data: res } = await this.$http.get('/set_getaddress')
+      let oarr = []
       res.data.forEach((val, i, arr) => {
         // console.log(arr[i])
         let obj = {}
         obj = {
-          id: i,
+          id: arr[i].id,
           name: arr[i].name,
           tel: arr[i].tel,
           address: arr[i].province + arr[i].city + arr[i].county
         }
         // 数组去重
         // this.adrList = new Set(this.adrList.push(obj))
-        this.adrList.push(obj)
+        oarr.push(obj)
       })
+      this.chosenAddressId = oarr[0].id
+      this.adrList = oarr
     },
     // 添加地址
     onSave (content) {
@@ -141,9 +103,16 @@ export default {
     // 根据id获得用户地址
     onEdit (item, index) {
       // 修改、删除地址需要用到的当前地址id
-      this.addressId = index + 1
+      this.addressId = this.adrList[index].id
+      console.log(this.addressId)
       this.$http.get('/set_getaddress/' + this.addressId).then(res => {
         console.log(res.data)
+        res.data.areaCode += ''
+        if (res.data.isDefault === 0) {
+          res.data.isDefault = true
+        } else {
+          res.data.isDefault = false
+        }
         this.addressInfo = { ...res.data }
         console.log(this.addressInfo)
       })
@@ -174,6 +143,7 @@ export default {
         if (res.data.status === 200) {
           this.$toast.success(res.data.msg)
           this.showAdrs = false
+          this.getAddress()
         } else {
           this.$toast.fail(res.data.err)
         }
@@ -184,7 +154,7 @@ export default {
       // console.log(values)
     },
     // 修改详细地址时触发
-    onChangeDetail () {}
+    onChangeDetail () { }
   }
 }
 </script>

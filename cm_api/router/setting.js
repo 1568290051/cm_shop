@@ -16,7 +16,9 @@ let takeId = function (token) {
   token = token.substring(6)
   let decode = jwt.verify(token, md5_key)
   // console.log(decode)
-  return { id } = decode
+  return {
+    id
+  } = decode
 }
 
 // 根据id得到用户的所有数据
@@ -37,7 +39,7 @@ router.get('/set_user', (req, res) => {
       // console.log(result);
       res.json(result[0])
     })
-  } catch (err) { }
+  } catch (err) {}
 })
 
 // 修改头像
@@ -161,7 +163,7 @@ router.put('/set_password', (req, res) => {
 
 // 得到地址数据
 router.get('/set_getaddress', (req, res) => {
-  let sql = 'select * from cm_address'
+  let sql = 'select * from cm_address order by isDefault'
   db.query(sql, (err, result) => {
     if (err) {
       console.log(err)
@@ -178,12 +180,20 @@ router.get('/set_getaddress', (req, res) => {
     }
   })
 })
+// 修改默认选中
+let changeDefault = function (id) {
+  db.query('update cm_address set isDefault = 1;update cm_address set isDefault = 0 where id=?', id, (error) => {
+    if (error) return 'id错误'
+  })
+}
+
 // 添加地址
 router.post('/set_address_add', (req, res) => {
   if (req.body.isDefault === false) {
     req.body.isDefault = 1
   } else {
     req.body.isDefault = 0
+    changeDefault(req.body.id)
   }
   let {
     name,
@@ -231,7 +241,7 @@ router.get('/set_getaddress/:id', (req, res) => {
   let id = req.params.id
   // console.log(id)
   let sql = 'select * from cm_address where id=?'
-  db.query(sql, id,(err, result) => {
+  db.query(sql, id, (err, result) => {
     if (err) return console.log(err)
     // console.log(result)
     res.json(result[0])
@@ -240,6 +250,12 @@ router.get('/set_getaddress/:id', (req, res) => {
 
 // 修改地址
 router.put('/set_address_upt', (req, res) => {
+  if (req.body.isDefault === false) {
+    req.body.isDefault = 1
+  } else {
+    req.body.isDefault = 0
+    changeDefault(req.body.id)
+  }
   let {
     name,
     tel,
@@ -251,8 +267,11 @@ router.put('/set_address_upt', (req, res) => {
     postalCode
   } = req.body
   // let sql = 'update cm_address set name=?,phone=?,province=?,city=?,area=?,zipcode=?,detail=? where id=?'
+  let id = req.body.id
+  delete req.body.country
+  delete req.body.id
   let sql = 'update cm_address set ? where id=?'
-  db.query(sql, req.body, (err, result) => {
+  db.query(sql, [req.body, id], (err, result) => {
     if (err) {
       console.log(err)
       return res.json({

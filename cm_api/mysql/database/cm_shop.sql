@@ -11,7 +11,7 @@
  Target Server Version : 50725
  File Encoding         : 65001
 
- Date: 22/11/2019 02:47:19
+ Date: 24/11/2019 01:23:26
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,7 @@ CREATE TABLE `cm_address`  (
   `isDefault` tinyint(2) NOT NULL COMMENT '是否为默认 0-默认，1-不为默认',
   `user_id` int(11) NOT NULL COMMENT '收货人id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cm_address
@@ -42,6 +42,12 @@ CREATE TABLE `cm_address`  (
 INSERT INTO `cm_address` VALUES (1, '渡百年', '13000000000', '浙江省', '杭州市', '西湖区', '文三路 138 号东方通信大厦 7 楼 501 室', 330106, 226000, 1, 3);
 INSERT INTO `cm_address` VALUES (2, '阿松大', '13100000000', '浙江省', '杭州市', '拱墅区', '莫干山路 50 号', 330105, 210000, 1, 3);
 INSERT INTO `cm_address` VALUES (3, '万事达', '13200000000', '浙江省', '杭州市', '滨江区', '江南大道 15 号', 330108, 220000, 1, 3);
+INSERT INTO `cm_address` VALUES (5, '哈韩', '13558237113', '浙江省', '湖州市', '吴兴区', '哈几十块', 330502, 223333, 0, 3);
+INSERT INTO `cm_address` VALUES (6, '黑暗时代', '13558237113', '浙江省', '湖州市', '吴兴区', '埃及空军打开', 330502, 511231, 1, 3);
+INSERT INTO `cm_address` VALUES (8, '据库里', '18278310138', '河北省', '秦皇岛市', '北戴河区', '萨嘎飒飒大苏打', 130304, 213123, 1, 3);
+INSERT INTO `cm_address` VALUES (9, '奥斯丁', '18278310138', '内蒙古自治区', '呼和浩特市', '新城区', '艰苦拉拉考虑', 150102, 456231, 1, 3);
+INSERT INTO `cm_address` VALUES (10, 'sad', '18278310138', '河北省', '石家庄市', '桥西区', '健康快乐的', 130104, 123113, 1, 3);
+INSERT INTO `cm_address` VALUES (11, '急啊卡的', '18278310138', '河北省', '保定市', '竞秀区', '加快速度拉卡拉', 130602, 113232, 1, 3);
 
 -- ----------------------------
 -- Table structure for cm_index_goods
@@ -3412,12 +3418,21 @@ CREATE TABLE `cm_users`  (
   `img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT 'http://image.suning.cn/uimg/cmf/cust_headpic/0000000000_01_240x240.jpg' COMMENT '用户头像',
   `sex` tinyint(3) NULL DEFAULT NULL COMMENT '性别 0-女,1-男',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of cm_users
+-- Table structure for cm_verifycode
 -- ----------------------------
-INSERT INTO `cm_users` VALUES (2, '15127096254', 'dany', '137@qq.com', 'a31cc2c415271b0c7cb905ce441ce97e', 'http://image.suning.cn/uimg/cmf/cust_headpic/0000000000_01_240x240.jpg', NULL);
-INSERT INTO `cm_users` VALUES (3, '13344445555', '测试6号', '123@123.cn', '4db49f3b981b0f16e087cd314be9b68a', 'http://image.suning.cn/uimg/cmf/cust_headpic/0000000000_01_240x240.jpg', 1);
+DROP TABLE IF EXISTS `cm_verifycode`;
+CREATE TABLE `cm_verifycode`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `verifyCode` char(8) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机验证码',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cm_verifycode
+-- ----------------------------
+INSERT INTO `cm_verifycode` VALUES (2, '405485');
 
 SET FOREIGN_KEY_CHECKS = 1;

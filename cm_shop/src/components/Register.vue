@@ -2,7 +2,7 @@
   <div class="regsister register">
     <van-nav-bar right-text="联系客服" @click-right="onService" />
     <div class="reg">
-      <h2>欢迎注册创美商城</h2>
+      <h2>欢迎注册创美创美</h2>
       <van-cell-group>
         <van-field v-model="username" clearable placeholder="请设置您的昵称" right-icon="contact" />
         <van-field v-model="password" clearable type="password" placeholder="请设置您的密码" right-icon="closed-eye" />
@@ -30,8 +30,8 @@
         <p>在您注册成为用户的过程中，您需要完成我们的注册流程并通过点击同意的形式在线签署以下协议，
           <span class="bl">请您务必仔细阅读、充分理解协议中的条款内容后再点击同意（尤其是以粗体并下划线标识的条款，
             因为这些条款可能会明确您应履行的义务或对您的权利有所限制）：</span></p>
-        <p><a href="javascript:;">《商城用户注册协议》</a></p>
-        <p><a href="javascript:;">《商城隐私政策》</a></p>
+        <p><a href="javascript:;">《创美用户注册协议》</a></p>
+        <p><a href="javascript:;">《创美隐私政策》</a></p>
         <p><a href="javascript:;">《订单共享与安全》</a></p>
         <p>
           <span class="bl">
@@ -39,15 +39,15 @@
             您停止注册后将仅可以浏览我们的商品信息但无法享受我们的产品或服务。
             如您按照注册流程提示填写信息、阅读并点击同意上述协议且完成全部注册流程后，
             即表示您已充分阅读、理解并接受协议的全部内容；
-            并表明您也同意商城可以依据以上的隐私政策内容来处理您的个人信息。</span> 如您对以上协议内容有任何疑问，您可随时与商城客服联系。
+            并表明您也同意创美可以依据以上的隐私政策内容来处理您的个人信息。</span> 如您对以上协议内容有任何疑问，您可随时与创美客服联系。
         </p>
       </div>
       <!-- 协议链接 -->
       <div class="xieyi-footer">
         <p>
           点击同意即表示您已阅读并同意
-          <a href="javascript:;">《商城用户注册协议》</a>与
-          <a href="javascript:;">《商城隐私政策》</a>
+          <a href="javascript:;">《创美用户注册协议》</a>与
+          <a href="javascript:;">《创美隐私政策》</a>
           并将您的订单信息共享给为完成此订单所必须的第三方合作方。关于
           <a href="javascript:;">《订单共享与安全》</a>
         </p>

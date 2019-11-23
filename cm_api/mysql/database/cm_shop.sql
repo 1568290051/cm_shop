@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : dany
+ Source Server         : localstudy
  Source Server Type    : MySQL
  Source Server Version : 50725
  Source Host           : localhost:3306
@@ -11,11 +11,37 @@
  Target Server Version : 50725
  File Encoding         : 65001
 
- Date: 19/11/2019 16:32:12
+ Date: 22/11/2019 02:47:19
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for cm_address
+-- ----------------------------
+DROP TABLE IF EXISTS `cm_address`;
+CREATE TABLE `cm_address`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收获人姓名',
+  `tel` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收货人联系方式',
+  `province` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '省',
+  `city` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '市',
+  `county` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '区',
+  `addressDetail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '详细地址',
+  `areaCode` int(6) NOT NULL COMMENT '地区编码',
+  `postalCode` int(6) NULL DEFAULT 0 COMMENT '邮政编码',
+  `isDefault` tinyint(2) NOT NULL COMMENT '是否为默认 0-默认，1-不为默认',
+  `user_id` int(11) NOT NULL COMMENT '收货人id',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cm_address
+-- ----------------------------
+INSERT INTO `cm_address` VALUES (1, '渡百年', '13000000000', '浙江省', '杭州市', '西湖区', '文三路 138 号东方通信大厦 7 楼 501 室', 330106, 226000, 1, 3);
+INSERT INTO `cm_address` VALUES (2, '阿松大', '13100000000', '浙江省', '杭州市', '拱墅区', '莫干山路 50 号', 330105, 210000, 1, 3);
+INSERT INTO `cm_address` VALUES (3, '万事达', '13200000000', '浙江省', '杭州市', '滨江区', '江南大道 15 号', 330108, 220000, 1, 3);
 
 -- ----------------------------
 -- Table structure for cm_index_goods
@@ -28,7 +54,7 @@ CREATE TABLE `cm_index_goods`  (
   `price` float(6, 2) NOT NULL COMMENT '商品 价格',
   `estim` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '评价数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 96 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 104 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cm_index_goods
@@ -123,6 +149,12 @@ INSERT INTO `cm_index_goods` VALUES (92, '联想ThinkPad T490（1ACD）第八代
 INSERT INTO `cm_index_goods` VALUES (93, '【千元旗舰】美的（Midea）无桶大流量直饮净水器家用厨下式禅意净水机MRO1890-100G', 'https://imgservice.suning.cn/uimg1/b2c/image/nBsQ1185kYzq3XhGwl48aA.jpg?format=_is_300w_300h_4e.webp', 998.00, '2700');
 INSERT INTO `cm_index_goods` VALUES (94, '海尔（Haier）1.5匹 变频 KFR-35GW/03DIB81A 1级能效 强劲冷暖 自清洁 静音 家用挂机空调', 'https://imgservice.suning.cn/uimg1/b2c/image/U2WN-hyN_IiWntOgfMqVcA.jpg?format=_is_300w_300h_4e.webp', 3099.00, '2.1万');
 INSERT INTO `cm_index_goods` VALUES (95, 'Apple MacBook Air 13.3英寸 i5处理器 8GB 128GB SSD 银色 笔记本电脑 超薄本 D32 MQD32CH/A', 'https://imgservice.suning.cn/uimg1/b2c/image/kHPrwni97ILf1rY2ObarHQ.jpg?format=_is_300w_300h_4e.webp', 6209.00, '10万');
+INSERT INTO `cm_index_goods` VALUES (96, '蓝漂(Lampure) 抽纸 3层100抽18包竹浆本色抽纸（整箱售卖）', 'https://imgservice.suning.cn/uimg1/b2c/image/m-EfRHVCfjIcNKCRiMFw1w.jpg_200w_200h_4e', 22.90, '0');
+INSERT INTO `cm_index_goods` VALUES (97, '蓝月亮 洗衣液机洗1kg瓶薰衣草香深层洁净', 'https://imgservice.suning.cn/uimg1/b2c/image/xR2AztcRLmGyZs8CYW3WRA.jpg_200w_200h_4e', 24.90, '0');
+INSERT INTO `cm_index_goods` VALUES (98, '全国移动 联通 电信三网 手机 话费充值 100元 快充直充 24小时自动充值快速到账', 'https://imgservice.suning.cn/uimg1/b2c/image/FtFxhqqwo_9mkR0Dbe17_g.jpg_200w_200h_4e', 99.80, '0');
+INSERT INTO `cm_index_goods` VALUES (99, '娃哈哈AD钙奶100g*24瓶散装儿童牛奶饮料', 'https://imgservice.suning.cn/uimg1/b2c/image/5pXiOkU84jXQ38PrMB7x2A.jpg_200w_200h_4e', 31.80, '0');
+INSERT INTO `cm_index_goods` VALUES (101, '卫新 薰衣草洗衣液 4.26kg 机洗净白亮色柔顺护衣威露士出品', 'https://imgservice.suning.cn/uimg1/b2c/image/s6_IHjBtf7dJD2-MPXBl7g.jpg_200w_200h_4e', 59.90, '0');
+INSERT INTO `cm_index_goods` VALUES (103, '全国 移动电信联通手机话费充值 100元 快充直充 24小时自动充值快速到账', 'https://imgservice.suning.cn/uimg1/b2c/image/4KtH6FQ0cmnjVhvUfWGlpA.jpg_200w_200h_4e', 99.80, '0');
 
 -- ----------------------------
 -- Table structure for cm_index_hbo
@@ -209,7 +241,7 @@ CREATE TABLE `cm_index_slide`  (
   `img_src` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '轮播图地址',
   `link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT ' 链接地址',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cm_index_slide
@@ -222,6 +254,31 @@ INSERT INTO `cm_index_slide` VALUES (5, 'https://oss.suning.com/aps/aps_learning
 INSERT INTO `cm_index_slide` VALUES (6, 'https://image.suning.cn/uimg/aps/material/157338768945545520.jpg?format=_is_1242w_610h', NULL);
 INSERT INTO `cm_index_slide` VALUES (7, 'https://image.suning.cn/uimg/aps/material/157346145382344556.jpg?format=_is_1242w_610h', NULL);
 INSERT INTO `cm_index_slide` VALUES (8, 'https://oss.suning.com/aps/aps_learning/iwogh/2019/11/14/16/iwoghBannerPicture/d37488170d2c4e9fbceeece87e79863d.png?format=_is_1242w_610h', NULL);
+INSERT INTO `cm_index_slide` VALUES (9, 'https://imgservice.suning.cn/uimg1/b2c/image/aCPSZ7wRK8Whp-bSD8bmdA.jpg_800w_800h_4e_100Q', 'pc');
+INSERT INTO `cm_index_slide` VALUES (10, 'https://imgservice.suning.cn/uimg1/b2c/image/aCPSZ7wRK8Whp-bSD8bmdA.jpg_800w_800h_4e_100Q', 'pc');
+INSERT INTO `cm_index_slide` VALUES (11, 'https://imgservice.suning.cn/uimg1/b2c/image/reRZQimK5cabTDZZYjCo1w.jpg_800w_800h_4e_100Q', 'pc');
+INSERT INTO `cm_index_slide` VALUES (12, 'https://imgservice.suning.cn/uimg1/b2c/image/avQ1Hpgsvxv4D_usSr4SkA.jpg_800w_800h_4e_100Q', 'pc');
+INSERT INTO `cm_index_slide` VALUES (13, 'https://imgservice.suning.cn/uimg1/b2c/image/RWIHyXuas3_DTwR7oxEORA.jpg_800w_800h_4e_100Q', 'pc');
+INSERT INTO `cm_index_slide` VALUES (14, 'https://imgservice.suning.cn/uimg1/b2c/image/B5cwQp6VjmTJYGdnrl4mng.jpg_800w_800h_4e_100Q', 'pc');
+INSERT INTO `cm_index_slide` VALUES (15, 'https://imgservice.suning.cn/uimg1/b2c/image/8CqJV7gfDSuxhd-OasX9-A.jpg_800w_800h_4e_100Q', 'pc');
+INSERT INTO `cm_index_slide` VALUES (16, 'https://imgservice.suning.cn/uimg1/b2c/image/IvoT6fHKUOzhZwdab7WKEA.jpg_800w_800h_4e_100Q', 'pc');
+INSERT INTO `cm_index_slide` VALUES (17, 'https://imgservice.suning.cn/uimg1/b2c/image/n42CnNDdbScCnf6DsbU-2A.jpg_800w_800h_4e_100Q', 'pc');
+
+-- ----------------------------
+-- Table structure for cm_orders
+-- ----------------------------
+DROP TABLE IF EXISTS `cm_orders`;
+CREATE TABLE `cm_orders`  (
+  `id` int(11) NOT NULL,
+  `g_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商品简介',
+  `g_store` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商品所属店铺',
+  `u_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收货人姓名',
+  `u_phone` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收货人联系电话',
+  `u_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收获地址',
+  `u_id` int(11) NOT NULL COMMENT '订单对应用户id',
+  `status` tinyint(3) NOT NULL DEFAULT 0 COMMENT '订单状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for cm_pc_goods
@@ -231,77 +288,70 @@ CREATE TABLE `cm_pc_goods`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '电脑标题',
   `img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '电脑图片',
+  `price` int(11) NOT NULL COMMENT '电脑价格',
   `cpuType` tinyint(3) NOT NULL COMMENT 'cpu类型：0-Intel i9, 1-Intel i7, 2-Intel i5, 3-Intel i3,  4-锐龙7, 5-锐龙5, 6-高通骁龙',
+  `scrSize` decimal(3, 1) NULL DEFAULT NULL COMMENT '屏幕尺寸',
   `store` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '所属店铺',
-  `sales` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '销量',
-  `estim` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '评价总数',
+  `sales` int(10) NOT NULL COMMENT '销量',
+  `estim` int(10) NOT NULL COMMENT '评价总数',
   `fdback` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '好评率',
+  `stock` int(5) NOT NULL COMMENT '商品库存',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cm_pc_goods
 -- ----------------------------
-INSERT INTO `cm_pc_goods` VALUES (1, '小米（MI）RedmiBook14锐龙版轻薄本搭载（ R5-3500U 8G 256GB）AMD处理器笔记本电脑预装Win10正版 手环疾速解锁 全新小米互传 银色', 'https://imgservice2.suning.cn/uimg1/b2c/image/LVMYnVZH3Wdd2Z26-qTjBA.jpg_300w_300h_4e', 5, '小米苏宁自营旗舰店', '2136', '100', '96%');
-INSERT INTO `cm_pc_goods` VALUES (2, '华硕(ASUS)灵耀Deluxe14 14英寸微边全面屏超轻薄创意设计笔记本第八代英特尔®酷睿™i5(i5-8265U 8G512GB MX150-2G独显)冰钻银', 'https://imgservice2.suning.cn/uimg1/b2c/image/CkOnVKTZPuPZ6ucI3hP4RQ.jpg_300w_300h_4e', 2, '华硕电脑苏宁自营旗舰店', '9341', '700', '100%');
-INSERT INTO `cm_pc_goods` VALUES (3, '联想(Lenovo)小新青春版 2019年新款 英特尔酷睿i3 14英寸轻薄本笔记本电脑(I3-8145U 4G 256GB+16G傲腾 )追梦银', 'https://imgservice3.suning.cn/uimg1/b2c/image/uoWJXs2Ry42AWWeoIfu3lg.jpg_300w_300h_4e', 3, '联想苏宁自营旗舰店', '5011', '100', '96%');
-INSERT INTO `cm_pc_goods` VALUES (4, '戴尔（DELL）G3 3590-R1545BL 第九代英特尔®酷睿™i5 15.6英寸游戏本笔记本电脑（i5-9300H/8G内存/1TB+128GB/GTX 1650/4G独显）', 'https://imgservice1.suning.cn/uimg1/b2c/image/sw6XRCv9dYgccfrcGmWZcQ.jpg_300w_300h_4e', 2, '戴尔苏宁自营旗舰店', '5010', '4400', '99%');
-INSERT INTO `cm_pc_goods` VALUES (5, '惠普(HP)星系列星14-ce3057TX 14英寸轻薄本笔记本电脑(i5-1035G7 8G 512SSD MX250 独显）', 'https://imgservice2.suning.cn/uimg1/b2c/image/GkQDPBXMZV_ozy4poolO9A.jpg_300w_300h_4e', 2, '惠普苏宁自营旗舰店', '4917', '100', '97%');
-INSERT INTO `cm_pc_goods` VALUES (6, '华硕(ASUS)adol 14英寸四面窄边框轻薄本笔记本电脑第八代英特尔®酷睿™i5(i5-8265U 8G 256GB固态 IPS)银蓝灰', 'https://imgservice.suning.cn/uimg1/b2c/image/ifTc4QjwgtGevjmqkB2d1g.jpg_400w_400h_4e', 2, '苏宁自营', '6085', '4700', '99%');
-INSERT INTO `cm_pc_goods` VALUES (7, '惠普(HP)星系列星14-ce3035TX14英寸轻薄本笔记本电脑(i5-1035G7 8G 512SSD MX250 粉色）', 'https://imgservice1.suning.cn/uimg1/b2c/image/HP4e7CWZUS9HJJyAaP64rA.jpg_300w_300h_4e', 2, '惠普苏宁自营旗舰店', '2605', '90', '99%');
-INSERT INTO `cm_pc_goods` VALUES (8, '小米(MI)Pro 15.6英寸全金属轻薄本2019新款笔记本电脑(i5-8250U 8G 256GSSD 2G独显 预装office 指纹识别 背光键盘 深空灰)', 'https://imgservice3.suning.cn/uimg1/b2c/image/W2Zvub8e7aNM3o1nQFruLA.jpg_300w_300h_4e', 2, '小米苏宁自营旗舰店', '4981', '1600', '95%');
-INSERT INTO `cm_pc_goods` VALUES (9, '惠普(hp) 光影精灵5代第9代英特尔酷睿i5游戏本笔记本电脑（i5-9300H 8G 512SSD GTX1650 傲腾增强型SSD32G）', 'https://imgservice4.suning.cn/uimg1/b2c/image/CPtrgbb0eN7X4BSJkNZmRQ.jpg_300w_300h_4e', 2, '惠普苏宁自营旗舰店', '10711', '3100', '99%');
-INSERT INTO `cm_pc_goods` VALUES (10, 'Apple MacBook Air 13.3英寸 i5处理器 8GB 128GB SSD 银色 笔记本电脑 超薄本 D32 MQD32CH/A', 'https://imgservice3.suning.cn/uimg1/b2c/image/kHPrwni97ILf1rY2ObarHQ.jpg_300w_300h_4e', 2, 'Apple产品苏宁自营旗舰店', '3022', '10', '99%');
-INSERT INTO `cm_pc_goods` VALUES (11, '联想(Lenovo)Ideapad330 N4100 8GB 500GB+128GB 2G 独显15.6英寸 商务办公 学生游戏 笔记本电脑', 'https://imgservice.suning.cn/uimg1/b2c/image/9BrL9J2IwIs7NzIuEecskw.jpg_400w_400h_4e', 6, '明硕电脑专营店', '8436', '800', '99%');
-INSERT INTO `cm_pc_goods` VALUES (12, '联想Lenovo Ideapad330C 340C升级版 15.6英寸 I7-8565U 8G 512GB MX110 2G 轻薄大屏商务游戏笔记本电脑窄边框FHD 定制版 优雅银', 'https://imgservice1.suning.cn/uimg1/b2c/image/KMKlnNwsYk8HM4SEBY3CVA.jpg_300w_300h_4e', 1, '宏金远航电脑专营店', '8362', '200', '99%');
-INSERT INTO `cm_pc_goods` VALUES (13, '华硕(ASUS)飞行堡垒7代15.6英寸窄边框电竞屏学生游戏本笔记本电脑 (九代英特尔® 酷睿™ i5-9300H 8GB 512GB GTX1650)金属电竞版（FX95）', 'https://imgservice1.suning.cn/uimg1/b2c/image/mXrRuOHyBcW8EiI__pkryg.jpg_300w_300h_4e', 2, '华硕电脑苏宁自营旗舰店', '8099', '50', '98%');
-INSERT INTO `cm_pc_goods` VALUES (14, '戴尔（DELL）Ins 14-5490-R2625S 英特尔®酷睿™i5 14英寸灵越轻薄笔记本电脑学生电脑（i5-10210U 8G 1TGB固态硬盘）', 'https://imgservice1.suning.cn/uimg1/b2c/image/mk8PHJwQObeEJaTDIuz7yQ.jpg_300w_300h_4e', 2, '戴尔苏宁自营旗舰店', '11865', '100', '100%');
-INSERT INTO `cm_pc_goods` VALUES (15, '雷神(THUNDEROBOT)911MT15.6英寸窄边框全面屏发烧游戏本笔记本电脑（9代酷睿I7-9750H 8G GTX1650 256GB高速固态+1T机械）', 'https://imgservice1.suning.cn/uimg1/b2c/atmosphere/EwYVQNF0eEEu7rVSW6cEsA.jpg_300w_300h_4e', 1, '雷神电脑苏宁自营旗舰店', '10630', '200', '100%');
-INSERT INTO `cm_pc_goods` VALUES (16, 'Asus 华硕顽石全新2019款手提电脑上网商务办公超薄笔记本电脑轻薄便携窄边框学生男生女生款超级本8G 500GB+128GB 2G 定制款畅玩版', 'https://imgservice.suning.cn/uimg1/b2c/image/c8wkFiyfMZNdTkVQIio2mw.jpg_400w_400h_4e', 6, '点个赞电脑专营店', '7740', '100', '98%');
-INSERT INTO `cm_pc_goods` VALUES (17, '华硕（ASUS）顽石锋锐版 V580QR系列 15.6英寸笔记本电脑（AMD FX-9800P 4GB 256GB AMD Radeon™ 535)金色', 'https://imgservice3.suning.cn/uimg1/b2c/image/5F1NY-lN9hCCfFAgXC5MxA.jpg_300w_300h_4e', 5, '华硕电脑苏宁自营旗舰店', '8780', '10', '85%');
-INSERT INTO `cm_pc_goods` VALUES (18, '惠普(HP)星14青春版轻薄窄边框办公学生手提笔记本电脑（14英寸 R3-3200U 8G内存 512G固态', 'https://imgservice2.suning.cn/uimg1/b2c/image/VgXT2QrqkKC2G7whvJDiKQ.jpg_300w_300h_4e', 6, '惠普佳联专卖店', '4860', '300', '99%');
-INSERT INTO `cm_pc_goods` VALUES (19, '联想（Lenovo）扬天V110 14英寸商务家用轻薄便携笔记本电脑（AMD E2-9010 8G内存 256GB固态 2G独显 无光驱）定制 黑', 'https://imgservice5.suning.cn/uimg1/b2c/image/Lo3c4KdRE2i6AX38Y32msg.jpg_300w_300h_4e', 5, '京兴隆电脑旗舰店', '5858', '1000', '99%');
-INSERT INTO `cm_pc_goods` VALUES (20, '神舟战神Z7-CT7NA 15.6英寸电竞吃鸡游戏本全面屏笔记本电脑（I7-9750H 8GB 512GB SSD GTX1660Ti 6G独显 IPS)', 'https://imgservice4.suning.cn/uimg1/b2c/image/hrhUCCHpCwdM3kUzuLA9Pg.jpg_300w_300h_4e', 1, '神舟战神苏宁自营旗舰店', '11552', '1300', '99%');
-INSERT INTO `cm_pc_goods` VALUES (21, '华硕（ASUS）顽石窄边框K505超轻薄本学生本商用办公本笔记本电脑（A6-9225 8GB 1TB 128GB 2G独显） 定制版（白灰金三色可选）', 'https://imgservice.suning.cn/uimg1/b2c/image/uNRrf-H9Pio3qeaxvGDUKg.jpg_400w_400h_4e', 6, '点个赞电脑专营店', '3685', '300', '98%');
-INSERT INTO `cm_pc_goods` VALUES (22, '华为（HUAWEI）荣耀MagicBook AMD锐龙5 3500U移动处理器 8G内存 定制512GB纯固态 集成显卡 14.0英寸 轻薄本 商务办公 娱乐 笔记本电脑 无系统', 'https://imgservice3.suning.cn/uimg1/b2c/image/WNYnIvkJ81xK-Oe5HoK3Rw.jpg_300w_300h_4e', 5, '宏金远航电脑专营店', '9918', '100', '96%');
-INSERT INTO `cm_pc_goods` VALUES (23, '联想Lenovo 小新Air 14英寸 AMD锐龙版 R5-3500U 升级20G 512GB PCIE固态 集成显卡 办公工作 移动处理器 金属机身 便携轻薄本 定制 笔记本电脑', 'https://imgservice1.suning.cn/uimg1/b2c/image/AfzE8kmm55F5yEN9wSvc2A.jpg_300w_300h_4e', 5, '宏金远航电脑专营店', '3410', '100', '98%');
-INSERT INTO `cm_pc_goods` VALUES (24, '雷神(THUNDEROBOT)召唤师911Plus17.3英寸72色域电竞屏发烧游戏本笔记本电脑（i7-9750H 8G GTX1660Ti 512GB 144Hz）', 'https://imgservice2.suning.cn/uimg1/b2c/image/yfqpmBED56r9t_2bEWQJIg.jpg_300w_300h_4e', 1, '雷神电脑苏宁自营旗舰店', '4551', '500', '99%');
-INSERT INTO `cm_pc_goods` VALUES (25, '2019款 新品 Apple MacBook Air 13.3英寸 笔记本电脑 i5 1.6GHz 8GB 128GB 银色 MVFK2CH/A', 'https://imgservice4.suning.cn/uimg1/b2c/image/uHekBDRey9VgN0dyIH23Ig.jpg_300w_300h_4e', 2, 'Apple产品苏宁自营旗舰店', '2741', '200', '100%');
-INSERT INTO `cm_pc_goods` VALUES (26, 'Asus 华硕灵耀TP301新品intel i5高清手提电脑上网商务办公超极本触屏笔记本电脑二合一轻薄便携学生本360度翻转触摸屏8GB512GB定制款', 'https://imgservice.suning.cn/uimg1/b2c/image/cyM_AmFS0VUhxY9wq2NS4w.jpg_400w_400h_4e', 2, '点个赞电脑专营店', '10536', '50', '98%');
-INSERT INTO `cm_pc_goods` VALUES (27, '联想(Lenovo)ideapad L340 15.6英寸大屏笔记本电脑 (i5-8265U 8G 1TB+256GB 2G独显 定制 )家用影音商务办公企业采购游戏本轻薄本', 'https://imgservice4.suning.cn/uimg1/b2c/image/G0nCUob3ZvZCqLv9c6ZkLw.jpg_300w_300h_4e', 2, '联想苏宁自营旗舰店', '8869', '80', '99%');
-INSERT INTO `cm_pc_goods` VALUES (28, '惠普(hp) 光影精灵5代 九代酷睿i7 15.6英寸创意设计笔记本电脑( i7-9750H 8G 512GB GTX1660Ti MAX-Q 144HZ)', 'https://imgservice5.suning.cn/uimg1/b2c/image/LKcduq7UZxx8QQU22POSFw.jpg_300w_300h_4e', 1, '惠普苏宁自营旗舰店', '6912', '1100', '99%');
-INSERT INTO `cm_pc_goods` VALUES (29, '联想(Lenovo)小新14.0英寸 2019年新款 英特尔酷睿i5 轻薄本笔记本电脑(i5-8265U 8G 256G SSD )渣渣灰', 'https://imgservice2.suning.cn/uimg1/b2c/image/mSua166XvB9qYb-9n1sngQ.jpg_300w_300h_4e', 2, '联想苏宁自营旗舰店', '6838', '2300', '99%');
-INSERT INTO `cm_pc_goods` VALUES (30, '华硕ASUS飞行堡垒6代FX86（酷睿i5-8300H 8G内存1TB+256GB固态 GTX1050Ti-4G独显）标配版 15.6英寸大屏本轻薄本发烧电竞屏专业游戏本笔记本电脑', 'https://imgservice5.suning.cn/uimg1/b2c/image/UTPOTJvlIwafel2x2-b-1A.jpg_300w_300h_4e', 2, '华硕协之鹏电脑专卖店', '9367', '1700', '99%');
-INSERT INTO `cm_pc_goods` VALUES (31, '华硕(ASUS)畅玩版15.6英寸顽石商务办公娱乐本轻薄本游戏本学生本笔记本电脑手提电脑正品全新 FX-8800P四核 8G内存 1TB+128GB 2G定制款畅玩版', 'https://imgservice.suning.cn/uimg1/b2c/image/pja1cju6GIJ2DNUb1_oqdw.jpg_400w_400h_4e', 6, '点个赞电脑专营店', '9732', '1100', '99%');
-INSERT INTO `cm_pc_goods` VALUES (32, '戴尔（DELL）G3-3590-R1742BL 第九代英特尔®酷睿™i7 15.6英寸游戏本笔记本电脑（i7-9750H/8G内存/512GB 固态/GTX 1650/4G独显）', 'https://imgservice4.suning.cn/uimg1/b2c/image/rKZqR6LMl_T9S5l30GLBvw.jpg_300w_300h_4e', 1, '戴尔苏宁自营旗舰店', '6623', '1000', '99%');
-INSERT INTO `cm_pc_goods` VALUES (33, '联想Lenovo Ideapad720S 14.0英寸轻薄本笔记本电脑( I7-8550U 8G 256GB 2G独显 银)', 'https://imgservice2.suning.cn/uimg1/b2c/image/ZQ2FL14bg0PE3ZdMgU9HHA.jpg_300w_300h_4e', 1, '联想苏宁自营旗舰店', '5863', '3600', '99%');
-INSERT INTO `cm_pc_goods` VALUES (34, '华硕(ASUS) VivoBook15 V5000FL8265 15.6英寸四面窄边轻薄游戏笔记本电脑(i5-8265U 8G 512GBSSD MX250 2G独显)银色 标配', 'https://imgservice2.suning.cn/uimg1/b2c/image/4N9Q0vCeTWfHHcgtjwAAmQ.jpg_300w_300h_4e', 2, '曜银电脑专营店', '11177', '100', '100%');
-INSERT INTO `cm_pc_goods` VALUES (35, '戴尔（DELL）燃7000 Ins 14-5480-R1625R 英特尔®酷睿™i5 14英寸灵越轻薄本学生本笔记本电脑（i5-8265U 8G 256GBSSD 2G独显）', 'https://imgservice4.suning.cn/uimg1/b2c/image/oii6swMVrU9f-H757sldww.jpg_300w_300h_4e', 2, '戴尔苏宁自营旗舰店', '9119', '500', '99%');
-INSERT INTO `cm_pc_goods` VALUES (36, '华硕(ASUS) E402 X402轻薄本轻薄本办公本学生本笔记本电脑手提电脑BP9000九代处理器 4GB512GB固态硬盘 超轻薄 白蓝可选 定制款', 'https://imgservice.suning.cn/uimg1/b2c/image/BNAHa1q4-Lpxu2ga5LdBCA.jpg_400w_400h_4e', 6, '点个赞电脑专营店', '9107', '100', '100%');
-INSERT INTO `cm_pc_goods` VALUES (37, '联想(Lenovo)小新15新款2019轻薄笔记本电脑i5-8265U 8G 256GB固态 MX250满血版显卡2G 15.6英寸商务游戏学生学习手提超极本定制版 银色', 'https://imgservice5.suning.cn/uimg1/b2c/image/yBxQdGZtVUtnjm4sVxKX0Q.jpg_300w_300h_4e', 2, '明硕电脑专营店', '3094', '100', '100%');
-INSERT INTO `cm_pc_goods` VALUES (38, '华为 HUAWEI MateBook 14 第三方Linux版 14英寸全面屏超轻薄笔记本电脑（ i7-8565U 8GB 512GB固态硬盘 MX250独显 2K高清屏 皓月银）', 'https://imgservice1.suning.cn/uimg1/b2c/image/p1BTpER297rk0Dygfuzzyw.jpg_300w_300h_4e', 1, '华为电脑苏宁自营旗舰店', '3304', '60', '95%');
-INSERT INTO `cm_pc_goods` VALUES (39, '华硕（ASUS）顽石 A441 14英寸轻薄时尚商务办公便携笔记本电脑定制', 'https://imgservice1.suning.cn/uimg1/b2c/image/cpqv-cQoJMyLk2eV4tRI7g.jpg_300w_300h_4e', 6, '京兴隆电脑旗舰店', '4658', '400', '99%');
-INSERT INTO `cm_pc_goods` VALUES (40, '2019款 新品 Apple MacBook Pro 13.3英寸 笔记本电脑 i5 1.4GHz 8GB 128GB 轻薄本 有触控栏 银色 MUHQ2CH/A', 'https://imgservice2.suning.cn/uimg1/b2c/image/S9eByoZCXxNFbcrwLqMUkA.jpg_300w_300h_4e', 2, 'Apple产品苏宁自营旗舰店', '2829', '200', '99%');
-INSERT INTO `cm_pc_goods` VALUES (41, '华硕ASUS飞行堡垒7代（锐龙R7-3750H 8G内存512GB固态 GTX1660Ti 6G独显 120Hz电竞屏）官方标配 15.6英寸轻薄本大屏发烧专业游戏本笔记本电脑', 'https://imgservice.suning.cn/uimg1/b2c/image/JT_1fSPc-BKzvy7hhelhBw.jpg_400w_400h_4e', 4, '协之鹏电脑专营店', '4171', '300', '99%');
-INSERT INTO `cm_pc_goods` VALUES (42, '华为 HUAWEI MateBook X Pro 2019款 第三方Linux版 13.9英寸全面屏轻薄本笔记本电脑（i7-8565U 8GB 512GB固态硬盘 独显 深空灰）', 'https://imgservice1.suning.cn/uimg1/b2c/image/e5BGu0_D811J14IBUgz93Q.jpg_300w_300h_4e', 1, '华为电脑苏宁自营旗舰店', '6617', '400', '99%');
-INSERT INTO `cm_pc_goods` VALUES (43, '联想(Lenovo) ideapad330C 15.6英寸 I5-8250U 8G 256GB MX110 2G独显 320C 升级版 家用商务办公 轻薄本游戏便携 手提笔记本电脑', 'https://imgservice3.suning.cn/uimg1/b2c/image/3P7RZY-Pv9lI6lWdzhMbwg.jpg_300w_300h_4e', 2, '宏金远航电脑专营店', '3011', '400', '99%');
-INSERT INTO `cm_pc_goods` VALUES (44, '戴尔（DELL）Ins 14-5490-R1625S 英特尔®酷睿™i5 14英寸灵越轻薄笔记本电脑学生电脑（i5-10210U 8G 512GB固态硬盘2G独显）', 'https://imgservice5.suning.cn/uimg1/b2c/image/mHlF0-N7ACuzcXosWR5kMA.jpg_300w_300h_4e', 2, '戴尔苏宁自营旗舰店', '4993', '500', '99%');
-INSERT INTO `cm_pc_goods` VALUES (45, '神舟战神G7-CT7NA 17.3英寸电竞吃鸡游戏本全面屏笔记本电脑（I7-9750H 8GB 512GB SSD GTX1660Ti 6G 144HZ 72%色域)', 'https://imgservice3.suning.cn/uimg1/b2c/image/hQ9b0ZnTaZLwTVFm3c4DHQ.jpg_300w_300h_4e', 1, '神舟战神苏宁自营旗舰店', '11347', '700', '99%');
-INSERT INTO `cm_pc_goods` VALUES (46, '华硕(ASUS)顽石轻薄版A505ZA 商务学生本手提便携轻薄本笔记本电脑手提电脑锐龙R3-2300U 8G 256G固态 VEGA3核显 香槟金定制版', 'https://imgservice.suning.cn/uimg1/b2c/image/dx7zZV_VgLNi-XOfUfDg2w.jpg_400w_400h_4e', 6, '点个赞电脑专营店', '7323', '2', '100%');
-INSERT INTO `cm_pc_goods` VALUES (47, '联想（Lenovo）ideapad120S 14英寸轻薄本笔记本电脑(N3350 4G 128GB SSD 银色)', 'https://imgservice2.suning.cn/uimg1/b2c/image/NuhyhfMKsQZ7SnfumU5gcw.png_300w_300h_4e', 6, '联想苏宁自营旗舰店', '4630', '1', '99%');
-INSERT INTO `cm_pc_goods` VALUES (48, '华硕(ASUS)灵耀S4200/R421UA 14.0英寸超极本轻薄本学生本笔记本电脑 i3 8GB内存 256GB固态 高清屏', 'https://imgservice2.suning.cn/uimg1/b2c/image/7dTQcMk6ujSu---7YHvV-A.jpg_300w_300h_4e', 3, '明硕电脑专营店', '5418', '500', '99%');
-INSERT INTO `cm_pc_goods` VALUES (49, '戴尔（DELL）灵越燃5000 5580 15.6英寸 轻薄本 游戏本 笔记本电脑 i5-8265U 8G 1TB+128GB固态 2G独显 高清屏 银色 定制', 'https://imgservice2.suning.cn/uimg1/b2c/image/6s2H81An-ixm1xJItbROyw.png_300w_300h_4e', 2, '鑫恒浩电脑旗舰店', '2923', '2000', '99%');
-INSERT INTO `cm_pc_goods` VALUES (50, '华硕(ASUS)灵耀Deluxe13 13.3英寸微边全面屏超轻薄创意设计笔记本第八代英特尔®酷睿™i5(i5-8265U 8G512GB MX150-2G独显)尊爵蓝', 'https://imgservice2.suning.cn/uimg1/b2c/image/05dFfxFqRTnVB-97WPjIqQ.jpg_300w_300h_4e', 2, '华硕电脑苏宁自营旗舰店', '6815', '700', '99%');
-INSERT INTO `cm_pc_goods` VALUES (51, '华硕顽石（ASUS）全面屏 灵耀四面窄边框大学生本女生款轻薄游戏笔记本电脑手提电脑i58250U 8G 512G固态 2G独显高清屏 灰 银色 定制款', 'https://imgservice.suning.cn/uimg1/b2c/image/DB1KCzdzS_awSdMjMsWUXg.jpg_400w_400h_4e', 2, '点个赞电脑专营店', '6472', '1600', '99%');
-INSERT INTO `cm_pc_goods` VALUES (52, '联想（Lenovo）小新15 2019款 英特尔酷睿 i5-8265U 8G 512GB 2G独显 15.6英寸笔记本电脑轻薄游戏本窄边框商务办公本娱乐学生 蓝色 银灰可选 定制版', 'https://imgservice2.suning.cn/uimg1/b2c/image/IaH4Bwkt008NhiF0aZJgyg.jpg_300w_300h_4e', 2, '联想嘉合永兴专卖店', '5082', '200', '99%');
-INSERT INTO `cm_pc_goods` VALUES (53, '华硕a豆（adol）A豆UN8250（i5-8250U 8G内存256GB固态 MX150-2G独显）官方标配 13.3英寸全面屏指纹识别轻薄本超长续航本商务办公本娱乐本笔记本电脑', 'https://imgservice2.suning.cn/uimg1/b2c/image/BSu8T7z8oiGyTGSweogKFA.jpg_300w_300h_4e', 2, '华硕协之鹏电脑专卖店', '4579', '600', '99%');
-INSERT INTO `cm_pc_goods` VALUES (54, '华硕（ASUS）顽石 FL8000UQ 15.6英寸轻薄便携游戏笔记本电脑定制 正派灰', 'https://imgservice1.suning.cn/uimg1/b2c/image/gMhiw3p-cbruI3bBkzUdvQ.jpg_300w_300h_4e', 6, '京兴隆电脑旗舰店', '6735', '600', '99%');
-INSERT INTO `cm_pc_goods` VALUES (55, '惠普(hp)ENVY x360 13-ag0047AU 13.3英寸翻转轻薄本笔记本电脑（Ryzen5-2500U 8GB 512SSD IPS触控屏）', 'https://imgservice3.suning.cn/uimg1/b2c/image/UeURc010qhZ81P6w0Cmq0g.jpg_300w_300h_4e', 6, '惠普苏宁自营旗舰店', '7108', '1100', '99%');
-INSERT INTO `cm_pc_goods` VALUES (56, '华硕（ASUS）灵耀商务办公本超薄本窄边框超级本触控触摸屏翻转笔记本电脑平板电脑二合一手提电脑轻薄本酷睿M3 7Y30 4G内存128G固态+128G固态定制版', 'https://imgservice.suning.cn/uimg1/b2c/image/ksatmJlgySbdXPVojJZ1zw.jpg_400w_400h_4e', 6, '点个赞电脑专营店', '6153', '2', '100%');
-INSERT INTO `cm_pc_goods` VALUES (57, '神舟战神Z7-CT7VH 15.6英寸电竞吃鸡游戏本全面屏笔记本电脑（I7-9750H 8GB 256GB SSD+1TB GTX1660Ti 6G独显 IPS)', 'https://imgservice1.suning.cn/uimg1/b2c/image/NY8u9mA0SKfQi8kqmpWxwg.jpg_300w_300h_4e', 1, '神舟战神苏宁自营旗舰店', '2521', '400', '99%');
-INSERT INTO `cm_pc_goods` VALUES (58, '联想ThinkPad S3 锋芒 (0PCD) 2019新品 第八代英特尔®酷睿™i7 14英寸轻薄本笔记本电脑 i7-8565U 8G 512G SSD 2G独显 FHD 钛度灰', 'https://imgservice3.suning.cn/uimg1/b2c/image/vzFjAAn12Q-7DTv81fZ1PQ.jpg_300w_300h_4e', 1, 'ThinkPad苏宁自营旗舰店', '8456', '300', '99%');
-INSERT INTO `cm_pc_goods` VALUES (59, '戴尔（DELL）游匣G3 15.6英寸游戏本轻薄学生电竞笔记本电脑（i5-9300H 8G 1TB+128GB PCIe固态 GTX1650 4G独显 黑色 72%色域）定制', 'https://imgservice1.suning.cn/uimg1/b2c/image/6NZIgkLeBpDMrMJPyRg5jw.jpg_300w_300h_4e', 2, '曜银电脑专营店', '2276', '3500', '99%');
-INSERT INTO `cm_pc_goods` VALUES (60, '华硕顽石(ASUS) 六代FL8700F 15.6英寸笔记本电脑(i5-8265U 4G 256GSSD 2G独显 傲腾16G)银色', 'https://imgservice1.suning.cn/uimg1/b2c/image/BA_HX5buvlL5dV8vWI9m_A.jpg_300w_300h_4e', 2, '华硕电脑苏宁自营旗舰店', '5304', '20', '100%');
+INSERT INTO `cm_pc_goods` VALUES (1, '2019款 新品 Apple MacBook Pro 13.3英寸 笔记本电脑 酷睿i5 1.4GHz 8GB 128GB 有触控栏 银色 MUHQ2 中文版', 'https://imgservice.suning.cn/uimg1/b2c/image/KRrWwEJ68MbWHempKyqR8g.jpg_400w_400h_4e', 8878, 2, 13.3, '黑海数码海外官方旗舰店', 4265, 100, '97%', 200);
+INSERT INTO `cm_pc_goods` VALUES (2, '联想(Lenovo)小新青春版 2019年新款 英特尔酷睿i3 14英寸轻薄本笔记本电脑(I3-8145U 4G 256GB+16G傲腾 )追梦银', 'https://imgservice3.suning.cn/uimg1/b2c/image/uoWJXs2Ry42AWWeoIfu3lg.jpg_300w_300h_4e', 3030, 3, 14.0, '联想苏宁自营旗舰店', 4372, 100, '96%', 200);
+INSERT INTO `cm_pc_goods` VALUES (3, '华硕(ASUS)灵耀Deluxe14 14英寸微边全面屏超轻薄创意设计笔记本第八代英特尔®酷睿™i5(i5-8265U 8G512GB MX150-2G独显)冰钻银', 'https://imgservice2.suning.cn/uimg1/b2c/image/CkOnVKTZPuPZ6ucI3hP4RQ.jpg_300w_300h_4e', 6999, 2, 14.0, '华硕电脑苏宁自营旗舰店', 4208, 800, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (4, '神舟战神Z7M-CT7NA 15.6英寸电竞吃鸡游戏本全面屏笔记本电脑（I7-9750H 8GB 512GB SSD GTX1650 4G独显 IPS)', 'https://imgservice3.suning.cn/uimg1/b2c/image/MiXibF2hZ9oP_L-Wg-dVJw.jpg_300w_300h_4e', 5999, 1, 15.6, '神舟战神苏宁自营旗舰店', 8636, 900, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (5, '戴尔（DELL）G3 3590-R1545BL 第九代英特尔®酷睿™i5 15.6英寸游戏本笔记本电脑（i5-9300H/8G内存/1TB+128GB/GTX 1650/4G独显）', 'https://imgservice1.suning.cn/uimg1/b2c/image/sw6XRCv9dYgccfrcGmWZcQ.jpg_300w_300h_4e', 5699, 2, 15.6, '戴尔苏宁自营旗舰店', 4739, 4600, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (6, '联想(Lenovo)Ideapad330 N4100 8GB 500GB+128GB 2G 独显15.6英寸 商务办公 学生游戏 笔记本电脑', 'https://imgservice.suning.cn/uimg1/b2c/image/9BrL9J2IwIs7NzIuEecskw.jpg_400w_400h_4e', 3099, 6, 15.6, '明硕电脑专营店', 8200, 800, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (7, '联想(Lenovo)小新14.0英寸 锐龙版R5 2019年新款 轻薄本笔记本电脑(R5 3500U 8G 1T+256G SSD PCIE IPS)渣渣灰', 'https://imgservice4.suning.cn/uimg1/b2c/image/XzCEKSNnHzsMrGOl1_WZrg.jpg_300w_300h_4e', 3699, 5, 14.0, '联想苏宁自营旗舰店', 5990, 800, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (8, 'Apple MacBook Air 13.3英寸 i5处理器 8GB 128GB SSD 银色 笔记本电脑 超薄本 D32 MQD32CH/A', 'https://imgservice3.suning.cn/uimg1/b2c/image/kHPrwni97ILf1rY2ObarHQ.jpg_300w_300h_4e', 6209, 2, 13.3, 'Apple产品苏宁自营旗舰店', 4713, 10, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (9, '联想ThinkPad E490（2XCD）第八代英特尔®酷睿™i5 14.0英寸轻薄本笔记本电脑i5-8265U 8G 1TB+128GB 2G独显 FHD', 'https://imgservice3.suning.cn/uimg1/b2c/image/fA-NG6ZH1HKBINRUKdeBgg.jpg_300w_300h_4e', 4899, 2, 14.0, 'ThinkPad苏宁自营旗舰店', 6582, 1100, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (10, '惠普(HP)星系列星14-ce3057TX 14英寸轻薄本笔记本电脑(i5-1035G7 8G 512SSD MX250 独显）', 'https://imgservice2.suning.cn/uimg1/b2c/image/GkQDPBXMZV_ozy4poolO9A.jpg_300w_300h_4e', 5299, 2, 14.0, '惠普苏宁自营旗舰店', 6170, 100, '97%', 200);
+INSERT INTO `cm_pc_goods` VALUES (11, 'Asus 华硕灵耀TP301新品intel i5高清手提电脑上网商务办公超极本触屏笔记本电脑二合一轻薄便携学生360度翻转大学生12GB 512GB定制款', 'https://imgservice.suning.cn/uimg1/b2c/image/O9FY7vN0AB9CNxzFUg1iPA.jpg_400w_400h_4e', 4099, 2, 13.5, '点个赞电脑专营店', 5069, 100, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (12, '惠普(hp) 光影精灵5代第9代英特尔酷睿i5游戏本笔记本电脑（i5-9300H 8G 512SSD GTX1650 傲腾增强型SSD32G）', 'https://imgservice4.suning.cn/uimg1/b2c/image/CPtrgbb0eN7X4BSJkNZmRQ.jpg_300w_300h_4e', 6299, 2, 15.6, '惠普苏宁自营旗舰店', 3666, 3400, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (13, '华硕(ASUS)adol 14英寸四面窄边框轻薄本笔记本电脑第八代英特尔®酷睿™i5(i5-8265U 8G 256GB固态 IPS)银蓝灰', 'https://imgservice1.suning.cn/uimg1/b2c/image/ifTc4QjwgtGevjmqkB2d1g.jpg_300w_300h_4e', 4303, 2, 14.0, '华硕电脑苏宁自营旗舰店', 5399, 5300, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (14, '戴尔（DELL）灵越燃5000 5593 15.6英寸 轻薄本 窄边框 笔记本电脑 十代 i5-1035G1 8G 1TB+256GB固态 MX230 2G独显 高清屏 银色 定制', 'https://imgservice3.suning.cn/uimg1/b2c/image/ljd1a4FBv0Rbp6yoPW1Jag.jpg_300w_300h_4e', 4499, 2, 15.6, '鑫恒浩电脑旗舰店', 5112, 3500, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (15, '神舟战神G7-CT7VK 17.3英寸电竞吃鸡游戏本全面屏笔记本电脑（I7-9750H 16GB 256GB SSD+1TB GTX1660Ti 6G 144HZ 72%色域)', 'https://imgservice4.suning.cn/uimg1/b2c/image/CtDtER6norMWwkI8CgmDpw.jpg_300w_300h_4e', 7899, 1, 17.3, '神舟战神苏宁自营旗舰店', 7083, 400, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (16, '惠普(HP)暗影精灵5 15-dc1067TX 15.6英寸发烧游戏本笔记本电脑（i7-9750H 8G 512GB GTX1660Ti 6G 144Hz电竞屏 72%高色域）', 'https://imgservice.suning.cn/uimg1/b2c/atmosphere/kPr-g-er0zIDkY3flC28Hw.jpg_400w_400h_4e', 8129, 1, 15.6, '辉煌电脑专营店', 5954, 20, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (17, '2019新品 Apple MacBook Pro 13.3英寸 八代i5处理器 8GB 256GB SSD 深空灰 带触控栏 笔记本电脑 轻薄本 设计师电脑 MV962CH/A', 'https://imgservice1.suning.cn/uimg1/b2c/image/LKa-OuIMk-Loc6DPU3ZGXA.jpg_300w_300h_4e', 12809, 2, 13.3, 'Apple产品苏宁自营旗舰店', 3606, 500, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (18, '戴尔（DELL）游匣G3 3590 15.6英寸 吃鸡本 发烧游戏本 笔记本电脑 i5-9300H 8G 1TB+128GB固态 GTX1650 4G独显 IPS 标准版', 'https://imgservice4.suning.cn/uimg1/b2c/image/mElvhtlQKDltq6e_-b2Bnw.png_300w_300h_4e', 5599, 2, 15.6, '鑫恒浩电脑旗舰店', 6767, 2700, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (19, '雷神(THUNDEROBOT)召唤师911Plus17.3英寸全高清雾面屏发烧游戏本笔记本电脑（i7-9750H 8G GTX1650 512GB win10）', 'https://imgservice5.suning.cn/uimg1/b2c/atmosphere/Xz1xqeIoZw5ZUkWr-WVvLA.jpg_300w_300h_4e', 6788, 1, 17.3, '雷神电脑苏宁自营旗舰店', 2595, 900, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (20, '联想(Lenovo)小新Air13 2019新款 13.3英寸轻薄本笔记本电脑(i5-10210U 8GB 512GB SSD MX250 2G独显 高色域)轻奢灰', 'https://imgservice5.suning.cn/uimg1/b2c/image/qnc3JzAyVfHLITLJ8b_oEw.jpg_300w_300h_4e', 5199, 2, 13.3, '联想苏宁自营旗舰店', 2217, 100, '96%', 200);
+INSERT INTO `cm_pc_goods` VALUES (21, '惠普（HP）暗影精灵5 15-dc1057TX15.6英寸游戏本高色域电竞吃鸡笔记本电脑', 'https://imgservice.suning.cn/uimg1/b2c/image/evmhLXJbz93b2UixGEu0Qg.jpg_400w_400h_4e', 6299, 6, 15.0, '惠普苏宁自营旗舰店', 3478, 50, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (22, '惠普（HP）星系列青春版14s-dk0025AU14.0英寸笔记本电脑（AMD Ryzen 3 4G 256SSD FHD 银）', 'https://imgservice1.suning.cn/uimg1/b2c/image/16XyjGtfw_Rgt1-yrwhHFA.jpg_300w_300h_4e', 2799, 5, 14.0, '惠普苏宁自营旗舰店', 3019, 4300, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (23, '2019款 新品 Apple MacBook Air 13.3英寸 笔记本电脑 i5 1.6GHz 8GB 128GB 深空灰 MVFH2CH/A', 'https://imgservice3.suning.cn/uimg1/b2c/image/GVQtLyLXhqHYPeeoM9oXxw.jpg_300w_300h_4e', 8178, 2, 13.3, 'Apple产品苏宁自营旗舰店', 11082, 400, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (24, '戴尔（DELL）灵越燃5000 5493 14.0英寸 轻薄本 窄边框 笔记本电脑 十代 i5-1035G1 8G 512GB固态 MX230 2G独显 高清屏 银色 定制版', 'https://imgservice3.suning.cn/uimg1/b2c/image/kMoI3hdrkW4KwQXtiqTIsA.jpg_300w_300h_4e', 4399, 2, 14.0, '鑫恒浩电脑旗舰店', 4941, 1900, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (25, '戴尔（DELL）Ins 14-5490-R1605S 英特尔®酷睿™i5 14英寸灵越轻薄笔记本电脑学生电脑（i5-10210U 8G 512GB固态硬盘）', 'https://imgservice3.suning.cn/uimg1/b2c/image/YzZLiybHwrBpAEbj8tJdYA.jpg_300w_300h_4e', 5099, 2, 14.0, '戴尔苏宁自营旗舰店', 11993, 200, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (26, '机械革命S1plus商务笔记本72%高清屏15.6英寸窄边框轻薄电脑本酷睿i5-8265U MX250独显（16GB-512P）', 'https://imgservice.suning.cn/uimg1/b2c/image/apTOL2_RoUzyveBwDglDzg.jpg_400w_400h_4e', 5499, 2, 15.6, '机械革命旗舰店', 11468, 100, '97%', 200);
+INSERT INTO `cm_pc_goods` VALUES (27, '（趋势新品）小米（MI）RedmiBook14锐龙版轻薄本搭载（ R5-3500U 8G 256GB）AMD处理器笔记本电脑预装Win10正版 手环疾速解锁 全新小米互传 银色', 'https://imgservice2.suning.cn/uimg1/b2c/image/LVMYnVZH3Wdd2Z26-qTjBA.jpg_300w_300h_4e', 3199, 5, 13.5, '小米苏宁自营旗舰店', 10308, 100, '96%', 200);
+INSERT INTO `cm_pc_goods` VALUES (28, '小米(MI)Pro 15.6英寸全金属轻薄本2019新款笔记本电脑(i5-8250U 8G 256GSSD 2G独显 预装office 指纹识别 背光键盘 深空灰)', 'https://imgservice3.suning.cn/uimg1/b2c/image/W2Zvub8e7aNM3o1nQFruLA.jpg_300w_300h_4e', 4999, 2, 15.6, '小米苏宁自营旗舰店', 4174, 1600, '95%', 200);
+INSERT INTO `cm_pc_goods` VALUES (29, '小米（MI）RedmiBook14英寸增强版轻薄本全新十代处理器笔记本电脑（i5-10210U 8G 512GSSD MX250 2G独显）手环疾速解锁 游戏 win10 月光银', 'https://imgservice5.suning.cn/uimg1/b2c/image/_FuzP1oj6-OV8_6CuF5TeA.jpg_300w_300h_4e', 4299, 2, 14.0, '小米苏宁自营旗舰店', 3520, 1500, '96%', 200);
+INSERT INTO `cm_pc_goods` VALUES (30, '小米(MI)Air 12.5英寸轻薄本2019新款笔记本电脑（Core m3-8100Y 4G 128GB硬盘 Winow10 预装office正版） 高清大屏 轻薄快充 银色', 'https://imgservice1.suning.cn/uimg1/b2c/image/TKDTjHM9C_jQ3uk3gRCdig.jpg_300w_300h_4e', 3299, 6, 12.5, '小米苏宁自营旗舰店', 11274, 900, '97%', 200);
+INSERT INTO `cm_pc_goods` VALUES (31, '机械革命S1plus商务笔记本72%高清屏15.6英寸窄边框轻薄电脑本酷睿i5-8265U MX250独显（32GB-512GB）', 'https://imgservice.suning.cn/uimg1/b2c/image/9yyWlBkShojNTc2ptYcI6w.jpg_400w_400h_4e', 5999, 2, 15.6, '机械革命旗舰店', 4892, 100, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (32, '华为 HUAWEI MateBook 13 第三方Linux版 13英寸全面屏超轻薄笔记本电脑（ i5-8265U 8GB 512GB固态硬盘 MX250独显 2K高清屏 皓月银）', 'https://imgservice3.suning.cn/uimg1/b2c/image/5ldaoQPYlJ2oWTXFQSspEg.jpg_300w_300h_4e', 5399, 2, 13.0, '华为电脑苏宁自营旗舰店', 8295, 300, '97%', 200);
+INSERT INTO `cm_pc_goods` VALUES (33, '小米（MI）RedmiBook14英寸增强版轻薄本全新十代笔记本电脑（i7-10510U 8G 512GSSD MX250 2G独显） 手环疾速解锁 游戏 win10 月光银', 'https://imgservice5.suning.cn/uimg1/b2c/image/KMeYqNOlzc9g6KlR9uy2Ow.jpg_300w_300h_4e', 4799, 1, 14.0, '小米苏宁自营旗舰店', 11970, 800, '96%', 200);
+INSERT INTO `cm_pc_goods` VALUES (34, '小米 (MI)Ruby 15.6英寸金属轻薄笔记本电脑(第八代英特尔酷睿i5-8250U 8G 512G SSD 2G 独显 FHD 全键盘 正版Office Win10', 'https://imgservice5.suning.cn/uimg1/b2c/image/H9cusInw6Y2YHtQ1FlctVg.jpg_300w_300h_4e', 3799, 2, 15.6, '小米苏宁自营旗舰店', 7478, 20, '95%', 200);
+INSERT INTO `cm_pc_goods` VALUES (35, 'MACHENIKE机械师F117-BB3 15.6英寸吃鸡发烧游戏本笔记本电脑轻薄本（i7-9750H GTX1650 8G内存 512GB大固态 Win10)', 'https://imgservice5.suning.cn/uimg1/b2c/atmosphere/NO15vIQGLyBh84ObcMe5fQ.jpg_300w_300h_4e', 6788, 1, 15.6, '机械师苏宁自营旗舰店', 10644, 1100, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (36, '当季新品 机械革命（MECHREVO）X9Ti-R 9代i7 RTX2060 144Hz72% 17.3英寸 笔记本 32G 512GB', 'https://imgservice.suning.cn/uimg1/b2c/image/IHDLu-nP8HQAPcAC6N2Qzw.jpg_400w_400h_4e', 9999, 1, 17.3, '机械革命旗舰店', 6436, 10, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (37, '小米(MI)Air 12.5英寸轻薄本学生本2019新款笔记本电脑(m3-8100Y 4G 128G大容量固态硬盘 office版正版 金色)', 'https://imgservice5.suning.cn/uimg1/b2c/image/pL7NlntvGBw63aRaNB5VGw.jpg_300w_300h_4e', 3299, 6, 12.5, '小米苏宁自营旗舰店', 4073, 400, '97%', 200);
+INSERT INTO `cm_pc_goods` VALUES (38, '华为HUAWEI MateBook 13 锐龙版 第三方Linux版 13英寸全面屏超轻薄笔记本电脑（AMD Ryzen 5 3500U 8GB 512GB固态硬盘 皓月银）', 'https://imgservice4.suning.cn/uimg1/b2c/image/YBPBTY6jq9YyEzN1nJ1_bw.jpg_300w_300h_4e', 4099, 5, 13.0, '华为电脑苏宁自营旗舰店', 2388, 30, '89%', 200);
+INSERT INTO `cm_pc_goods` VALUES (39, '机械革命(MECHREVO)悦系列S1 Pro 英特尔酷睿i5 14英寸窄边框轻薄笔记本电脑(i5-8265U 8G 512GSSD MX250 灰)', 'https://imgservice5.suning.cn/uimg1/b2c/image/r2xHFSOOEmP5mMcVjvQkUw.jpg_300w_300h_4e', 4099, 2, 14.0, '轩晟越电脑专营店', 10144, 40, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (40, '微软（Microsoft）Surface Laptop 2 13.5英寸 超轻薄本触屏版笔记本电脑（i5-8250U 8GB 256GB固态硬盘 含正版office 亮铂金）', 'https://imgservice1.suning.cn/uimg1/b2c/image/NIggoghM1XikvmmerVlLGg.jpg_300w_300h_4e', 9588, 2, 13.5, '微软苏宁自营旗舰店', 9703, 400, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (41, '机械革命S1plus商务笔记本72%高清屏15.6英寸窄边框轻薄电脑本酷睿i5-8265U MX250独显（8GB-512GP）', 'https://imgservice.suning.cn/uimg1/b2c/image/oIfbBSytnENXNZji9bgQ3Q.jpg_400w_400h_4e', 5099, 2, 15.6, '机械革命旗舰店', 10100, 100, '98%', 200);
+INSERT INTO `cm_pc_goods` VALUES (42, '宏碁(acer)蜂鸟3 SF313窄边框13.3英寸金属本超轻薄笔记本电脑（i5-8250U 8G 512GB 核显 IPS全高清72%色域 指纹识别 Win10）学生商务办公本', 'https://imgservice4.suning.cn/uimg1/b2c/image/wJPkiwR7zJ32rJvuSWzioQ.jpg_300w_300h_4e', 4299, 2, 13.3, '宏碁苏宁自营旗舰店', 2410, 50, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (43, '机械师 MACHBOOK-PC 15.6英寸创意设计本吃鸡发烧游戏本笔记本电脑（i7-9750H GTX1660Ti 16G 512GB+1TB 144hz)', 'https://imgservice2.suning.cn/uimg1/b2c/atmosphere/j7BXpue6PLqjBVK3UNGqqw.jpg_300w_300h_4e', 9199, 1, 15.6, '机械师苏宁自营旗舰店', 9518, 100, '98%', 200);
+INSERT INTO `cm_pc_goods` VALUES (44, '宏碁（Acer）A315-55G 15.6英寸窄边框轻薄本游戏商务办公笔记本电脑（十代i7-10510U 8G 500GB+128GB固态 MX230/2G ips高清 黑色）定制', 'https://imgservice1.suning.cn/uimg1/b2c/atmosphere/QtncNQi5Sx72mCHX0ci49g.jpg_300w_300h_4e', 4699, 1, 15.6, '宏碁(Acer)耀银专卖店', 2632, 200, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (45, '机械革命（MECHREVO）深海幽灵Z2 Air 9代英特尔酷睿i7-9750H 8GB 512GB GTX1650 15.6英寸72%高色域轻薄本窄边框游戏本笔记本电脑', 'https://imgservice5.suning.cn/uimg1/b2c/image/MisUi238_wyN2jl8xPkYWw.jpg_300w_300h_4e', 6388, 1, 15.6, '机械革命童谷电脑专卖店', 5643, 20, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (46, '机械革命S1plus商务笔记本72%高清屏15.6英寸窄边框轻薄电脑本酷睿i5-8265U MX250独显（16GB-1Tpci-e）', 'https://imgservice.suning.cn/uimg1/b2c/image/OpDIeTJzSFrkm_LrjmQ3Ug.jpg_400w_400h_4e', 5999, 2, 15.6, '机械革命旗舰店', 11401, 100, '99%', 200);
+INSERT INTO `cm_pc_goods` VALUES (47, '宏碁(Acer) FUN蜂鸟S50 微边框金属轻薄本 15.6英寸笔记本电脑(i5-10210U 8G 512G PCIe SSD MX250 IPS)红/银 标配', 'https://imgservice3.suning.cn/uimg1/b2c/image/XPy7eG7gtLWMNIfTlBgdyg.jpg_300w_300h_4e', 4699, 2, 15.6, '海鲅电脑专营店', 8054, 40, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (48, '微软（Microsoft）Surface Laptop 2 13.5英寸 超轻薄本触屏版笔记本电脑（i7-8650U 16GB 1TB大固态硬盘 含正版office 亮铂金）', 'https://imgservice2.suning.cn/uimg1/b2c/image/2ZgeFDdvjElsK9QjkrM4iA.jpg_300w_300h_4e', 19828, 1, 13.5, '微软苏宁自营旗舰店', 6212, 20, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (49, '机械革命(MECHREVO)X9Ti-R i7 17.3英寸游戏笔记本电脑(i7-9750H 16G 512G PCIE+1T RTX2060 144Hz）', 'https://imgservice2.suning.cn/uimg1/b2c/image/V0FMTStEI-F2IAPXZK7toQ.jpg_300w_300h_4e', 9499, 1, 17.3, '轩晟越电脑专营店', 4564, 10, '100%', 200);
+INSERT INTO `cm_pc_goods` VALUES (50, '机械革命（MECHREVO）S1 Pro系列（i5-8265U 8G 512GB固态 MX250-2G 银色）标配14.0英寸IPS窄边框轻薄本游戏本商用办公超长续航笔记本电脑', 'https://imgservice2.suning.cn/uimg1/b2c/image/00wVxGXvJlyt9lgEZA4nUw.jpg_300w_300h_4e', 4099, 2, 14.0, '奥达电脑专营店', 9484, 40, '100%', 200);
 
 -- ----------------------------
 -- Table structure for cm_pri_cates
@@ -356,6 +406,31 @@ INSERT INTO `cm_pri_cates` VALUES (37, '特色馆');
 INSERT INTO `cm_pri_cates` VALUES (38, '苏宁服务');
 INSERT INTO `cm_pri_cates` VALUES (39, '苏宁金融');
 INSERT INTO `cm_pri_cates` VALUES (40, '苏宁有房');
+
+-- ----------------------------
+-- Table structure for cm_pri_list
+-- ----------------------------
+DROP TABLE IF EXISTS `cm_pri_list`;
+CREATE TABLE `cm_pri_list`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `list_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '清单顶部分类名称',
+  `img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '分类logo',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cm_pri_list
+-- ----------------------------
+INSERT INTO `cm_pri_list` VALUES (1, '精选', 'https://image.suning.cn/uimg/MZMS/show/155117928298268957.png?from=mobile');
+INSERT INTO `cm_pri_list` VALUES (2, '家电', 'https://image.suning.cn/uimg/MZMS/show/155117929720977273.png?from=mobile');
+INSERT INTO `cm_pri_list` VALUES (3, '酷机', 'https://image.suning.cn/uimg/MZMS/show/151384323374513944.png?from=mobile');
+INSERT INTO `cm_pri_list` VALUES (4, '超市', 'https://image.suning.cn/uimg/MZMS/show/151375579188137688.png?from=mobile');
+INSERT INTO `cm_pri_list` VALUES (5, '穿搭', 'https://image.suning.cn/uimg/MZMS/show/151375580058931338.png?from=mobile');
+INSERT INTO `cm_pri_list` VALUES (6, '置家', 'https://image.suning.cn/uimg/MZMS/show/151383933612448185.png?from=mobile');
+INSERT INTO `cm_pri_list` VALUES (7, '育儿', 'https://image.suning.cn/uimg/MZMS/show/151375578418753424.png?from=mobile');
+INSERT INTO `cm_pri_list` VALUES (8, '办公', 'https://image.suning.cn/uimg/MZMS/show/155117928912031039.png?from=mobile');
+INSERT INTO `cm_pri_list` VALUES (9, '运动', 'https://image.suning.cn/uimg/MZMS/show/151669485755224183.png?from=mobile');
+INSERT INTO `cm_pri_list` VALUES (10, '出行', 'https://image.suning.cn/uimg/MZMS/show/151477707934186366.png?from=mobile');
 
 -- ----------------------------
 -- Table structure for cm_sec_cates
@@ -641,6 +716,91 @@ INSERT INTO `cm_sec_cates` VALUES (267, '理财', 39);
 INSERT INTO `cm_sec_cates` VALUES (268, '保险', 39);
 INSERT INTO `cm_sec_cates` VALUES (269, '苏宁卡', 39);
 INSERT INTO `cm_sec_cates` VALUES (270, '苏宁有房', 40);
+
+-- ----------------------------
+-- Table structure for cm_sec_list
+-- ----------------------------
+DROP TABLE IF EXISTS `cm_sec_list`;
+CREATE TABLE `cm_sec_list`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `list_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '清单标题',
+  `pri_id` int(11) NOT NULL COMMENT '文章所在分类Id',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 71 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cm_sec_list
+-- ----------------------------
+INSERT INTO `cm_sec_list` VALUES (1, '空调噪音扰睡眠，静音空调睡好觉', 1);
+INSERT INTO `cm_sec_list` VALUES (2, '给家人健康水质，净水器来帮忙', 1);
+INSERT INTO `cm_sec_list` VALUES (3, '更懂你的除了男友，还有语音电视', 1);
+INSERT INTO `cm_sec_list` VALUES (4, '便携加持高性能，超薄本增提效率', 1);
+INSERT INTO `cm_sec_list` VALUES (5, '美味泡面快速充饥，懒人居家必备', 1);
+INSERT INTO `cm_sec_list` VALUES (6, '杜比环绕音，4K电视享视听盛宴', 1);
+INSERT INTO `cm_sec_list` VALUES (7, '净水器去除杂质，让家人喝健康水', 1);
+INSERT INTO `cm_sec_list` VALUES (8, '仿手洗洁衣，波轮洗衣机更为洁净', 2);
+INSERT INTO `cm_sec_list` VALUES (9, '阴雨天气不用愁，智能洗烘更便捷', 2);
+INSERT INTO `cm_sec_list` VALUES (10, '拥有品质饮水机，让喝水更加舒心', 2);
+INSERT INTO `cm_sec_list` VALUES (11, '囤货中的战斗机，冻力来袭', 2);
+INSERT INTO `cm_sec_list` VALUES (12, '多口之家购冰箱，对开变频更节能', 2);
+INSERT INTO `cm_sec_list` VALUES (13, '净烟利落无残留，解锁无烟厨房', 2);
+INSERT INTO `cm_sec_list` VALUES (14, '食物持久保鲜，选对冰箱是关键', 2);
+INSERT INTO `cm_sec_list` VALUES (15, '无需带沉重设备，手机一样拍大片', 3);
+INSERT INTO `cm_sec_list` VALUES (16, '微边显示器，画质细腻享炸裂视效', 3);
+INSERT INTO `cm_sec_list` VALUES (17, '蓝牙耳机，便携生活，享受静谧', 3);
+INSERT INTO `cm_sec_list` VALUES (18, '对话智能，AI音箱增趣生活', 3);
+INSERT INTO `cm_sec_list` VALUES (19, '配置强颜值高的手机，快点来看看', 3);
+INSERT INTO `cm_sec_list` VALUES (20, '画面宽广，微边笔记本办公更轻松', 3);
+INSERT INTO `cm_sec_list` VALUES (21, '游戏手柄掌局面，吃鸡易如反掌！', 3);
+INSERT INTO `cm_sec_list` VALUES (22, '亲友聚会撑场面，这些美酒少不了', 4);
+INSERT INTO `cm_sec_list` VALUES (23, '备好酒走亲友，香醇馥郁情谊久', 4);
+INSERT INTO `cm_sec_list` VALUES (24, '古法熬制糖姜茶，更能用心呵护她', 4);
+INSERT INTO `cm_sec_list` VALUES (25, '防晒防的是紫外线，并不是季节哦', 4);
+INSERT INTO `cm_sec_list` VALUES (26, '玩乐休闲，美味薯片燃爆生活', 4);
+INSERT INTO `cm_sec_list` VALUES (27, '每天都用到的洗面奶，要走心选择', 4);
+INSERT INTO `cm_sec_list` VALUES (28, '想让妆容发光，来点闪亮高光', 4);
+INSERT INTO `cm_sec_list` VALUES (29, '男士如何挑选皮带？让我告诉您', 5);
+INSERT INTO `cm_sec_list` VALUES (30, '治愈选择困难症，时尚打底衫走起', 5);
+INSERT INTO `cm_sec_list` VALUES (31, '西装搭配k金首饰，美到不行', 5);
+INSERT INTO `cm_sec_list` VALUES (32, '寒从脚起，舒适棉拖让你过个暖冬', 5);
+INSERT INTO `cm_sec_list` VALUES (33, '秋冬赶时髦 金属腕表为气质加分', 5);
+INSERT INTO `cm_sec_list` VALUES (34, '风衣穿起来，秋风也吹不走时髦感', 5);
+INSERT INTO `cm_sec_list` VALUES (35, '牵手的真爱情缘，钻戒送祝福', 5);
+INSERT INTO `cm_sec_list` VALUES (36, '收纳有道，浴室柜打造整洁卫生间', 6);
+INSERT INTO `cm_sec_list` VALUES (37, '助攻衣柜清爽，内衣收纳盒很会玩', 6);
+INSERT INTO `cm_sec_list` VALUES (38, '衣柜异味重？快速除醛从源头分解', 6);
+INSERT INTO `cm_sec_list` VALUES (39, '洗衣柜献秘籍，解锁阳台洗理区', 6);
+INSERT INTO `cm_sec_list` VALUES (40, '衣柜空间告急？真空收纳速解困境', 6);
+INSERT INTO `cm_sec_list` VALUES (41, '棉被大衣厚？压缩袋让衣柜秒瘦身', 6);
+INSERT INTO `cm_sec_list` VALUES (42, '厚被变薄，真空压缩袋帮衣柜减负', 6);
+INSERT INTO `cm_sec_list` VALUES (43, '做工精细，儿童电动车锻炼协调力', 7);
+INSERT INTO `cm_sec_list` VALUES (44, '装上洗澡网兜，给宝宝洗澡更方便', 7);
+INSERT INTO `cm_sec_list` VALUES (45, '宝宝专用洗衣皂，成分安全是首位', 7);
+INSERT INTO `cm_sec_list` VALUES (46, '怀孕不留妊娠纹，身体护理要做好', 7);
+INSERT INTO `cm_sec_list` VALUES (47, '洗发沐浴二合一，宝宝洗澡更方便', 7);
+INSERT INTO `cm_sec_list` VALUES (48, '宝宝指甲这么处理，不怕伤到宝宝', 7);
+INSERT INTO `cm_sec_list` VALUES (49, '护臀霜这么擦，宝宝不怕红pp', 7);
+INSERT INTO `cm_sec_list` VALUES (50, '邀好友吃鸡，电竞椅让你决战天明', 8);
+INSERT INTO `cm_sec_list` VALUES (51, '无线鼠标没有束缚，轻巧畅享自由', 8);
+INSERT INTO `cm_sec_list` VALUES (52, '减震设计，便捷电脑包抗摔更耐用', 8);
+INSERT INTO `cm_sec_list` VALUES (53, '128G防水U盘，无惧风雨侵蚀', 8);
+INSERT INTO `cm_sec_list` VALUES (54, '保险柜加固，相中全钢实力护机密', 8);
+INSERT INTO `cm_sec_list` VALUES (55, '居家电脑桌，精美实用极简北欧风', 8);
+INSERT INTO `cm_sec_list` VALUES (56, '无线打印机，随心开启极速办公', 8);
+INSERT INTO `cm_sec_list` VALUES (57, '运动有章法，智能手环数据化指导', 9);
+INSERT INTO `cm_sec_list` VALUES (58, '家用便携动感单车，随时方便燃脂', 9);
+INSERT INTO `cm_sec_list` VALUES (59, '举铁手易滑？助力带来帮你', 9);
+INSERT INTO `cm_sec_list` VALUES (60, '小小阻力带，在家也能锻炼身体', 9);
+INSERT INTO `cm_sec_list` VALUES (61, '运动，当然要穿专业的运动鞋', 9);
+INSERT INTO `cm_sec_list` VALUES (62, '运动紧身裤，助力运动更轻便', 9);
+INSERT INTO `cm_sec_list` VALUES (63, '排汗透气易拉伸，运动衣服穿起来', 9);
+INSERT INTO `cm_sec_list` VALUES (64, '玩转篮球场，篮球鞋助力得分王', 10);
+INSERT INTO `cm_sec_list` VALUES (65, '跑步机挑选三步走，畅快享受跑步', 10);
+INSERT INTO `cm_sec_list` VALUES (66, '专业户外运动手表，你的腕上伙伴', 10);
+INSERT INTO `cm_sec_list` VALUES (67, '运动健康监测，智能手环领健身潮', 10);
+INSERT INTO `cm_sec_list` VALUES (68, '穿上舒适登山鞋，享受登山乐趣', 10);
+INSERT INTO `cm_sec_list` VALUES (69, '选对登山杖，登山运动更轻松', 10);
+INSERT INTO `cm_sec_list` VALUES (70, '巧用弹力带，在家也能锻炼身体', 10);
 
 -- ----------------------------
 -- Table structure for cm_thi_cates
@@ -3013,6 +3173,233 @@ INSERT INTO `cm_thi_cates` VALUES (2353, '实体卡', 'https://image5.suning.cn/
 INSERT INTO `cm_thi_cates` VALUES (2354, '苏宁有房', 'https://image.suning.cn/uimg/asbs/ad/1534494909070_imgApp_tmndir.jpg', 270);
 
 -- ----------------------------
+-- Table structure for cm_thi_list
+-- ----------------------------
+DROP TABLE IF EXISTS `cm_thi_list`;
+CREATE TABLE `cm_thi_list`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '清单中商品图片',
+  `price` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '清单中商品价格',
+  `offer` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '优惠活动',
+  `sec_id` int(11) NOT NULL COMMENT '商品对应的二级分类',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 211 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cm_thi_list
+-- ----------------------------
+INSERT INTO `cm_thi_list` VALUES (1, 'https://imgservice.suning.cn/uimg1/b2c/image/1CPlsKZHDnMXJcF8UsMvbQ.jpg?format=400h_400w_4e_80q.webp', '4861', '', 1);
+INSERT INTO `cm_thi_list` VALUES (2, 'https://imgservice.suning.cn/uimg1/b2c/image/nsYlPJHap19oH4ATYRX1HA.jpg?format=400h_400w_4e_80q.webp', '2299', '', 1);
+INSERT INTO `cm_thi_list` VALUES (3, 'https://imgservice.suning.cn/uimg1/b2c/image/sQnbvhmBLXhiU6etzVQeNQ.jpg?format=400h_400w_4e_80q.webp', '2599', '', 1);
+INSERT INTO `cm_thi_list` VALUES (4, 'https://imgservice.suning.cn/uimg1/b2c/image/x03Lr629vM-dQupOnxVAsw.jpg?format=400h_400w_4e_80q.webp', '2198', '', 2);
+INSERT INTO `cm_thi_list` VALUES (5, 'https://imgservice.suning.cn/uimg1/b2c/image/uBgAsa_Ygw27pJpY-CmBQw.jpg?format=400h_400w_4e_80q.webp', '3099', '每300减30', 2);
+INSERT INTO `cm_thi_list` VALUES (6, 'https://imgservice.suning.cn/uimg1/b2c/image/rDsD3lJsTfa0fyhEdOgxHQ.jpg?format=400h_400w_4e_80q.webp', '5368', '', 2);
+INSERT INTO `cm_thi_list` VALUES (7, 'https://imgservice.suning.cn/uimg1/b2c/image/TVf82lNyjMLabCXHdraqWA.jpg?format=400h_400w_4e_80q.webp', '1699', '', 3);
+INSERT INTO `cm_thi_list` VALUES (8, 'https://imgservice.suning.cn/uimg1/b2c/image/fPdt3yLHYdcl_dbMGLTo3A.jpg?format=400h_400w_4e_80q.webp', '1699', '', 3);
+INSERT INTO `cm_thi_list` VALUES (9, 'https://imgservice.suning.cn/uimg1/b2c/image/VvcMp_R9SKQTIag2kU42Tw.jpg?format=400h_400w_4e_80q.webp', '2599', '', 3);
+INSERT INTO `cm_thi_list` VALUES (10, 'https://imgservice.suning.cn/uimg1/b2c/image/gcSEv9aq5zV8-yru62D7Iw.jpg?format=400h_400w_4e_80q.webp', '2949', '', 4);
+INSERT INTO `cm_thi_list` VALUES (11, 'https://imgservice.suning.cn/uimg1/b2c/image/DdjjDkqqyyYCso1SNspeUQ.jpg?format=400h_400w_4e_80q.webp', '3999', '', 4);
+INSERT INTO `cm_thi_list` VALUES (12, 'https://imgservice.suning.cn/uimg1/b2c/image/1UwcEH6bHntFB_yEBGsvIg.jpg?format=400h_400w_4e_80q.webp', '4999', '', 4);
+INSERT INTO `cm_thi_list` VALUES (13, 'https://imgservice.suning.cn/uimg1/b2c/image/sn34UN1qopX77m7awG-Kbg.jpg?format=400h_400w_4e_80q.webp', '14.6', '', 5);
+INSERT INTO `cm_thi_list` VALUES (14, 'https://imgservice.suning.cn/uimg1/b2c/image/OkHej8VqeNCCCDhC2SEOoA.jpg?format=400h_400w_4e_80q.webp', '14.6', '', 5);
+INSERT INTO `cm_thi_list` VALUES (15, 'https://imgservice.suning.cn/uimg1/b2c/image/m9VUnE2OtMPiG2-h1Xomsw.jpg?format=400h_400w_4e_80q.webp', '12.5', '', 5);
+INSERT INTO `cm_thi_list` VALUES (16, 'https://imgservice.suning.cn/uimg1/b2c/image/RWMVQxEbfN0frSpXpYzK_w.jpg?format=400h_400w_4e_80q.webp', '3999', '满1500减200', 6);
+INSERT INTO `cm_thi_list` VALUES (17, 'https://imgservice.suning.cn/uimg1/b2c/image/MFAUQczKDoWB2rKTRMtzMQ.jpg?format=400h_400w_4e_80q.webp', '1799', '', 6);
+INSERT INTO `cm_thi_list` VALUES (18, 'https://imgservice.suning.cn/uimg1/b2c/image/J8hCtimgKb0UsbUAUS4oMQ.jpg?format=400h_400w_4e_80q.webp', '4299', '', 6);
+INSERT INTO `cm_thi_list` VALUES (19, 'https://imgservice.suning.cn/uimg1/b2c/image/ZisNpMpKtOfpxuU3rMIeog.jpg?format=400h_400w_4e_80q.webp', '2598', '', 7);
+INSERT INTO `cm_thi_list` VALUES (20, 'https://imgservice.suning.cn/uimg1/b2c/image/6wj60ug1hlqazy_TB0f9mQ.jpg?format=400h_400w_4e_80q.webp', '1799', '', 7);
+INSERT INTO `cm_thi_list` VALUES (21, 'https://imgservice.suning.cn/uimg1/b2c/image/hWfI8FfWhjfl3LFAx0D50g.jpg?format=400h_400w_4e_80q.webp', '2499', '', 7);
+INSERT INTO `cm_thi_list` VALUES (22, 'https://imgservice.suning.cn/uimg1/b2c/image/6tNkWSC0cER6X-Sr9CEHIw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1199', '', 8);
+INSERT INTO `cm_thi_list` VALUES (23, 'https://imgservice.suning.cn/uimg1/b2c/image/WynTAOhHRlOTn3UUFZXX0Q.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1349', '领券300元', 8);
+INSERT INTO `cm_thi_list` VALUES (24, 'https://imgservice.suning.cn/uimg1/b2c/image/GGdXK7qKslzsjugSdoVCtQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '799', '', 8);
+INSERT INTO `cm_thi_list` VALUES (25, 'https://imgservice.suning.cn/uimg1/b2c/image/mjdXBrj9os1vhDNdKtJkqw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '2799', '', 9);
+INSERT INTO `cm_thi_list` VALUES (26, 'https://imgservice.suning.cn/uimg1/b2c/image/a8K8A89sYeuGdI_2Ve7KNA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '4999', '', 9);
+INSERT INTO `cm_thi_list` VALUES (27, 'https://imgservice.suning.cn/uimg1/b2c/image/EpC-oiADAq7o5TqYjWbVUw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '2288', '', 9);
+INSERT INTO `cm_thi_list` VALUES (28, 'https://imgservice.suning.cn/uimg1/b2c/image/yPHyt_07U9mBWRe1fD8WOA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '528', '', 10);
+INSERT INTO `cm_thi_list` VALUES (29, 'https://imgservice.suning.cn/uimg1/b2c/image/BRdzoDqm-8ebm0xcGsnU_g.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '549', '', 10);
+INSERT INTO `cm_thi_list` VALUES (30, 'https://imgservice.suning.cn/uimg1/b2c/image/8phBoEJoP7yvZNKIPJApAQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '559', '', 10);
+INSERT INTO `cm_thi_list` VALUES (31, 'https://imgservice.suning.cn/uimg1/b2c/image/Cwn9AcYdWMwDJX3EG0rhZg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '999', '', 11);
+INSERT INTO `cm_thi_list` VALUES (32, 'https://imgservice.suning.cn/uimg1/b2c/image/2ayUDyvYz-DvIPxruPLzjw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '455', '', 11);
+INSERT INTO `cm_thi_list` VALUES (33, 'https://imgservice.suning.cn/uimg1/b2c/image/d460HUOC4KQRa0aWMnX0hw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '679', '', 11);
+INSERT INTO `cm_thi_list` VALUES (34, 'https://imgservice.suning.cn/uimg1/b2c/image/8cmM6BdWOnA9so9z4otxUQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '787', '', 12);
+INSERT INTO `cm_thi_list` VALUES (35, 'https://imgservice.suning.cn/uimg1/b2c/image/MvA87T5xiFkhI2Q64Dd0sw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '2299', '', 12);
+INSERT INTO `cm_thi_list` VALUES (36, 'https://imgservice.suning.cn/uimg1/b2c/image/Aym4vMvmw2SmuUIo_MLNyA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '5999', '', 12);
+INSERT INTO `cm_thi_list` VALUES (37, 'https://imgservice.suning.cn/uimg1/b2c/image/k-v3iNokIjfGhu2xmZaQWg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '2279', '', 13);
+INSERT INTO `cm_thi_list` VALUES (38, 'https://image3.suning.cn/uimg/MFS/show/157406046970594652.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '1579', '', 13);
+INSERT INTO `cm_thi_list` VALUES (39, 'https://image2.suning.cn/uimg/MFS/show/157406048380466017.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '1229', '', 13);
+INSERT INTO `cm_thi_list` VALUES (40, 'https://imgservice.suning.cn/uimg1/b2c/image/OaBqKyqcMxGTSR9F3JqO1g.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '5999', '', 14);
+INSERT INTO `cm_thi_list` VALUES (41, 'https://imgservice.suning.cn/uimg1/b2c/image/J-VYymUr07AgxtNECbOMKw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '7999', '', 14);
+INSERT INTO `cm_thi_list` VALUES (42, 'https://imgservice.suning.cn/uimg1/b2c/image/Crc9Onp9nnOWOWuhwgiWPw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '4399', '', 14);
+INSERT INTO `cm_thi_list` VALUES (43, 'https://imgservice.suning.cn/uimg1/b2c/image/x9nO-P_LBhLuJjWo6OtoYA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '7999', '满7940减500', 15);
+INSERT INTO `cm_thi_list` VALUES (44, 'https://imgservice.suning.cn/uimg1/b2c/image/Jjb2t1b79nGncEbWeJYnKw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '7899', '', 15);
+INSERT INTO `cm_thi_list` VALUES (45, 'https://imgservice.suning.cn/uimg1/b2c/image/1Tx-J7YvASheO83fxi828g.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1212', '', 15);
+INSERT INTO `cm_thi_list` VALUES (46, 'https://image5.suning.cn/uimg/MFS/show/157406600846254807.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '2948', '', 16);
+INSERT INTO `cm_thi_list` VALUES (47, 'https://image1.suning.cn/uimg/MFS/show/157406610503366377.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '3059', '', 16);
+INSERT INTO `cm_thi_list` VALUES (48, 'https://image4.suning.cn/uimg/MFS/show/157406612105434541.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '6709', '满500减2', 16);
+INSERT INTO `cm_thi_list` VALUES (49, 'https://image2.suning.cn/uimg/MFS/show/157406243414467456.jpg_39-2-747-747a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '99', '', 17);
+INSERT INTO `cm_thi_list` VALUES (50, 'https://imgservice.suning.cn/uimg1/b2c/image/u2r_TVANgSLLHvjT9oUVOw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '149', '领券20元', 17);
+INSERT INTO `cm_thi_list` VALUES (51, 'https://imgservice.suning.cn/uimg1/b2c/image/oaaFhphtPW57_2y8r3kjBw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '60.9', '', 17);
+INSERT INTO `cm_thi_list` VALUES (52, 'https://imgservice.suning.cn/uimg1/b2c/image/EWMUa3_9T7IxEoXYIIb1LA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '99', '', 18);
+INSERT INTO `cm_thi_list` VALUES (53, 'https://imgservice.suning.cn/uimg1/b2c/image/y2X7E-FsmO6diFwiDw7QWw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '149', '', 18);
+INSERT INTO `cm_thi_list` VALUES (54, 'https://imgservice.suning.cn/uimg1/b2c/image/gLotUoJrO0oRmJCtKsNU-g.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '299', '', 18);
+INSERT INTO `cm_thi_list` VALUES (55, 'https://imgservice.suning.cn/uimg1/b2c/image/OiCqRPF6qcflFl1cVkwweQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '5499', '', 19);
+INSERT INTO `cm_thi_list` VALUES (56, 'https://imgservice.suning.cn/uimg1/b2c/image/DZ8dprn71Fbm0yHag-OVaQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '2298', '满1990减100', 19);
+INSERT INTO `cm_thi_list` VALUES (57, 'https://imgservice.suning.cn/uimg1/b2c/image/K3L_97RU0-CWWXR7EudwNA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '2799', '', 19);
+INSERT INTO `cm_thi_list` VALUES (58, 'https://image5.suning.cn/uimg/MFS/show/157404638168562341.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '6407', '', 20);
+INSERT INTO `cm_thi_list` VALUES (59, 'https://image4.suning.cn/uimg/MFS/show/157404641349964326.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '7186', '满1212减26', 20);
+INSERT INTO `cm_thi_list` VALUES (60, 'https://image1.suning.cn/uimg/MFS/show/157404643154828396.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '7599', '', 20);
+INSERT INTO `cm_thi_list` VALUES (61, 'https://image5.suning.cn/uimg/MFS/show/157405828719784480.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '442', '', 21);
+INSERT INTO `cm_thi_list` VALUES (62, 'https://image1.suning.cn/uimg/MFS/show/157405833001147732.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '311', '', 21);
+INSERT INTO `cm_thi_list` VALUES (63, 'https://image1.suning.cn/uimg/MFS/show/157405847080513858.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '380', '', 21);
+INSERT INTO `cm_thi_list` VALUES (64, 'https://imgservice.suning.cn/uimg1/b2c/image/2UVqn388Yp2N5g8U_PSuvA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1380', '', 22);
+INSERT INTO `cm_thi_list` VALUES (65, 'https://imgservice.suning.cn/uimg1/b2c/image/rw88QBb17KjpSSvrhzYcbQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '6990', '每400减50', 22);
+INSERT INTO `cm_thi_list` VALUES (66, 'https://imgservice.suning.cn/uimg1/b2c/image/ro-e6zzYFJkKdW_pvgdyeA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '348', '', 22);
+INSERT INTO `cm_thi_list` VALUES (67, 'https://imgservice.suning.cn/uimg1/b2c/image/cu3ucjd6awQWg2kJcyyXLQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1009', '', 23);
+INSERT INTO `cm_thi_list` VALUES (68, 'https://imgservice.suning.cn/uimg1/b2c/image/ncU-3kKNQi0Unn4YIHW-iw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1265', '每1199减220', 23);
+INSERT INTO `cm_thi_list` VALUES (69, 'https://imgservice.suning.cn/uimg1/b2c/image/DQlUhGpg3DOjLS3RBsuUrg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '519', '', 23);
+INSERT INTO `cm_thi_list` VALUES (70, 'https://imgservice.suning.cn/uimg1/b2c/image/VGg1CzAw-AhEP-TwqY8JdQ.png_400w_400h_4e_340w_340h_1e?from=mobile', '25', '', 24);
+INSERT INTO `cm_thi_list` VALUES (71, 'https://imgservice.suning.cn/uimg1/b2c/image/_7VBt0z8YzATL5CJ31Sumw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '9.9', '领券5元', 24);
+INSERT INTO `cm_thi_list` VALUES (72, 'https://imgservice.suning.cn/uimg1/b2c/image/rwaa5Kwen8kG4o0sylSTDg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '39.9', '', 24);
+INSERT INTO `cm_thi_list` VALUES (73, 'https://imgservice.suning.cn/uimg1/b2c/image/LeNatUR8BY-ztK8GmZtzpA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '65', '', 25);
+INSERT INTO `cm_thi_list` VALUES (74, 'https://imgservice.suning.cn/uimg1/b2c/image/ITo0qAN2M4RmZB2BWKQ92g.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '69', '', 25);
+INSERT INTO `cm_thi_list` VALUES (75, 'https://imgservice.suning.cn/uimg1/b2c/image/Ru8f6HVa1rh3NP-m9nDdqg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '149', '', 25);
+INSERT INTO `cm_thi_list` VALUES (76, 'https://imgservice.suning.cn/uimg1/b2c/image/20XkY-011hQir8goKW5XXQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '122', '领券10元', 26);
+INSERT INTO `cm_thi_list` VALUES (77, 'https://imgservice.suning.cn/uimg1/b2c/image/ZuCQ3yV7wubPF1B6i8UMRQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '8.9', '领券20元', 26);
+INSERT INTO `cm_thi_list` VALUES (78, 'https://imgservice.suning.cn/uimg1/b2c/image/ghh8XYjNMkwxWljBuD0Lng.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '8.9', '领券20元', 26);
+INSERT INTO `cm_thi_list` VALUES (79, 'https://imgservice.suning.cn/uimg1/b2c/image/RYw22oTc177fk50QQxfGXQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '99', '', 27);
+INSERT INTO `cm_thi_list` VALUES (80, 'https://imgservice.suning.cn/uimg1/b2c/image/gvA72SWumDwPQ9exSIbjcQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '45', '', 27);
+INSERT INTO `cm_thi_list` VALUES (81, 'https://imgservice.suning.cn/uimg1/b2c/image/8z5uPqz7GOaNAp8Zc-1KMg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '75', '', 27);
+INSERT INTO `cm_thi_list` VALUES (82, 'https://imgservice.suning.cn/uimg1/b2c/image/o1TRZgn3CwhwBNUoJqmcqQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '48', '领券10元', 28);
+INSERT INTO `cm_thi_list` VALUES (83, 'https://imgservice.suning.cn/uimg1/b2c/image/HZI_4BPDmFoO9RJ0bQADxA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '545', '满199减5', 28);
+INSERT INTO `cm_thi_list` VALUES (84, 'https://imgservice.suning.cn/uimg1/b2c/image/TzjQljYutxIWyny8pGUJkQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '339', '领券50元', 28);
+INSERT INTO `cm_thi_list` VALUES (85, 'https://imgservice.suning.cn/uimg1/b2c/image/e2w2-dhLmmvxr4EseQHY3A.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1999', '', 29);
+INSERT INTO `cm_thi_list` VALUES (86, 'https://imgservice.suning.cn/uimg1/b2c/image/7BdW7GBtUmISe0qqAF3q5g.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '999', '', 29);
+INSERT INTO `cm_thi_list` VALUES (87, 'https://image4.suning.cn/uimg/MFS/show/157388451511182856.jpg_0-0-750-750a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '259', '', 29);
+INSERT INTO `cm_thi_list` VALUES (88, 'https://imgservice.suning.cn/uimg1/b2c/image/d2cwWmeLGW8ZZNiuP36f9Q.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '39.9', '领券10元', 30);
+INSERT INTO `cm_thi_list` VALUES (89, 'https://imgservice.suning.cn/uimg1/b2c/image/fdhqGfs3TKoemuBZayUoqQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '79', '领券60元', 30);
+INSERT INTO `cm_thi_list` VALUES (90, 'https://imgservice.suning.cn/uimg1/b2c/image/uPwcqy9Z_DAcIxrcoVHKFg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '56.66', '领券1元', 30);
+INSERT INTO `cm_thi_list` VALUES (91, 'https://imgservice.suning.cn/uimg1/b2c/image/NkFw3_acldkv7IKrx7QrJQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '461', '每500减30', 31);
+INSERT INTO `cm_thi_list` VALUES (92, 'https://imgservice.suning.cn/uimg1/b2c/image/EriBXjbw7EOabliaRH3yFw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '664', '每500减30', 31);
+INSERT INTO `cm_thi_list` VALUES (93, 'https://imgservice.suning.cn/uimg1/b2c/image/nDPmh_2iwacsTSu6OKX26g.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1317', '每500减30', 31);
+INSERT INTO `cm_thi_list` VALUES (94, 'https://imgservice.suning.cn/uimg1/b2c/image/3HgG2bl8i1rGUoV0wGJlgQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '99', '领券30元', 32);
+INSERT INTO `cm_thi_list` VALUES (95, 'https://imgservice.suning.cn/uimg1/b2c/image/p5IAsQp51WhIX2UozC0aFA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '39.8', '领券3元', 32);
+INSERT INTO `cm_thi_list` VALUES (96, 'https://imgservice.suning.cn/uimg1/b2c/image/FW9xVNuamzrSug4bvtl_UA.png_400w_400h_4e_340w_340h_1e?from=mobile', '29.9', '每99减5', 32);
+INSERT INTO `cm_thi_list` VALUES (97, 'https://image3.suning.cn/uimg/MFS/show/157404899799385752.jpg_66-260-860-860a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '1980', '', 33);
+INSERT INTO `cm_thi_list` VALUES (98, 'https://imgservice.suning.cn/uimg1/b2c/image/Wkt-XJafIL8FCuUGKXWzJw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1490', '', 33);
+INSERT INTO `cm_thi_list` VALUES (99, 'https://image4.suning.cn/uimg/MFS/show/157404888081137626.jpg_0-279-999-999a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '2080', '', 33);
+INSERT INTO `cm_thi_list` VALUES (100, 'https://imgservice.suning.cn/uimg1/b2c/image/lGb5dJcozFqKTGlEVSRh-A.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '361', '每300减100', 34);
+INSERT INTO `cm_thi_list` VALUES (101, 'https://imgservice.suning.cn/uimg1/b2c/image/0mWMYOQOmx2iCe902dVM5w.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '308', '领券60元', 34);
+INSERT INTO `cm_thi_list` VALUES (102, 'https://imgservice.suning.cn/uimg1/b2c/image/wGjU8qHV1HjFeP_JfdYHfA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '268', '领券60元', 34);
+INSERT INTO `cm_thi_list` VALUES (103, 'https://imgservice.suning.cn/uimg1/b2c/image/oG40QTFv8fSiRH_-_kdRZQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '56999', '领券500元', 35);
+INSERT INTO `cm_thi_list` VALUES (104, 'https://image4.suning.cn/uimg/MFS/show/157387770396631864.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '108750', '', 35);
+INSERT INTO `cm_thi_list` VALUES (105, 'https://imgservice.suning.cn/uimg1/b2c/image/SppwbNgorJW4W1u_g5NJLw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '3299', '领券300元', 35);
+INSERT INTO `cm_thi_list` VALUES (106, 'https://image.suning.cn/uimg/b2c/newcatentries/0070098719-000000010471909645_1.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1799', '', 36);
+INSERT INTO `cm_thi_list` VALUES (107, 'https://imgservice.suning.cn/uimg1/b2c/image/FZZStlnruQ_4pjl1TSfffg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1648', '', 36);
+INSERT INTO `cm_thi_list` VALUES (108, 'https://imgservice.suning.cn/uimg1/b2c/image/g_9xwMb3nup3kS_USH79bw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '800', '领券150元', 36);
+INSERT INTO `cm_thi_list` VALUES (109, 'https://imgservice.suning.cn/uimg1/b2c/image/tt4Q2P0DHREla1GD6118Ag.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '15.9', '领券5元', 37);
+INSERT INTO `cm_thi_list` VALUES (110, 'https://imgservice.suning.cn/uimg1/b2c/image/nJz7iDpyasPZTJLYgp6W2A.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '39.8', '满49减3', 37);
+INSERT INTO `cm_thi_list` VALUES (111, 'https://imgservice.suning.cn/uimg1/b2c/image/6Gd0IC8FV_F7-yqh19sIXw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '109', '', 37);
+INSERT INTO `cm_thi_list` VALUES (112, 'https://imgservice.suning.cn/uimg1/b2c/image/CxIQMew7zFg1HUn_A4wqHg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '238', '', 38);
+INSERT INTO `cm_thi_list` VALUES (113, 'https://imgservice.suning.cn/uimg1/b2c/image/FDf_mrRtqE8IgvC0VmxF2g.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '129', '每99减20', 38);
+INSERT INTO `cm_thi_list` VALUES (114, 'https://imgservice.suning.cn/uimg1/b2c/image/Gzul-Q1zsaKgfQuQiIaLsg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '70.9', '每99减30', 38);
+INSERT INTO `cm_thi_list` VALUES (115, 'https://imgservice.suning.cn/uimg1/b2c/image/m_t0k31Yn4Jf2IlzTMUAxA==.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1699', '', 39);
+INSERT INTO `cm_thi_list` VALUES (116, 'https://imgservice.suning.cn/uimg1/b2c/image/6wTJTAYIiwCiX3wbRd5v6w.png_400w_400h_4e_340w_340h_1e?from=mobile', '1399', '领券100元', 39);
+INSERT INTO `cm_thi_list` VALUES (117, 'https://imgservice.suning.cn/uimg1/b2c/image/X-qrNATs6RV-jjT_nvuDJA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1688', '', 39);
+INSERT INTO `cm_thi_list` VALUES (118, 'https://imgservice.suning.cn/uimg1/b2c/image/fPaRbW5TfxzXaYIS1_78Hw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '52.9', '每99减20', 40);
+INSERT INTO `cm_thi_list` VALUES (119, 'https://imgservice.suning.cn/uimg1/b2c/image/i-PdmtNa2iJAaisWCgpONg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '54.9', '每99减20', 40);
+INSERT INTO `cm_thi_list` VALUES (120, 'https://imgservice.suning.cn/uimg1/b2c/image/ie1CqwAVGn3JOXDxqI1FuA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '39.9', '', 40);
+INSERT INTO `cm_thi_list` VALUES (121, 'https://imgservice.suning.cn/uimg1/b2c/image/r1Jp87-qieDZZ6V_oWT6Sg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '24.9', '每99减20', 41);
+INSERT INTO `cm_thi_list` VALUES (122, 'https://imgservice.suning.cn/uimg1/b2c/image/Z_r98edxceF1g9vPTr1yUA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '39', '', 41);
+INSERT INTO `cm_thi_list` VALUES (123, 'https://imgservice.suning.cn/uimg1/b2c/image/sEIS5weedEuBas7VUB9uyA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '79.9', '每99减20', 41);
+INSERT INTO `cm_thi_list` VALUES (124, 'https://imgservice.suning.cn/uimg1/b2c/image/r1Jp87-qieDZZ6V_oWT6Sg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '24.9', '每99减20', 42);
+INSERT INTO `cm_thi_list` VALUES (125, 'https://imgservice.suning.cn/uimg1/b2c/image/CKSvsehulUn1TlkONeEx9Q.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '36.5', '', 42);
+INSERT INTO `cm_thi_list` VALUES (126, 'https://imgservice.suning.cn/uimg1/b2c/image/Z_r98edxceF1g9vPTr1yUA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '39', '', 42);
+INSERT INTO `cm_thi_list` VALUES (127, 'https://imgservice.suning.cn/uimg1/b2c/image/_mr0dO3ehFaTRXRLuIy_GA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '599', '领券20元', 43);
+INSERT INTO `cm_thi_list` VALUES (128, 'https://imgservice.suning.cn/uimg1/b2c/image/oonlYvObkuzYQfy7P01GKA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1388', '领券20元', 43);
+INSERT INTO `cm_thi_list` VALUES (129, 'https://imgservice.suning.cn/uimg1/b2c/image/WprS_CfrB-w30yxA_gvsIw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '668', '领券10元', 43);
+INSERT INTO `cm_thi_list` VALUES (130, 'https://imgservice.suning.cn/uimg1/b2c/image/BL701zxmPOpu3EwNGw4l7w.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '159', '', 44);
+INSERT INTO `cm_thi_list` VALUES (131, 'https://imgservice.suning.cn/uimg1/b2c/image/kZUsBxea4LbTQEuWqQvtMA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '29.9', '', 44);
+INSERT INTO `cm_thi_list` VALUES (132, 'https://imgservice.suning.cn/uimg1/b2c/image/fBo6-EDKmTs-vv88lLP1Dg==.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '188', '领券15元', 44);
+INSERT INTO `cm_thi_list` VALUES (133, 'https://imgservice.suning.cn/uimg1/b2c/image/_e5pxTiSbwtFaK-CKhN6rQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '3', '', 45);
+INSERT INTO `cm_thi_list` VALUES (134, 'https://imgservice.suning.cn/uimg1/b2c/image/YncTmKPvQ54fzMTbsvnnTQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '4.9', '', 45);
+INSERT INTO `cm_thi_list` VALUES (135, 'https://imgservice.suning.cn/uimg1/b2c/image/0lzVdUyJ7o4yXR9afAxmQA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '412', '', 45);
+INSERT INTO `cm_thi_list` VALUES (136, 'https://imgservice.suning.cn/uimg1/b2c/image/27FxPfIutdx82epWT-ajkQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '128', '领券5元', 46);
+INSERT INTO `cm_thi_list` VALUES (137, 'https://imgservice.suning.cn/uimg1/b2c/image/ERbaAWszwt0xtXPSmQwQYg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '249', '满299减50', 46);
+INSERT INTO `cm_thi_list` VALUES (138, 'https://imgservice.suning.cn/uimg1/b2c/image/IoL4zayYqnNmLxRLv-UuTg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '259', '领券10元', 46);
+INSERT INTO `cm_thi_list` VALUES (139, 'https://imgservice.suning.cn/uimg1/b2c/image/foYODWobE3oRK1aJaDgj1Q.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '49.9', '', 47);
+INSERT INTO `cm_thi_list` VALUES (140, 'https://imgservice.suning.cn/uimg1/b2c/image/6m2Z5XejxPUQ1NOX2P7R7g.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '59', '', 47);
+INSERT INTO `cm_thi_list` VALUES (141, 'https://imgservice.suning.cn/uimg1/b2c/image/iluvBWTRSl5ZqLDMoeE1mQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '25', '', 47);
+INSERT INTO `cm_thi_list` VALUES (142, 'https://imgservice.suning.cn/uimg1/b2c/image/PgXWPI0jUa_O9S8QlVSnJw==.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '79', '', 48);
+INSERT INTO `cm_thi_list` VALUES (143, 'https://imgservice.suning.cn/uimg1/b2c/image/ug1OvN1n280bJYuRumxLmw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '59', '', 48);
+INSERT INTO `cm_thi_list` VALUES (144, 'https://imgservice.suning.cn/uimg1/b2c/image/8QN5hz1NoWRo23H5jUfz-g.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '469.3', '满10减3', 48);
+INSERT INTO `cm_thi_list` VALUES (145, 'https://imgservice.suning.cn/uimg1/b2c/image/5aLCPxkoJzu_uS3QbmWKbg==.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '35.7', '', 49);
+INSERT INTO `cm_thi_list` VALUES (146, 'https://imgservice.suning.cn/uimg1/b2c/image/mUWsReX2L5HX7-SOaMjB_Q.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '33.9', '', 49);
+INSERT INTO `cm_thi_list` VALUES (147, 'https://imgservice.suning.cn/uimg1/b2c/image/-AItjMLTwxYtJOQB8klwMg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '49', '', 49);
+INSERT INTO `cm_thi_list` VALUES (148, 'https://imgservice.suning.cn/uimg1/b2c/image/Brsg6OURcrxIMu6kiJknEQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '379', '', 50);
+INSERT INTO `cm_thi_list` VALUES (149, 'https://imgservice.suning.cn/uimg1/b2c/image/XKY6Z2QelnNfK4-60HMg_Q.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '448', '领券20元', 50);
+INSERT INTO `cm_thi_list` VALUES (150, 'https://imgservice.suning.cn/uimg1/b2c/image/v39yJBFwh62UQJRQWm5siw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '439', '', 50);
+INSERT INTO `cm_thi_list` VALUES (151, 'https://image4.suning.cn/uimg/MFS/show/157371715490336269.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '45', '', 51);
+INSERT INTO `cm_thi_list` VALUES (152, 'https://image5.suning.cn/uimg/MFS/show/157371725125384127.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '249', '', 51);
+INSERT INTO `cm_thi_list` VALUES (153, 'https://image5.suning.cn/uimg/MFS/show/157371721797753246.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '142', '领券2元', 51);
+INSERT INTO `cm_thi_list` VALUES (154, 'https://imgservice.suning.cn/uimg1/b2c/image/Yh4lHNkvUo_Zcr0LkUw14A.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '149', '', 52);
+INSERT INTO `cm_thi_list` VALUES (155, 'https://imgservice.suning.cn/uimg1/b2c/image/btIojZBzeiYAJjBriHYyOQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '169', '领券40元', 52);
+INSERT INTO `cm_thi_list` VALUES (156, 'https://imgservice.suning.cn/uimg1/b2c/image/aS3uK92FKSmKLiCDiaZFjA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '149', '', 52);
+INSERT INTO `cm_thi_list` VALUES (157, 'https://image5.suning.cn/uimg/MFS/show/157311592466906366.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '165', '', 53);
+INSERT INTO `cm_thi_list` VALUES (158, 'https://image1.suning.cn/uimg/MFS/show/157311345284335145.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '105', '', 53);
+INSERT INTO `cm_thi_list` VALUES (159, 'https://image5.suning.cn/uimg/MFS/show/157311603545747856.jpg_0-0-800-800a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '239', '领券3元', 53);
+INSERT INTO `cm_thi_list` VALUES (160, 'https://imgservice.suning.cn/uimg1/b2c/image/c0BYK-ksAc0ivzrLkjXIeQ==.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1900', '', 54);
+INSERT INTO `cm_thi_list` VALUES (161, 'https://imgservice.suning.cn/uimg1/b2c/image/8e_bedkZ1i3OPr48KHojJg==.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '3180', '', 54);
+INSERT INTO `cm_thi_list` VALUES (162, 'https://imgservice.suning.cn/uimg1/b2c/image/ofPZWJIKlP0y82tt3rBVyQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '2698', '满500减50', 54);
+INSERT INTO `cm_thi_list` VALUES (163, 'https://imgservice.suning.cn/uimg1/b2c/image/8lyXDGX3dGZSpLqkV5_P9w.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '999', '每1000减120', 55);
+INSERT INTO `cm_thi_list` VALUES (164, 'https://imgservice.suning.cn/uimg1/b2c/image/ow1aauJjnRPI8wg-uZ1ZpQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '169', '领券5元', 55);
+INSERT INTO `cm_thi_list` VALUES (165, 'https://imgservice.suning.cn/uimg1/b2c/image/t3mtwtj4PIckG8lWGD3qNw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '549', '领券30元', 55);
+INSERT INTO `cm_thi_list` VALUES (166, 'https://imgservice.suning.cn/uimg1/b2c/image/Xen-8Uth0aFv2yLqQRAOuw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '499', '', 56);
+INSERT INTO `cm_thi_list` VALUES (167, 'https://imgservice.suning.cn/uimg1/b2c/image/KLPpf0nmsovf3kQ_bcSLdg.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1299', '', 56);
+INSERT INTO `cm_thi_list` VALUES (168, 'https://imgservice.suning.cn/uimg1/b2c/image/fuaLq40rM8apreNgxvhmXw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1499', '', 56);
+INSERT INTO `cm_thi_list` VALUES (169, 'https://imgservice.suning.cn/uimg1/b2c/image/QzUBjKUaR7MOzvpTjYUb6Q.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '226', '', 57);
+INSERT INTO `cm_thi_list` VALUES (170, 'https://imgservice.suning.cn/uimg1/b2c/image/KbFeLhm3iT6_fj4Qu8e7SA.png_400w_400h_4e_340w_340h_1e?from=mobile', '159', '', 57);
+INSERT INTO `cm_thi_list` VALUES (171, 'https://imgservice.suning.cn/uimg1/b2c/image/x36KFXN1FWBioqEe5X7xJQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '189', '', 57);
+INSERT INTO `cm_thi_list` VALUES (172, 'https://image.suning.cn/uimg/b2c/newcatentries/0070158849-000000000625358893_3.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '558', '领券10元', 58);
+INSERT INTO `cm_thi_list` VALUES (173, 'https://imgservice.suning.cn/uimg1/b2c/image/5Iv8OLGZWGOz-Laz6mZngA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1349', '领券250元', 58);
+INSERT INTO `cm_thi_list` VALUES (174, 'https://image.suning.cn/uimg/b2c/newcatentries/0070167431-000000000645439979_2.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '558', '', 58);
+INSERT INTO `cm_thi_list` VALUES (175, 'https://imgservice.suning.cn/uimg1/b2c/image/RqpKl8tjd3VleOFuNY14yw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '50.7', '领券5元', 59);
+INSERT INTO `cm_thi_list` VALUES (176, 'https://imgservice.suning.cn/uimg1/b2c/image/ELmmOtMt6ZaEdX12VM_dTw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '103', '', 59);
+INSERT INTO `cm_thi_list` VALUES (177, 'https://imgservice.suning.cn/uimg1/b2c/image/d7Jc-0GkFr7hSMA12UCqEw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '49', '领券6元', 59);
+INSERT INTO `cm_thi_list` VALUES (178, 'https://image.suning.cn/uimg/b2c/newcatentries/0070074252-000000000123567167_1.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '46', '', 60);
+INSERT INTO `cm_thi_list` VALUES (179, 'https://imgservice.suning.cn/uimg1/b2c/image/1V-3Rzfli7-tEP2LNgN_tA==.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '33', '', 60);
+INSERT INTO `cm_thi_list` VALUES (180, 'https://imgservice.suning.cn/uimg1/b2c/image/10QT0Z7BLYV_dqOK6b4DiA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '44', '', 60);
+INSERT INTO `cm_thi_list` VALUES (181, 'https://imgservice.suning.cn/uimg1/b2c/image/E4QOSEdackhttL9VYpdgfw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '799', '', 61);
+INSERT INTO `cm_thi_list` VALUES (182, 'https://imgservice.suning.cn/uimg1/b2c/image/7SL46z9o-qKIR3ZXErnmsA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '899', '', 61);
+INSERT INTO `cm_thi_list` VALUES (183, 'https://imgservice.suning.cn/uimg1/b2c/image/KJjYbnQZbdMU0Ox1Dx2fGA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '449', '', 61);
+INSERT INTO `cm_thi_list` VALUES (184, 'https://imgservice.suning.cn/uimg1/b2c/image/C3BemV-E9fGi1E5EEIGCsA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '199', '', 62);
+INSERT INTO `cm_thi_list` VALUES (185, 'https://imgservice.suning.cn/uimg1/b2c/image/4tPCG-ORatULXa7AxblIUQ.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '169', '领券20元', 62);
+INSERT INTO `cm_thi_list` VALUES (186, 'https://imgservice.suning.cn/uimg1/b2c/image/v6ozk0RkyZK97iLAPX1aJw==.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '219', '', 62);
+INSERT INTO `cm_thi_list` VALUES (187, 'https://image.suning.cn/uimg/b2c/newcatentries/0000000000-000000010520528657_1.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '239', '', 63);
+INSERT INTO `cm_thi_list` VALUES (188, 'https://imgservice.suning.cn/uimg1/b2c/image/G42Zv-eE2MnP9BdxNYr7uw==.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '399', '', 63);
+INSERT INTO `cm_thi_list` VALUES (189, 'https://imgservice.suning.cn/uimg1/b2c/image/Z5-YvktO8FU9NXxR_kbfng.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '584', '领券20元', 63);
+INSERT INTO `cm_thi_list` VALUES (190, 'https://image3.suning.cn/uimg/MFS/show/157356280244874540.jpg_0-0-750-750a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '239', '领券40元', 64);
+INSERT INTO `cm_thi_list` VALUES (191, 'https://image4.suning.cn/uimg/MFS/show/157356586544538785.jpg_0-0-750-750a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '469', '领券30元', 64);
+INSERT INTO `cm_thi_list` VALUES (192, 'https://image2.suning.cn/uimg/MFS/show/157356325108492464.jpg_0-0-750-750a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '209', '领券10元', 64);
+INSERT INTO `cm_thi_list` VALUES (193, 'https://imgservice.suning.cn/uimg1/b2c/image/iRaw3xmmCC_lhG7oNBeX2A.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1299', '领券400元', 65);
+INSERT INTO `cm_thi_list` VALUES (194, 'https://imgservice.suning.cn/uimg1/b2c/image/p0nX6FZtV1DpRuiTKTCZzg.png_400w_400h_4e_340w_340h_1e?from=mobile', '2648', '领券600元', 65);
+INSERT INTO `cm_thi_list` VALUES (195, 'https://imgservice.suning.cn/uimg1/b2c/image/CAwgUoiA-P4vMkN_sPr46Q.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '1212', '领券400元', 65);
+INSERT INTO `cm_thi_list` VALUES (196, 'https://imgservice.suning.cn/uimg1/b2c/image/HLqJx_EkJCdhxuJLKtU90w.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '178', '领券10元', 66);
+INSERT INTO `cm_thi_list` VALUES (197, 'https://imgservice.suning.cn/uimg1/b2c/image/_Pv3dZfS3e3j4bfQBUfreQ==.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '119', '满350减10', 66);
+INSERT INTO `cm_thi_list` VALUES (198, 'https://imgservice.suning.cn/uimg1/b2c/image/96OKxv93MyKazF8qdcZYBg==.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '148', '满99减10', 66);
+INSERT INTO `cm_thi_list` VALUES (199, 'https://imgservice.suning.cn/uimg1/b2c/image/8BbeVPKda8WTZ0cwCnx86w.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '226', '', 67);
+INSERT INTO `cm_thi_list` VALUES (200, 'https://imgservice.suning.cn/uimg1/b2c/image/5_gEpFH29K8qAcCFq_Ubmw.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '219', '', 67);
+INSERT INTO `cm_thi_list` VALUES (201, 'https://image5.suning.cn/uimg/MFS/show/157295013467354744.jpg_0-0-750-750a%7C750w_750h_2e%7C340w_340h_1e?from=mobile', '275', '领券10元', 67);
+INSERT INTO `cm_thi_list` VALUES (202, 'https://image.suning.cn/uimg/b2c/newcatentries/0070068402-000000000122455209_1.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '198', '领券10元', 68);
+INSERT INTO `cm_thi_list` VALUES (203, 'https://imgservice.suning.cn/uimg1/b2c/image/r_4eWuQsepnO3j8C-UtxNA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '619', '满299减20', 68);
+INSERT INTO `cm_thi_list` VALUES (204, 'https://image.suning.cn/uimg/b2c/newcatentries/0070068402-000000000126731960_1.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '258', '领券10元', 68);
+INSERT INTO `cm_thi_list` VALUES (205, 'http://imgservice.suning.cn/uimg1/b2c/image/kcfGinMvAniUXQxGfb0Big.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '45.9', '领券5元', 69);
+INSERT INTO `cm_thi_list` VALUES (206, 'http://image.suning.cn/uimg/b2c/newcatentries/0070074466-000000000148289541_1.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '113', '领券50元', 69);
+INSERT INTO `cm_thi_list` VALUES (207, 'http://imgservice.suning.cn/uimg1/b2c/image/miTxHYAHGgLCytxSO6O8Ew.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '149', '领券5元', 69);
+INSERT INTO `cm_thi_list` VALUES (208, 'http://image.suning.cn/uimg/b2c/newcatentries/0070184131-000000010178582455_1.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '20.9', '', 70);
+INSERT INTO `cm_thi_list` VALUES (209, 'http://imgservice.suning.cn/uimg1/b2c/image/10QT0Z7BLYV_dqOK6b4DiA.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '44', '', 70);
+INSERT INTO `cm_thi_list` VALUES (210, 'http://image.suning.cn/uimg/b2c/newcatentries/0070097855-000000010070387054_1.jpg_400w_400h_4e%7C340w_340h_1e?from=mobile', '15.9', '', 70);
+
+-- ----------------------------
 -- Table structure for cm_users
 -- ----------------------------
 DROP TABLE IF EXISTS `cm_users`;
@@ -3022,13 +3409,15 @@ CREATE TABLE `cm_users`  (
   `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '用户名',
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '邮箱',
   `password` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '密码',
+  `img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT 'http://image.suning.cn/uimg/cmf/cust_headpic/0000000000_01_240x240.jpg' COMMENT '用户头像',
+  `sex` tinyint(3) NULL DEFAULT NULL COMMENT '性别 0-女,1-男',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cm_users
 -- ----------------------------
-INSERT INTO `cm_users` VALUES (1, '15127096255', 'admin', '123@qq.com', '123456');
-INSERT INTO `cm_users` VALUES (2, '15127096254', 'dany', '137@qq.com', 'a31cc2c415271b0c7cb905ce441ce97e');
+INSERT INTO `cm_users` VALUES (2, '15127096254', 'dany', '137@qq.com', 'a31cc2c415271b0c7cb905ce441ce97e', 'http://image.suning.cn/uimg/cmf/cust_headpic/0000000000_01_240x240.jpg', NULL);
+INSERT INTO `cm_users` VALUES (3, '13344445555', '测试6号', '123@123.cn', '4db49f3b981b0f16e087cd314be9b68a', 'http://image.suning.cn/uimg/cmf/cust_headpic/0000000000_01_240x240.jpg', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

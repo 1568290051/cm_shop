@@ -104,7 +104,7 @@ router.get('/search', (req, res) => {
         }
     }
     if(screenss.length >1){
-        console.log(screens)
+        // console.log(screens)
         for (let index = 0; index < screens.length; index++) {
             if (index >= 1) {
                 queryThree = queryThree + ` or ${screens[index]}`

@@ -16,6 +16,14 @@ const routes = [{
   component: () => import('../views/Me.vue')
 },
 {
+  path: '/setting', // 用户设置
+  component: () => import('../components/Setting.vue')
+},
+{
+  path: '/address', // 设置地址
+  component: () => import('../components/Set_address.vue')
+},
+{
   path: '/login', // 登录
   component: () => import('../components/Login.vue')
 },
@@ -40,6 +48,14 @@ const routes = [{
     component: () => import('../components/Carte.vue')
   }
   ]
+},
+{
+  path: '/order', // 下订单
+  component: () => import('../components/Order.vue')
+},
+{
+  path: '/orders',
+  component: () => import('../components/Order_list.vue')
 },
 {
   path: '/channel', // 必抢清单

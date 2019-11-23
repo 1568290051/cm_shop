@@ -17,7 +17,7 @@
     </template>
     <!-- 购买商品后 -->
     <template v-else>
-      <van-checkbox-group v-model="selectGoodsId" checked-color='#ffcc00'>
+      <van-checkbox-group v-model="selectGoodsId" checked-color='#ffcc00' :max="200">
         <van-grid :column-num="1">
           <van-grid-item v-for="(item, index) in carteGoods" :key="item.id">
             <template slot="default">
@@ -62,7 +62,7 @@
         <van-checkbox v-model="isQx" checked-color='#ffcc00'>全选</van-checkbox>
         <!-- 合计 -->
         <template v-if="!isEdit">
-          <button>结算({{totalNum}})</button>
+          <button @click="onSubmit">结算({{totalNum}})</button>
           <p>合计: <span class="flag">¥</span> <span class="price">{{totalMoney}}</span></p>
         </template>
         <!-- 删除 -->
@@ -166,6 +166,7 @@ export default {
     }
   },
   watch: {
+    // 页面刷新数据不丢失
     carteCli: {
       handler: function () {
         sessionStorage.setItem('carte', JSON.stringify(this.carteCli))
@@ -217,7 +218,18 @@ export default {
         this.selectGoodsId = []
       })
     },
-    onSubmit () { }
+    // 结算商品
+    onSubmit () {
+      sessionStorage.setItem('toBuy', 'ok')
+      if (!sessionStorage.getItem('token')) {
+        this.$toast.fail('请先登录！')
+        setTimeout(() => {
+          this.$router.push('/login')
+        }, 500)
+      } else {
+        this.$router.push('/order')
+      }
+    }
   },
   async created () {
     if (this.carteCli.length !== 0) {

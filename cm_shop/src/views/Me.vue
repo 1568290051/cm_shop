@@ -14,11 +14,12 @@
       <!-- 用户 -->
       <van-row class="user">
         <van-col span="4">
+          <!-- 头像 -->
           <van-image
             round
             width="60"
             height="60"
-            src="http://image.suning.cn/uimg/cmf/cust_headpic/0000000000_01_240x240.jpg"
+            :src="userImg"
           />
         </van-col>
         <van-col class="user-name" span="6" offset="2">
@@ -145,6 +146,7 @@
 export default {
   data () {
     return {
+      userImg: '', // 人物的头像
       leftGoods: [],
       rightGoods: [],
       username: '',
@@ -234,7 +236,12 @@ export default {
     }
   },
   created () {
-    this.username = sessionStorage.getItem('username')
+    // 获取用户信息
+    this.$http.get('/set_user').then(res => {
+      // console.log(res)
+      this.userImg = res.data.img
+      this.username = res.data.username
+    })
     // 推荐商品
     this.$http.get('/index_goods').then(res => {
       res.data.data.forEach((obj, i) => {
@@ -245,7 +252,9 @@ export default {
   },
   methods: {
     // 用户设置页面跳转
-    onSetting () {}
+    onSetting () {
+      this.$router.push('/setting')
+    }
   }
 }
 </script>

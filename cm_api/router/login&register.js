@@ -15,8 +15,8 @@ router.post('/cm_register', (req, res) => {
   let phone = req.body.phone
   let email = req.body.email
   let reUsername = /^[\u4E00-\u9FA5A-Za-z0-9_]{2,8}$/
-  let rePhone = /^1(3|5|7|8|9)\d{9}$/
   let rePassword = /^[0-9a-zA-z_]{6,18}/
+  let rePhone = /^1(3|5|7|8|9)\d{9}$/
   let reEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
   // 校验
   if (username) {

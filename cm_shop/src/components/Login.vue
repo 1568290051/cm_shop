@@ -4,20 +4,8 @@
     <div class="reg">
       <h2>欢迎登录创美商城</h2>
       <van-cell-group>
-        <van-field
-          v-model="phone"
-          clearable
-          type="number"
-          placeholder="请输入您的手机号"
-          right-icon="phone-o"
-        />
-        <van-field
-          v-model="password"
-          clearable
-          type="password"
-          placeholder="请输入您的密码"
-          right-icon="closed-eye"
-        />
+        <van-field v-model="phone" clearable type="number" placeholder="请输入您的手机号" right-icon="phone-o" />
+        <van-field v-model="password" clearable type="password" placeholder="请输入您的密码" right-icon="closed-eye" />
       </van-cell-group>
       <van-row>
         <van-col span="24" style="margin-top: 15px">
@@ -32,6 +20,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -39,8 +28,9 @@ export default {
       phone: ''
     }
   },
-  created () {},
+  created () { },
   methods: {
+    ...mapMutations(['setLogin']),
     toRegister () {
       this.$router.push('/register')
     },
@@ -58,7 +48,13 @@ export default {
             sessionStorage.setItem('token', res.data.token)
             sessionStorage.setItem('username', res.data.username)
             this.$toast.success(res.data.msg)
-            this.$router.push('/')
+            this.setLogin()
+
+            if (sessionStorage.getItem('toBuy') != null) {
+              this.$router.push('/order')
+            } else {
+              this.$router.push('/')
+            }
           } else {
             this.$toast.fail(res.data.err)
           }

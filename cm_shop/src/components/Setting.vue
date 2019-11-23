@@ -13,8 +13,7 @@
         <van-row slot="input" class="ponImg">
           <van-col offset="14" span="10">
             <van-uploader :after-read="afterRead" preview-size="45">
-              <van-icon size="45" :name="ponImg" />
-              <!-- <van-image  :src='ponImg'></van-image> -->
+              <van-image width="50" height="50" round :src="ponImg"></van-image>
             </van-uploader>
           </van-col>
         </van-row>
@@ -42,7 +41,7 @@
     </van-dialog>
     <!-- 修改性别 -->
     <van-popup v-model="showSex" position="bottom">
-      <van-picker title="性别" item-height="30" show-toolbar :columns="columns" @cancel="showSex = false"
+      <van-picker title="性别" :item-height="30" show-toolbar :columns="columns" @cancel="showSex = false"
         @confirm="uptSex" />
     </van-popup>
     <!-- 修改密码 -->
@@ -67,14 +66,8 @@ import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
-      // fileList: [
-      //   {
-      //     url: this.ponImg
-      //   }
-      // ],
       // 头像图片路径
-      ponImg:
-        'http://image.suning.cn/uimg/cmf/cust_headpic/0000000000_01_240x240.jpg',
+      ponImg: '',
       username: '',
       sex: '',
       columns: ['女', '男'],
@@ -88,18 +81,22 @@ export default {
   },
   created () {
     // 用户的数据
-    this.$http.get('/set_user').then(res => {
-      console.log(res)
+    this.getUser()
+  },
+  methods: {
+    ...mapMutations(['setLogout']),
+    // 得到用户的数据
+    async getUser () {
+      const res = await this.$http.get('/set_user')
+      // console.log(res)
+      this.ponImg = res.data.img
       this.username = res.data.username
       if (res.data.sex === 0) {
         this.sex = '女'
       } else {
         this.sex = '男'
       }
-    })
-  },
-  methods: {
-    ...mapMutations(['setLogout']),
+    },
     // 退出登录
     logout () {
       sessionStorage.clear()
@@ -107,17 +104,22 @@ export default {
       this.setLogout()
     },
     // 修改头像/ 图片上传
-    afterRead (file) {
+    async afterRead (file) {
+      // console.log(file)
       let imgdata = new FormData()
-      imgdata.append('img', file.content)
+      imgdata.append('img', file.file)
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }
-      this.$http.post('/upload', imgdata, config).then(res => {
-        console.log(res)
-      })
+      const res = await this.$http.post('/upload', imgdata, config)
+      // console.log(res)
+      if (res.data.stauts === 200) {
+        this.ponImg = ''
+        this.ponImg = res.data.imgUrl
+        this.getUser()
+      }
     },
     // 取消
     ccUsername () {

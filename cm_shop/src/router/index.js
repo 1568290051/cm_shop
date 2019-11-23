@@ -17,10 +17,16 @@ const routes = [{
 },
 {
   path: '/setting', // 用户设置
+  meta: {
+    mustLogin: true
+  },
   component: () => import('../components/Setting.vue')
 },
 {
   path: '/address', // 设置地址
+  meta: {
+    mustLogin: true
+  },
   component: () => import('../components/Set_address.vue')
 },
 {
@@ -53,8 +59,11 @@ const routes = [{
   path: '/order', // 下订单
   component: () => import('../components/Order.vue')
 },
-{
+{ // 我的订单
   path: '/orders',
+  meta: {
+    mustLogin: true
+  },
   component: () => import('../components/Order_list.vue')
 },
 {
@@ -93,6 +102,18 @@ router.beforeEach((to, from, next) => {
       let carte = sessionStorage.getItem('carte')
       if (token == null && carte == null) {
         next('/ncarte')
+      } else {
+        next()
+      }
+      return
+    }
+
+    // 下订单时商品不为空
+    if (to.path === '/order') {
+      let token = sessionStorage.getItem('token')
+      let sIds = JSON.parse(sessionStorage.getItem('sIds'))
+      if (token == null || sIds == null || sIds.length === 0) {
+        next('/carte')
       } else {
         next()
       }

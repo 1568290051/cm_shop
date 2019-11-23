@@ -47,15 +47,15 @@
     <van-button type="default" style="background-color:#05ba04" @click="offlineDia = true">货到付款</van-button>
 
     <!-- 在线支付 -->
-    <van-dialog v-model="onlineDia" title="请输入支付密码" show-cancel-button>
+    <van-dialog v-model="onlineDia" title="请输入支付密码" show-cancel-button @closed="payVal=''">
       <div class="pay-password" slot="default">
         <van-password-input :value="payVal" info="密码为 6 位数字" :focused="showKeyboard" @focus="showKeyboard = true" />
         <van-number-keyboard :show="true" close-button-text=" 完成" @blur="onlineDia = false" @input="onInput"
-          @delete="onDelete" />
+          @delete="onDelete" @close='submitOrsers(1)' />
       </div>
     </van-dialog>
     <!-- 货到付款 -->
-    <van-dialog v-model="offlineDia" show-cancel-button>
+    <van-dialog v-model="offlineDia" show-cancel-button @confirm='submitOrsers(0)'>
       <div class="offline-box" slot="default">
         <img src="../assets/image/offline.png">
         <h3>是否确认使用货到付款提交订单?</h3>
@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -98,36 +99,76 @@ export default {
     },
     totalNum () { // 合计数量
       let num = 0
+      let selectIds = JSON.parse(sessionStorage.getItem('sIds'))
       this.carte.forEach(item => {
-        num += item.num
+        if (selectIds.indexOf(item.id) !== -1) {
+          num += item.num
+        }
       })
       return num
     }
 
   },
   methods: {
+    ...mapMutations(['setCarteL']),
+    // 支付密码
     onInput (key) {
       this.payVal = (this.payVal + key).slice(0, 6)
     },
     onDelete () {
       this.payVal = this.payVal.slice(0, this.payVal.length - 1)
+    },
+    // 提交订单
+    async submitOrsers (x) {
+      // 在线支付 密码校验
+      if (x === 1 && this.payVal.length < 6) return
+      // 拼接参数
+      let ids = []
+      let totalArr = []
+      this.carte.forEach(item => {
+        ids.push(item.id)
+        totalArr.push(item.num)
+      })
+      // 添加订单
+      const { data: res } = await this.$http.post('/orders', {
+        ids: ids.join(','), // 商品id
+        total: totalArr.join(','), // 商品数量
+        a_id: this.user.id, // 收货地址id
+        status: x
+      })
+      if (res.status === 200) {
+        this.$toast.success('订单支付成功！')
+        // 清空选中商品
+        let allGoods = JSON.parse(sessionStorage.getItem('carte'))
+        let chooseIds = JSON.parse(sessionStorage.getItem('sIds'))
+        chooseIds.forEach(id => {
+          let i = allGoods.findIndex(item => item.id === id)
+          allGoods.splice(i, 1)
+        })
+        sessionStorage.setItem('carte', JSON.stringify(allGoods)) // 购物车商品缓存
+        sessionStorage.setItem('sIds', '[]') // 选中项缓存
+        this.setCarteL(0) // 购物车小点
+
+        setTimeout(() => {
+          this.$router.push('/me')
+        }, 2000)
+      }
     }
   },
   async created () {
     // 获取用户收货地址
-    // const { data: res } = await this.$http.get('/set_user')
-    // res.phone = res.phone.substring(0, 3) + '****' + res.phone.substring(8, 11)
-    // this.user = res
     const { data: res } = await this.$http.get('/orders_getaddress')
-    console.log(res)
     res.tel = res.tel.substring(0, 3) + '****' + res.tel.substring(8, 11)
     this.user = res
     this.address = res.province + res.city + res.county + res.addressDetail
 
     if (this.carte.length !== 0) {
       let ids = []
+      let chooseIds = JSON.parse(sessionStorage.getItem('sIds'))
       this.carte.forEach((item) => {
-        ids.push(item.id)
+        if (chooseIds.indexOf(item.id) !== -1) {
+          ids.push(item.id)
+        }
       })
       // 获取购物车中商品
       const { data: res1 } = await this.$http.get('/carte_list', {
@@ -136,7 +177,6 @@ export default {
         }
       })
       this.goodsList = res1.data
-      console.log(res1.data)
     }
   }
 }

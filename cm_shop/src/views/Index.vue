@@ -192,7 +192,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -212,7 +211,11 @@ export default {
     }
   },
   computed: {
-    ...mapState(['isLogin'])
+    isLogin () {
+      let token = sessionStorage.getItem('token')
+      if (token != null) return true
+      else return false
+    }
   },
   created () {
     // 轮播图

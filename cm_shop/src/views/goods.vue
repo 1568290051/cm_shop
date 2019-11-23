@@ -42,7 +42,7 @@
       <van-goods-action-icon icon="shop-o" text="店铺" />
       <van-goods-action-icon icon="cart-o" text="购物车" />
       <van-goods-action-button type="warning" text="立即购买" />
-      <van-goods-action-button type="danger" text="加入购物车" />
+      <van-goods-action-button type="danger" text="加入购物车" @click='addCarte' />
     </van-goods-action>
   </div>
 </template>
@@ -65,6 +65,19 @@ export default {
     },
     showFreight () {
       this.freightShow = true
+    },
+    addCarte () {
+      let carte = JSON.parse(sessionStorage.getItem('carte')) || []
+      carte.push({
+        id: 17,
+        num: 1
+      })
+      sessionStorage.setItem('carte', JSON.stringify(carte))
+      let sIds = JSON.parse(sessionStorage.getItem('sIds')) || []
+      sIds.push(17)
+      sessionStorage.setItem('sIds', JSON.stringify(sIds))
+
+      this.$router.push('/carte')
     }
   },
   created () {

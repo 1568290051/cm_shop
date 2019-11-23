@@ -219,6 +219,7 @@ export default {
           this.carteGoods.splice(i, 1)
         })
         this.selectGoodsId = []
+        this.setCarteL(0)
       })
     },
     // 结算商品

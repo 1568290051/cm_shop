@@ -362,5 +362,19 @@ router.delete('/set_address_del/:id', (req, res) => {
 })
 
 
+// 修改用户默认地址
+router.put('/changeDafault/:id', (req, res) => {
+  let token = req.headers.authorization
+  try {
+    takeId(token)
+    changeDefault(req.params.id)
+  } catch (err) {
+    res.json({
+      status: 400,
+      err: '修改失败'
+    })
+  }
+})
+
 // 暴露路由
 module.exports = router

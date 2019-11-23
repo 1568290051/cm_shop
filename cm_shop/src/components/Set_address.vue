@@ -8,7 +8,8 @@
         color="#000" slot="right" size="25" />
     </van-nav-bar>
     <!-- 地址列表 -->
-    <van-address-list v-model="chosenAddressId" :list="adrList" @add="showAdd = !showAdd" @edit="onEdit" />
+    <van-address-list v-model="chosenAddressId" :list="adrList" @add="showAdd = !showAdd" @edit="onEdit"
+      @select='changeDefault' />
     <!-- 添加地址 -->
     <van-dialog :closeOnClickOverlay="true" class="dialog" v-model="showAdd" width="350" confirmButtonText="确认"
       cancelButtonText="取消" title="收货地址管理" :showConfirmButton="false">
@@ -118,6 +119,12 @@ export default {
       })
       this.showAdrs = !this.showAdrs
       this.$toast('编辑地址:' + index)
+    },
+    // 修改默认地址
+    changeDefault (obj) {
+      this.$http.put('/changeDafault/' + obj.id).then(() => {
+        this.getAddress()
+      })
     },
     // 修改地址
     onUpt (content) {

@@ -2,14 +2,14 @@
   <div class="regsister register">
     <van-nav-bar right-text="联系客服" @click-right="onService" />
     <div class="reg">
-      <h2>欢迎注册创美创美</h2>
+      <h2>欢迎注册创美商城</h2>
       <van-cell-group>
         <van-field v-model="username" clearable placeholder="请设置您的昵称" right-icon="contact" />
         <van-field v-model="password" clearable type="password" placeholder="请设置您的密码" right-icon="closed-eye" />
         <van-field v-model="email" clearable type="email" placeholder="请输入您的邮箱" right-icon="envelop-o" />
         <van-field v-model="phone" clearable type="number" placeholder="请输入您的手机号" right-icon="phone-o" />
         <van-field v-model="sms" center clearable placeholder="请输入短信验证码">
-          <van-button class="yanz" slot="button" color="#7232dd" size="small" plain type="primary">获取验证码</van-button>
+          <van-button @click="onSms" class="yanz" slot="button" color="#7232dd" size="small" plain type="primary">获取验证码</van-button>
         </van-field>
       </van-cell-group>
       <van-row>
@@ -65,7 +65,7 @@ export default {
       password: '',
       email: '',
       phone: '',
-      sms: ''
+      sms: '' // 短信验证码
     }
   },
   created () { },
@@ -81,9 +81,10 @@ export default {
           username: this.username,
           password: this.password,
           email: this.email,
-          phone: this.phone
+          phone: this.phone,
+          sms: this.sms
         }).then((res) => {
-          // console.log(res)
+          console.log(res)
           if (res.data.status === 200) {
             this.$toast.success(res.data.msg)
             this.$router.push('/login')
@@ -93,7 +94,14 @@ export default {
         })
       }
     },
-    onService () { }
+    onSms () {
+      this.$http.post('/getVerifyCode', { phone: this.phone }).then(res => {
+        if (res.data.status === 200) {
+          this.$toast.success(res.data.msg)
+        }
+      })
+    },
+    onService () {}
   }
 }
 </script>

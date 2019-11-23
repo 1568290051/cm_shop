@@ -59,7 +59,7 @@ const routes = [{
   path: '/order', // 下订单
   component: () => import('../components/Order.vue')
 },
-{
+{ // 我的订单
   path: '/orders',
   meta: {
     mustLogin: true

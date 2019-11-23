@@ -2,12 +2,14 @@
   <div class="order_list">
     <van-nav-bar title="我的订单" left-arrow @click-left="$router.go(-1)" />
     <van-search placeholder="请输入商品名称/订单号" v-model="keyword" />
-    <van-tabs v-model="active">
-      <van-tab title="全部"></van-tab>
-      <van-tab title="待付款"></van-tab>
-      <van-tab title="待收货"></van-tab>
-      <van-tab title="已完成"></van-tab>
-    </van-tabs>
+    <van-sticky>
+      <van-tabs v-model="active" @change="getOrders(active)" :sticky='true'>
+        <van-tab title="全部"></van-tab>
+        <van-tab title="待付款"></van-tab>
+        <van-tab title="待收货"></van-tab>
+        <van-tab title="已完成"></van-tab>
+      </van-tabs>
+    </van-sticky>
     <div class="empty" v-if="ordersList.length == 0">
       <img src="../assets/image/norders.png">
       <p>您暂时没有相关订单！</p>
@@ -21,20 +23,21 @@
               <van-row class="list-top">
                 <van-col span="24">
                   <img src="../assets/image/cshop.png">
-                  <span>{{item.store}}</span>
+                  <span>{{item.g_store}}</span>
                 </van-col>
               </van-row>
               <!-- 商品信息 -->
               <van-row class="list-bottom">
                 <van-col span="24">
                   <div class="goods-left">
-                    <img :src="item.img">
+                    <img :src="item.g_img">
                   </div>
                   <div class="goods-right">
                     <!-- 商品名 -->
-                    <p class="van-multi-ellipsis--l2">{{item.title}}</p>
+                    <p class="van-multi-ellipsis--l2">{{item.g_title}}</p>
                     <div class="goods-other">
-                      <span class="num">共1件商品</span> <span>实付金额：<b class="money">￥69</b></span>
+                      <span class="num">共{{item.g_total}}件商品</span> <span>实付金额：<b
+                          class="money">￥{{item.g_price * item.g_total}}</b></span>
                     </div>
                     <!-- 底部按钮 -->
                     <div class="van-hairline--top" style="margin-right:20px;margin-bottom:8px;"></div>
@@ -64,20 +67,40 @@ export default {
       ordersList: [1]
     }
   },
-  async created () {
-    const { data: res } = await this.$http.get('/carte_list', {
-      params: {
-        ids: [1, 2]
+  methods: {
+    async  getOrders (type) {
+      let status = ''
+      switch (type) {
+        case 1:
+          status = '0'
+          break
+        case 2:
+          status = '1'
+          break
+        case 3:
+          status = '2'
+          break
+        default:
+          status = '0,1,2'
       }
-    })
-    this.ordersList = res.data
+      const { data: res } = await this.$http.get('/orders', {
+        params: {
+          status: status
+        }
+      })
+      this.ordersList = res.data
+    }
+  },
+  created () {
+    this.getOrders()
   }
 }
 </script>
 
 <style lang="less">
 .order_list {
-  height: 100%;
+  min-height: 100%;
+  padding-bottom: 100px;
   background-color: #f7f7f7;
 
   .empty {
@@ -171,7 +194,7 @@ export default {
           }
 
           .goods-other {
-            padding-right: 20px;
+            transform: translateX(-20px);
             font-size: 15px;
             color: #999;
             height: 28px;

@@ -41,7 +41,7 @@
     </van-dialog>
     <!-- 修改性别 -->
     <van-popup v-model="showSex" position="bottom">
-      <van-picker title="性别" item-height="30" show-toolbar :columns="columns" @cancel="showSex = false"
+      <van-picker title="性别" :item-height="30" show-toolbar :columns="columns" @cancel="showSex = false"
         @confirm="uptSex" />
     </van-popup>
     <!-- 修改密码 -->

@@ -120,12 +120,13 @@ export default {
       guessList: [], // 猜你喜欢
       usualList: [], // 必备清单,
       selectGoodsId: JSON.parse(sessionStorage.getItem('sIds')) || [], // 用户所选
-      carteCli: JSON.parse(sessionStorage.getItem('carte')), // 历史购买
+      carteCli: JSON.parse(sessionStorage.getItem('carte')) || [], // 历史购买
       carteGoods: [], // 购物车商品
       isEdit: false
     }
   },
   computed: {
+    // 切换购物车状态
     isBuy () {
       return this.carteGoods.length !== 0
     },
@@ -146,7 +147,7 @@ export default {
         }
       }
     },
-    // 合计
+    // 合计金额
     totalMoney () {
       let money = 0
       this.selectGoodsId.forEach(id => {
@@ -155,6 +156,7 @@ export default {
       })
       return money
     },
+    // 合计数量
     totalNum () {
       let num = 0
       this.selectGoodsId.forEach(id => {
@@ -166,13 +168,14 @@ export default {
     }
   },
   watch: {
-    // 页面刷新数据不丢失
+    // 购物车中商品缓存
     carteCli: {
       handler: function () {
         sessionStorage.setItem('carte', JSON.stringify(this.carteCli))
       },
       deep: true
     },
+    // 商品选中缓存
     selectGoodsId: {
       handler: function () {
         sessionStorage.setItem('sIds', JSON.stringify(this.selectGoodsId))
@@ -191,16 +194,16 @@ export default {
           id: id,
           num: 1
         })
-
+        // 更新商品
         const { data: res } = await this.$http.get('/carte_list', {
           params: {
             ids: id
           }
         })
         this.carteGoods.push(res.data[0])
-        this.selectGoodsId.push(res.data[0].id)
       }
-
+      // 商品默认选中
+      this.selectGoodsId.push(id)
       this.$toast.success('添加购物车成功！')
     },
     // 移除商品

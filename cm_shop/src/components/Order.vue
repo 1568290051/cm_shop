@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -109,6 +110,7 @@ export default {
 
   },
   methods: {
+    ...mapMutations(['setCarteL']),
     // 支付密码
     onInput (key) {
       this.payVal = (this.payVal + key).slice(0, 6)
@@ -118,26 +120,38 @@ export default {
     },
     // 提交订单
     async submitOrsers (x) {
+      // 在线支付 密码校验
       if (x === 1 && this.payVal.length < 6) return
+      // 拼接参数
       let ids = []
       let totalArr = []
       this.carte.forEach(item => {
         ids.push(item.id)
         totalArr.push(item.num)
       })
-
+      // 添加订单
       const { data: res } = await this.$http.post('/orders', {
         ids: ids.join(','), // 商品id
         total: totalArr.join(','), // 商品数量
         a_id: this.user.id, // 收货地址id
         status: x
       })
-
       if (res.status === 200) {
         this.$toast.success('订单支付成功！')
+        // 清空选中商品
+        let allGoods = JSON.parse(sessionStorage.getItem('carte'))
+        let chooseIds = JSON.parse(sessionStorage.getItem('sIds'))
+        chooseIds.forEach(id => {
+          let i = allGoods.findIndex(item => item.id === id)
+          allGoods.splice(i, 1)
+        })
+        sessionStorage.setItem('carte', JSON.stringify(allGoods)) // 购物车商品缓存
+        sessionStorage.setItem('sIds', '[]') // 选中项缓存
+        this.setCarteL(0) // 购物车小点
+
         setTimeout(() => {
           this.$router.push('/me')
-        }, 1000)
+        }, 2000)
       }
     }
   },

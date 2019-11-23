@@ -55,4 +55,26 @@ router.post('/orders', (req, res) => {
 
 })
 
+// 获取订单
+router.get('/orders', (req, res) => {
+  let token = req.headers.authorization
+  try {
+    token = token.trim().substring(6)
+    let decode = jwt.verify(token, config.md5_key)
+    let u_id = decode.id // 用户id
+    let status = req.query.status
+    db.query(`select id,g_title,g_price,g_total,g_img,g_store from cm_orders where u_id = ${u_id} and status in (${status})`, (err, result) => {
+      res.json({
+        status: 200,
+        data: result
+      })
+    })
+  } catch (err) {
+    res.json({
+      status: 400,
+      error: '用户id错误！'
+    })
+  }
+})
+
 module.exports = router
